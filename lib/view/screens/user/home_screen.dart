@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meekath/model/user_model.dart';
+import 'package:meekath/utils/colors.dart';
 import 'package:meekath/view/screens/user/profile_screen.dart';
 import 'package:meekath/view/widgets/analytics_container.dart';
 import 'package:meekath/view/widgets/payment_list.dart';
@@ -41,33 +43,7 @@ class UserHomeScreen extends StatelessWidget {
                             fontSize: 21, fontWeight: FontWeight.bold),
                       ),
                     ),
-
-                    // Profile Icon
-                    Container(
-                      margin: const EdgeInsets.only(right: 20),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(30),
-                        splashColor: Colors.black,
-                        child: const Padding(
-                          padding: EdgeInsets.all(3),
-                          child: Icon(
-                            Icons.account_circle_outlined,
-                            size: 30,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      ProfileScreen(user: provider.user)));
-                        },
-                      ),
-                    )
+                    ProfileIconButton(user: provider.user),
                   ],
                 ),
                 Consumer<UserProvider>(builder: (ctx, provider, child) {
@@ -81,6 +57,45 @@ class UserHomeScreen extends StatelessWidget {
               ],
             );
           }),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileIconButton extends StatelessWidget {
+  final UserModel user;
+
+  const ProfileIconButton({Key? key, required this.user}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 20),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(30), boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(.4),
+          blurRadius: 7,
+        )
+      ]),
+      child: Material(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(30),
+        child: InkWell(
+          splashColor: Colors.black,
+          borderRadius: BorderRadius.circular(30),
+          child: const Padding(
+            padding: EdgeInsets.all(4),
+            child: Icon(
+              Icons.account_circle_outlined,
+              size: 30,
+            ),
+          ),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => ProfileScreen(user: user)));
+          },
         ),
       ),
     );

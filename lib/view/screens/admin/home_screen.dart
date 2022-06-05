@@ -32,7 +32,7 @@ class AdminHomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(20),
                 child: Text(
-                  "Users list",
+                  "Users",
                   style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                 ),
               ),

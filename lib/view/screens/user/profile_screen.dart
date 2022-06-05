@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_model.dart';
-import 'package:meekath/model/user_payment.dart';
 import 'package:meekath/utils/colors.dart';
 import 'package:meekath/view/screens/user/payment_details_screen.dart';
-import 'package:meekath/view/widgets/logout_button.dart';
 
-import '../../../repo/analytics_service.dart';
+import '../../../repo/login_service.dart';
 
 class ProfileScreen extends StatelessWidget {
   final UserModel user;
@@ -49,19 +47,19 @@ class ProfileScreen extends StatelessWidget {
                 text: "${user.phoneNumber}",
                 subText: "Phone number",
                 needEdit: true),
-            ProfileListTile(
-                text: user.analytics!.isPending ? "Pending" : "Completed",
-                subText: "Status"),
             ProfileListTile(text: user.username, subText: "Username"),
-            const ProfileListTile(text: "********", subText: "Password"),
+            const ProfileListTile(
+                text: "********", subText: "Password", needEdit: true),
             ProfileListTile(
                 text: "₹ ${user.monthlyPayment}",
                 subText: "Monthly payment",
                 needEdit: true),
+
             // Payment tile
             PaymentListTile(
               user: user,
             ),
+
             // Logout button
             const Padding(
               padding: EdgeInsets.only(top: 20, bottom: 10),
@@ -71,14 +69,6 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  int getUserTotalPayment(int status) {
-    List<UserModel> users = [user];
-    List<UserPaymentModel> analytics =
-        AnalyticsService.getUserPaymentList(users, status);
-    int totalAmount = AnalyticsService.getTotalAmount(analytics);
-    return totalAmount;
   }
 }
 
@@ -164,6 +154,27 @@ class PaymentListTile extends StatelessWidget {
                       user: user,
                     )));
       },
+    );
+  }
+}
+
+class LogoutButton extends StatelessWidget {
+  const LogoutButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 140,
+      height: 45,
+      child: TextButton(
+        child: Text(
+          "Logout",
+          style: TextStyle(fontSize: 20, color: primaryColor),
+        ),
+        onPressed: () {
+          LoginService.logout(context);
+        },
+      ),
     );
   }
 }
