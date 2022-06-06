@@ -26,6 +26,22 @@ class FirebaseService {
     return true;
   }
 
+  static Future<bool> uploadPayment(int amount, String userDocId) async {
+    CollectionReference<Map<String, dynamic>> payments = FirebaseFirestore
+        .instance
+        .collection('users')
+        .doc(userDocId)
+        .collection("payments");
+
+    payments
+        .add({
+          "amount": amount,
+          "date": DateTime.now().toString(),
+          "verify": 1,
+        });
+    return false;
+  }
+
   static Future<List<UserModel>> getAllUsers() async {
     List<UserModel> users = [];
 
@@ -80,8 +96,8 @@ class FirebaseService {
             payments.add(PaymentModel(
               docId: paymentDoc.id,
               amount: paymentDoc.get("amount"),
-              verify: paymentDoc.get("verify"),
               dateTime: DateTime.parse(paymentDoc.get("date")),
+              verify: paymentDoc.get("verify"),
             ));
           }
 

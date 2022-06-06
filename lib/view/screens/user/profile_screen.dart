@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_model.dart';
 import 'package:meekath/utils/colors.dart';
-import 'package:meekath/view/screens/user/payment_details_screen.dart';
+import 'package:meekath/view/screens/user/transactions_screen.dart';
 
 import '../../../repo/login_service.dart';
 
@@ -139,20 +139,18 @@ class PaymentListTile extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
                 Icon(Icons.arrow_forward_ios,
-                    size: 20, color: Colors.grey.shade800),
+                    size: 16, color: Colors.grey.shade700),
               ],
             ),
           ),
-          const Divider(thickness: 1),
+          const Divider(),
         ],
       ),
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => PaymentDetailsScreen(
-                      user: user,
-                    )));
+                builder: (_) => UserTransactionScreen(user: user)));
       },
     );
   }

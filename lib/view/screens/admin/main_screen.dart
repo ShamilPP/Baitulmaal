@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/view/screens/admin/transaction_screen.dart';
+import 'package:meekath/view/screens/admin/transactions_screen.dart';
 import 'package:meekath/view/widgets/my_bottom_navigation.dart';
 import 'package:provider/provider.dart';
 
