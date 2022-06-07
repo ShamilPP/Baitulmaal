@@ -4,11 +4,13 @@ import 'package:meekath/utils/colors.dart';
 import 'package:meekath/view/screens/user/transactions_screen.dart';
 
 import '../../../repo/login_service.dart';
+import '../../widgets/logout_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   final UserModel user;
+  final bool isAdmin;
 
-  const ProfileScreen({Key? key, required this.user}) : super(key: key);
+  const ProfileScreen({Key? key, required this.user,this.isAdmin=false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +63,9 @@ class ProfileScreen extends StatelessWidget {
             ),
 
             // Logout button
-            const Padding(
-              padding: EdgeInsets.only(top: 20, bottom: 10),
-              child: Center(child: LogoutButton()),
+             Padding(
+              padding: const EdgeInsets.only(top: 20, bottom: 10),
+              child: Center(child: isAdmin?const SizedBox():const LogoutButton()),
             ),
           ],
         ),
@@ -152,27 +154,6 @@ class PaymentListTile extends StatelessWidget {
             MaterialPageRoute(
                 builder: (_) => UserTransactionScreen(user: user)));
       },
-    );
-  }
-}
-
-class LogoutButton extends StatelessWidget {
-  const LogoutButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 140,
-      height: 45,
-      child: TextButton(
-        child: Text(
-          "Logout",
-          style: TextStyle(fontSize: 20, color: primaryColor),
-        ),
-        onPressed: () {
-          LoginService.logout(context);
-        },
-      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:meekath/model/user_model.dart';
 import 'package:meekath/model/user_payment.dart';
 import 'package:meekath/repo/analytics_service.dart';
 import 'package:meekath/utils/constants.dart';
+import 'package:meekath/view/widgets/logout_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/admin_overview_model.dart';
@@ -64,6 +65,12 @@ class AnalyticsScreen extends StatelessWidget {
                     AnalyticsSection(adminOverview: provider.adminOverview),
                     MeekathSection(adminOverview: provider.adminOverview),
                     PaymentSection(),
+
+                    // Logout button
+                    const Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Center(child: LogoutButton()),
+                    ),
                   ],
                 ),
               );

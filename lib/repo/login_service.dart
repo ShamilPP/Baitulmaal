@@ -82,10 +82,10 @@ class LoginService {
                   onPressed: () {
                     SharedPreferences.getInstance().then((pref) {
                       pref.remove("username");
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (_) => const LoginScreen()));
+                          MaterialPageRoute(builder: (_) => const LoginScreen()),
+                              (Route<dynamic> route) => false);
                     });
                   },
                   child: const Text("Logout"))
