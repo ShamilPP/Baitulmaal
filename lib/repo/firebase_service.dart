@@ -146,4 +146,14 @@ class FirebaseService {
     String password = documentSnapshot["password"];
     return password;
   }
+
+  static Future<int> getLatestVersion() async {
+    DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection("application")
+            .doc("version")
+            .get();
+    int version = documentSnapshot["version"];
+    return version;
+  }
 }
