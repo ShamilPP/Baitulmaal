@@ -1,7 +1,6 @@
 import 'package:meekath/model/admin_overview_model.dart';
 import 'package:meekath/model/user_analytics_model.dart';
 import 'package:meekath/model/user_payment.dart';
-import 'package:meekath/repo/firebase_service.dart';
 
 import '../model/payment_model.dart';
 import '../model/user_model.dart';
@@ -15,10 +14,6 @@ class AnalyticsService {
     int totalAmount = 0;
     int totalReceivedAmount = 0;
     int pendingAmount = 0;
-    int meekathMonth = await FirebaseService.getFirebaseData(
-        "application", "meekath", "month");
-    int meekath = await FirebaseService.getFirebaseData(
-        "application", "meekath", "meekath");
 
     for (var user in users) {
       UserAnalyticsModel analytics = user.analytics!;
@@ -32,13 +27,12 @@ class AnalyticsService {
     }
 
     AdminOverviewModel adminOverview = AdminOverviewModel(
-        totalUsers: totalUsers,
-        pendingUsers: pendingUsers,
-        totalAmount: totalAmount,
-        totalReceivedAmount: totalReceivedAmount,
-        pendingAmount: pendingAmount,
-        meekathMonth: meekathMonth,
-        meekath: meekath);
+      totalUsers: totalUsers,
+      pendingUsers: pendingUsers,
+      totalAmount: totalAmount,
+      totalReceivedAmount: totalReceivedAmount,
+      pendingAmount: pendingAmount,
+    );
     return adminOverview;
   }
 
@@ -62,11 +56,11 @@ class AnalyticsService {
 
   static Future<UserAnalyticsModel> getUserAnalytics(
       int monthlyPayment, List<PaymentModel> payments) async {
-    int meekathMonth = await FirebaseService.getFirebaseData(
-        "application", "meekath", "month");
-    int totalAmount = monthlyPayment * meekathMonth;
+    int month = DateTime.now().month;
+    int totalAmount = monthlyPayment * 12;
     int receivedAmount = getTotalReceivedAmount(payments);
-    int pendingAmount = checkNegative(totalAmount - receivedAmount);
+    int pendingAmount =
+        checkNegative((monthlyPayment * month) - receivedAmount);
 
     UserAnalyticsModel analytics = UserAnalyticsModel(
       totalAmount: totalAmount,

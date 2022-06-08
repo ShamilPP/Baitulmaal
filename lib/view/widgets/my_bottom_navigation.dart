@@ -56,7 +56,7 @@ class MyBottomNavigation extends StatelessWidget {
     int newLength = provider.paymentNotVerifiedList.length;
     if (initialLength != newLength) {
       provider.showMyDialog(context, "Updating...");
-      await provider.initData(true);
+      await provider.initData();
       Navigator.pop(context);
     }
   }

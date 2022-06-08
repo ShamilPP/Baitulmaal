@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meekath/utils/colors.dart';
 import 'package:meekath/view/screens/splash_screen.dart';
 import 'package:meekath/view_model/admin_view_model.dart';
+import 'package:meekath/view_model/payment_view_model.dart';
 import 'package:meekath/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AdminProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => PaymentProvider()),
       ],
       child: MaterialApp(
         title: "Meekath",

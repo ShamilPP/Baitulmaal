@@ -24,7 +24,7 @@ class AdminProvider extends ChangeNotifier {
 
   int get initialLength => _initialLength;
 
-  Future initData(bool notify) async {
+  Future initData() async {
     // Init all data's
     _users = await FirebaseService.getAllUsers();
 
@@ -42,11 +42,6 @@ class AdminProvider extends ChangeNotifier {
       }
       return 1;
     });
-
-    // If necessary
-    if (notify) {
-      notifyListeners();
-    }
   }
 
   setCurrentBottomNavigator(int value) {

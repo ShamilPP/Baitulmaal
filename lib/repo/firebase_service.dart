@@ -33,12 +33,11 @@ class FirebaseService {
         .doc(userDocId)
         .collection("payments");
 
-    payments
-        .add({
-          "amount": amount,
-          "date": DateTime.now().toString(),
-          "verify": 1,
-        });
+    payments.add({
+      "amount": amount,
+      "date": DateTime.now().toString(),
+      "verify": 1,
+    });
     return false;
   }
 
@@ -138,13 +137,13 @@ class FirebaseService {
     return false;
   }
 
-  static Future<dynamic> getFirebaseData(
-      String collection, String document, String field) async {
+  static Future<String> getAdminPassword() async {
     DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
         await FirebaseFirestore.instance
-            .collection(collection)
-            .doc(document)
+            .collection("application")
+            .doc("admin")
             .get();
-    return documentSnapshot[field];
+    String password = documentSnapshot["password"];
+    return password;
   }
 }

@@ -3,14 +3,14 @@ import 'package:meekath/model/user_model.dart';
 import 'package:meekath/utils/colors.dart';
 import 'package:meekath/view/screens/user/transactions_screen.dart';
 
-import '../../../repo/login_service.dart';
 import '../../widgets/logout_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   final UserModel user;
   final bool isAdmin;
 
-  const ProfileScreen({Key? key, required this.user,this.isAdmin=false}) : super(key: key);
+  const ProfileScreen({Key? key, required this.user, this.isAdmin = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +63,10 @@ class ProfileScreen extends StatelessWidget {
             ),
 
             // Logout button
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 10),
-              child: Center(child: isAdmin?const SizedBox():const LogoutButton()),
+              child: Center(
+                  child: isAdmin ? const SizedBox() : const LogoutButton()),
             ),
           ],
         ),

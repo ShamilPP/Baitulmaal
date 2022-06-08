@@ -11,7 +11,8 @@ class LoginService {
   static Future<int> loginAccount(String username, String password) async {
     UserModel? user = await FirebaseService.getUser(username, false);
     final prefs = await SharedPreferences.getInstance();
-    if (username == "admin" && password == await getAdminPassword()) {
+    if (username == "admin" &&
+        password == await FirebaseService.getAdminPassword()) {
       await prefs.setString('username', 'admin');
       return loginSuccess;
     } else if (!checkInvalid(username)) {
@@ -84,8 +85,9 @@ class LoginService {
                       pref.remove("username");
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (_) => const LoginScreen()),
-                              (Route<dynamic> route) => false);
+                          MaterialPageRoute(
+                              builder: (_) => const LoginScreen()),
+                          (Route<dynamic> route) => false);
                     });
                   },
                   child: const Text("Logout"))
@@ -109,9 +111,6 @@ class LoginService {
     }
     return true;
   }
-
-  static Future<String> getAdminPassword() async =>
-      await FirebaseService.getFirebaseData("application", "admin", "password");
 
   static void errorToast(String text) {
     Fluttertoast.showToast(

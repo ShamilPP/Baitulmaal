@@ -14,7 +14,6 @@ class AnimatedCheck extends StatelessWidget {
                 width: 100,
                 child: CircularProgressIndicator(strokeWidth: 7)))
         : const CheckMark();
-    ;
   }
 }
 
@@ -26,10 +25,14 @@ class CheckMark extends StatefulWidget {
 }
 
 class _CheckMarkState extends State<CheckMark> with TickerProviderStateMixin {
-  late AnimationController scaleController = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
-  late Animation<double> scaleAnimation = CurvedAnimation(parent: scaleController, curve: Curves.elasticOut);
-  late AnimationController checkController = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
-  late Animation<double> checkAnimation = CurvedAnimation(parent: checkController, curve: Curves.linear);
+  late AnimationController scaleController = AnimationController(
+      duration: const Duration(milliseconds: 800), vsync: this);
+  late Animation<double> scaleAnimation =
+      CurvedAnimation(parent: scaleController, curve: Curves.elasticOut);
+  late AnimationController checkController = AnimationController(
+      duration: const Duration(milliseconds: 400), vsync: this);
+  late Animation<double> checkAnimation =
+      CurvedAnimation(parent: checkController, curve: Curves.linear);
 
   @override
   void initState() {
@@ -70,7 +73,7 @@ class _CheckMarkState extends State<CheckMark> with TickerProviderStateMixin {
           sizeFactor: checkAnimation,
           axis: Axis.horizontal,
           axisAlignment: -1,
-          child: Center(
+          child: const Center(
             child: Icon(Icons.check, color: Colors.white, size: 100),
           ),
         ),

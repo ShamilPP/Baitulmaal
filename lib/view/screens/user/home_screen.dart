@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_model.dart';
 import 'package:meekath/utils/colors.dart';
-import 'package:meekath/view/screens/user/pay_screen.dart';
+import 'package:meekath/view/screens/pay_screen.dart';
 import 'package:meekath/view/screens/user/profile_screen.dart';
 import 'package:meekath/view/widgets/analytics_container.dart';
 import 'package:meekath/view/widgets/payment_list.dart';
@@ -60,10 +60,20 @@ class UserHomeScreen extends StatelessWidget {
           }),
         ),
       ),
-      floatingActionButton: FloatingActionButton(child: const Icon(Icons.currency_rupee),onPressed: (){                    Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (_) =>  PayScreen()));}),
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.currency_rupee),
+          onPressed: () {
+            UserModel user =
+                Provider.of<UserProvider>(context, listen: false).user;
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => PayScreen(
+                          user: user,
+                          isAdmin: false,
+                        )));
+          }),
     );
   }
 }

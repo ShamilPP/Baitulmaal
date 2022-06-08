@@ -22,8 +22,11 @@ class UsersList extends StatelessWidget {
             subText: user.analytics!.isPending ? "PENDING" : "COMPLETED",
             subColor: user.analytics!.isPending ? Colors.red : Colors.green,
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => ProfileScreen(user: user)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) =>
+                          ProfileScreen(user: user, isAdmin: true)));
             },
           );
         },

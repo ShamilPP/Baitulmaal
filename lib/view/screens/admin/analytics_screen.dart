@@ -17,64 +17,74 @@ class AnalyticsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  "Analytics",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: Material(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(30),
-                  child: SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: InkWell(
-                      splashColor: Colors.white,
-                      child: const Icon(Icons.refresh, color: Colors.white),
-                      onTap: () async {
-                        // Update all data's
-                        AdminProvider provider =
-                            Provider.of<AdminProvider>(context, listen: false);
-                        provider.showMyDialog(context, "Updating...");
-                        await Provider.of<AdminProvider>(context, listen: false)
-                            .initData(true);
-                        Navigator.pop(context);
-                      },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      "Analytics",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                   ),
-                ),
-              )
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: Material(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(30),
+                      child: SizedBox(
+                        height: 40,
+                        width: 40,
+                        child: InkWell(
+                          splashColor: Colors.white,
+                          child: const Icon(Icons.refresh, color: Colors.white),
+                          onTap: () async {
+                            // Update all data's
+                            AdminProvider provider = Provider.of<AdminProvider>(
+                                context,
+                                listen: false);
+                            provider.showMyDialog(context, "Updating...");
+                            await Provider.of<AdminProvider>(context,
+                                    listen: false)
+                                .initData();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Consumer<AdminProvider>(
+                builder: (ctx, provider, child) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 17, top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AnalyticsSection(adminOverview: provider.adminOverview),
+                        PaymentSection(),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ],
           ),
-          Consumer<AdminProvider>(
-            builder: (ctx, provider, child) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 17, top: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AnalyticsSection(adminOverview: provider.adminOverview),
-                    MeekathSection(adminOverview: provider.adminOverview),
-                    PaymentSection(),
 
-                    // Logout button
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Center(child: LogoutButton()),
-                    ),
-                  ],
-                ),
-              );
-            },
+          // Logout button
+          const Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: LogoutButton(),
+            ),
           ),
         ],
       ),
@@ -118,31 +128,6 @@ class AnalyticsSection extends StatelessWidget {
             ),
           ],
         ),
-      ],
-    );
-  }
-}
-
-class MeekathSection extends StatelessWidget {
-  final AdminOverviewModel adminOverview;
-
-  const MeekathSection({Key? key, required this.adminOverview})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 40, bottom: 10),
-          child: Text(
-            "Meekath details",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ),
-        DetailsText(text: "Meekath : ${adminOverview.meekath}"),
-        DetailsText(text: "Meekath month : ${adminOverview.meekathMonth}"),
       ],
     );
   }
