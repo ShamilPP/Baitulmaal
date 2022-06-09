@@ -42,6 +42,7 @@ class AdminProvider extends ChangeNotifier {
       }
       return 1;
     });
+    notifyListeners();
   }
 
   setCurrentBottomNavigator(int value) {

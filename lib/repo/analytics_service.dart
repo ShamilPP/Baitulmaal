@@ -14,15 +14,18 @@ class AnalyticsService {
     int totalAmount = 0;
     int totalReceivedAmount = 0;
     int pendingAmount = 0;
+    int extraAmount = 0;
 
     for (var user in users) {
       UserAnalyticsModel analytics = user.analytics!;
       totalAmount = totalAmount + analytics.totalAmount;
       totalReceivedAmount = totalReceivedAmount + analytics.totalReceivedAmount;
-      pendingAmount = pendingAmount + analytics.pendingAmount;
 
       if (analytics.isPending) {
+        pendingAmount = pendingAmount + analytics.pendingAmount;
         pendingUsers++;
+      } else {
+        extraAmount = extraAmount + analytics.pendingAmount.abs();
       }
     }
 
@@ -32,6 +35,7 @@ class AnalyticsService {
       totalAmount: totalAmount,
       totalReceivedAmount: totalReceivedAmount,
       pendingAmount: pendingAmount,
+      extraAmount: extraAmount,
     );
     return adminOverview;
   }
@@ -59,23 +63,15 @@ class AnalyticsService {
     int month = DateTime.now().month;
     int totalAmount = monthlyPayment * 12;
     int receivedAmount = getTotalReceivedAmount(payments);
-    int pendingAmount =
-        checkNegative((monthlyPayment * month) - receivedAmount);
+    int pendingAmount = (monthlyPayment * month) - receivedAmount;
 
     UserAnalyticsModel analytics = UserAnalyticsModel(
       totalAmount: totalAmount,
       totalReceivedAmount: receivedAmount,
       pendingAmount: pendingAmount,
-      isPending: pendingAmount == 0 ? false : true,
+      isPending: !pendingAmount.isNegative,
     );
     return analytics;
-  }
-
-  static int checkNegative(int amount) {
-    if (amount.isNegative) {
-      return 0;
-    }
-    return amount;
   }
 
   static int getTotalAmount(List<UserPaymentModel> payments) {

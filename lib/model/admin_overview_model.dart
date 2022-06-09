@@ -4,6 +4,7 @@ class AdminOverviewModel {
   final int totalAmount;
   final int totalReceivedAmount;
   final int pendingAmount;
+  final int extraAmount;
 
   AdminOverviewModel({
     required this.totalUsers,
@@ -11,5 +12,6 @@ class AdminOverviewModel {
     required this.totalAmount,
     required this.totalReceivedAmount,
     required this.pendingAmount,
+    required this.extraAmount,
   });
 }

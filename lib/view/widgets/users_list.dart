@@ -19,7 +19,9 @@ class UsersList extends StatelessWidget {
 
           return MyListTile(
             name: user.name,
-            subText: user.analytics!.isPending ? "PENDING" : "COMPLETED",
+            subText: user.analytics!.isPending
+                ? "PENDING ( ₹ ${user.analytics!.pendingAmount} )"
+                : "COMPLETED",
             subColor: user.analytics!.isPending ? Colors.red : Colors.green,
             onTap: () {
               Navigator.push(

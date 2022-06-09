@@ -33,6 +33,8 @@ class AnalyticsScreen extends StatelessWidget {
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                   ),
+
+                  // Refresh button
                   Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: Material(
@@ -117,14 +119,14 @@ class AnalyticsSection extends StatelessWidget {
             ),
             DetailsText(
               text:
-                  "Total Received : ₹ ${adminOverview.totalAmount - adminOverview.pendingAmount}",
+                  "Total Received : ₹ ${adminOverview.totalReceivedAmount}",
             ),
             DetailsText(
               text: "Pending Amount : ₹ ${adminOverview.pendingAmount}",
             ),
             DetailsText(
               text:
-                  "Extra Amount : ₹ ${(adminOverview.totalAmount - adminOverview.totalReceivedAmount - adminOverview.pendingAmount).abs()}",
+                  "Extra Amount : ₹ ${(adminOverview.extraAmount)}",
             ),
           ],
         ),

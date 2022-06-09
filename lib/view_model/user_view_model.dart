@@ -17,5 +17,6 @@ class UserProvider extends ChangeNotifier {
     _user = (await FirebaseService.getUser(username, true))!;
     _userPaymentList =
         AnalyticsService.getUserPaymentList(List.filled(1, _user), allPayments);
+    notifyListeners();
   }
 }

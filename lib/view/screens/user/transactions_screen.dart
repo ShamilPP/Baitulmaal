@@ -11,10 +11,12 @@ class UserTransactionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 4,
-        child: Scaffold(
-            body: TransactionScreen(
+      length: 4,
+      child: Scaffold(
+        body: TransactionScreen(
           users: List<UserModel>.filled(1, user),
-        )));
+        ),
+      ),
+    );
   }
 }

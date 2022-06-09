@@ -1,5 +1,5 @@
 // Application
-int version = 2;
+int version = 3;
 String webLink = 'https://meekath-10741.web.app/';
 
 // Login success verification
