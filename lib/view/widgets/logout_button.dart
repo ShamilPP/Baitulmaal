@@ -13,7 +13,7 @@ class LogoutButton extends StatelessWidget {
       height: 45,
       child: TextButton(
         child: Text(
-          "Logout",
+          'Logout',
           style: TextStyle(fontSize: 20, color: primaryColor),
         ),
         onPressed: () {

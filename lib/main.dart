@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PaymentProvider()),
       ],
       child: MaterialApp(
-        title: "Meekath",
+        title: 'Meekath',
         theme: ThemeData(
           primarySwatch: primarySwatch,
           scaffoldBackgroundColor: backgroundColor,

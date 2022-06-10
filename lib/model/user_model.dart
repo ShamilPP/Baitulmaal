@@ -12,7 +12,7 @@ class UserModel {
   final List<PaymentModel> payments;
 
   UserModel({
-    this.docId = "",
+    this.docId = '',
     required this.name,
     required this.phoneNumber,
     required this.username,

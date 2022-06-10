@@ -28,7 +28,7 @@ class CreateAccountScreen extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: SingleChildScrollView(
         child: MyAppBar(
-          title: "Create new account",
+          title: 'Create new account',
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -50,30 +50,30 @@ class CreateAccountScreen extends StatelessWidget {
                     children: <Widget>[
                       // TextField
                       LoginTextField(
-                        hint: "Name",
+                        hint: 'Name',
                         controller: nameController,
                       ),
                       LoginTextField(
-                        hint: "Phone number",
+                        hint: 'Phone number',
                         controller: phoneNumberController,
                         isNumber: true,
                       ),
                       LoginTextField(
-                        hint: "Username",
+                        hint: 'Username',
                         controller: usernameController,
                       ),
                       LoginTextField(
-                        hint: "Password",
+                        hint: 'Password',
                         controller: passwordController,
                         isPassword: true,
                       ),
                       LoginTextField(
-                        hint: "Confirm password",
+                        hint: 'Confirm password',
                         controller: confirmPasswordController,
                         isPassword: true,
                       ),
                       LoginTextField(
-                        hint: "Monthly payment",
+                        hint: 'Monthly payment',
                         controller: monthlyPaymentController,
                         isNumber: true,
                         neeIcon: true,
@@ -88,7 +88,7 @@ class CreateAccountScreen extends StatelessWidget {
                   color: primaryColor,
                   successColor: Colors.green,
                   child: const Text(
-                    "Create",
+                    'Create',
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,

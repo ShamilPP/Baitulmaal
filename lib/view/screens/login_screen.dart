@@ -40,9 +40,9 @@ class WelcomeText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[
-          Text("Login", style: TextStyle(color: Colors.white, fontSize: 40)),
+          Text('Login', style: TextStyle(color: Colors.white, fontSize: 40)),
           SizedBox(height: 10),
-          Text("Welcome Back",
+          Text('Welcome Back',
               style: TextStyle(color: Colors.white, fontSize: 18)),
         ],
       ),
@@ -87,11 +87,11 @@ class LoginContainer extends StatelessWidget {
                     children: <Widget>[
                       // TextField
                       LoginTextField(
-                        hint: "Username",
+                        hint: 'Username',
                         controller: usernameController,
                       ),
                       LoginTextField(
-                        hint: "Password",
+                        hint: 'Password',
                         controller: passwordController,
                         isPassword: true,
                       ),
@@ -105,7 +105,7 @@ class LoginContainer extends StatelessWidget {
                     color: primaryColor,
                     successColor: Colors.green,
                     child: const Text(
-                      "Login",
+                      'Login',
                       style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
@@ -127,7 +127,7 @@ class LoginContainer extends StatelessWidget {
                         side: MaterialStateProperty.all(
                             BorderSide(width: 2, color: primaryColor))),
                     child: Text(
-                      "Create new account",
+                      'Create new account',
                       style: TextStyle(fontSize: 18, color: primaryColor),
                     ),
                     onPressed: () {

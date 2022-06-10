@@ -51,7 +51,7 @@ class AnalyticsContainer extends StatelessWidget {
               top: 0,
               left: 0,
               child: AnalyticsText(
-                mainText: (showRupeeText ? "₹ " : "") + "$topLeftAmount",
+                mainText: (showRupeeText ? '₹ ' : '') + '$topLeftAmount',
                 subText: topLeftText,
               ),
             ),
@@ -59,7 +59,7 @@ class AnalyticsContainer extends StatelessWidget {
               top: 0,
               right: 0,
               child: AnalyticsText(
-                mainText: (showRupeeText ? "₹ " : "") + "$topRightAmount",
+                mainText: (showRupeeText ? '₹ ' : '') + '$topRightAmount',
                 subText: topRightText,
               ),
             ),
@@ -67,7 +67,7 @@ class AnalyticsContainer extends StatelessWidget {
               bottom: 0,
               left: 0,
               child: AnalyticsText(
-                mainText: "₹ $bottomLeftAmount",
+                mainText: '₹ $bottomLeftAmount',
                 subText: bottomLeftText,
                 color: Colors.red,
               ),
@@ -76,7 +76,7 @@ class AnalyticsContainer extends StatelessWidget {
               bottom: 0,
               right: 0,
               child: AnalyticsText(
-                mainText: "₹ $bottomRightAmount",
+                mainText: '₹ $bottomRightAmount',
                 subText: bottomRightText,
               ),
             ),

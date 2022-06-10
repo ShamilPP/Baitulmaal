@@ -28,7 +28,7 @@ class AnalyticsScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      "Analytics",
+                      'Analytics',
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
@@ -51,7 +51,7 @@ class AnalyticsScreen extends StatelessWidget {
                             AdminProvider provider = Provider.of<AdminProvider>(
                                 context,
                                 listen: false);
-                            provider.showMyDialog(context, "Updating...");
+                            provider.showMyDialog(context, 'Updating...');
                             await Provider.of<AdminProvider>(context,
                                     listen: false)
                                 .initData();
@@ -115,18 +115,18 @@ class AnalyticsSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DetailsText(
-              text: "Total Amount : ₹ ${adminOverview.totalAmount}",
+              text: 'Total Amount : ₹ ${adminOverview.totalAmount}',
             ),
             DetailsText(
               text:
-                  "Total Received : ₹ ${adminOverview.totalReceivedAmount}",
+                  'Total Received : ₹ ${adminOverview.totalReceivedAmount}',
             ),
             DetailsText(
-              text: "Pending Amount : ₹ ${adminOverview.pendingAmount}",
+              text: 'Pending Amount : ₹ ${adminOverview.pendingAmount}',
             ),
             DetailsText(
               text:
-                  "Extra Amount : ₹ ${(adminOverview.extraAmount)}",
+                  'Extra Amount : ₹ ${(adminOverview.extraAmount)}',
             ),
           ],
         ),
@@ -159,21 +159,21 @@ class PaymentSection extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.only(top: 40, bottom: 10),
           child: Text(
-            "Payment details",
+            'Payment details',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         DetailsText(
           text:
-              "Total Not verified amount : ₹ ${AnalyticsService.getTotalAmount(_notVerifiedPayments)}",
+              'Total Not verified amount : ₹ ${AnalyticsService.getTotalAmount(_notVerifiedPayments)}',
         ),
         DetailsText(
           text:
-              "Total Accepted amount : ₹ ${AnalyticsService.getTotalAmount(_acceptedPayments)}",
+              'Total Accepted amount : ₹ ${AnalyticsService.getTotalAmount(_acceptedPayments)}',
         ),
         DetailsText(
           text:
-              "Total Rejected amount : ₹ ${AnalyticsService.getTotalAmount(_rejectedPayments)}",
+              'Total Rejected amount : ₹ ${AnalyticsService.getTotalAmount(_rejectedPayments)}',
         ),
       ],
     );

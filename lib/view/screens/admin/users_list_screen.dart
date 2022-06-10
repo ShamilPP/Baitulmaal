@@ -27,7 +27,7 @@ class UsersScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Users",
+                  'Users',
                   style: TextStyle(
                       fontSize: 40,
                       color: Colors.white,
@@ -41,7 +41,7 @@ class UsersScreen extends StatelessWidget {
                     decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: "Search",
+                      hintText: 'Search',
                       prefixIcon: Icon(Icons.search),
                       suffixIcon: Icon(Icons.cancel),
                     ),

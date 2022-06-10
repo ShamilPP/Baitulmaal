@@ -11,7 +11,7 @@ class LoginService {
   static Future<int> loginAccount(String username, String password) async {
     UserModel? user = await FirebaseService.getUser(username, false);
     final prefs = await SharedPreferences.getInstance();
-    if (username == "admin" &&
+    if (username == 'admin' &&
         password == await FirebaseService.getAdminPassword()) {
       await prefs.setString('username', 'admin');
       return loginSuccess;
@@ -20,14 +20,14 @@ class LoginService {
     } else if (!checkInvalid(password)) {
       return loginFailed;
     } else if (user == null) {
-      errorToast("Username not exits");
+      errorToast('Username not exits');
       return loginFailed;
     } else if (password != user.password) {
-      errorToast("Password is incorrect");
+      errorToast('Password is incorrect');
       return loginFailed;
     }
     await prefs.setString('username', username);
-    successToast("Logged in");
+    successToast('Logged in');
     return loginSuccess;
   }
 
@@ -51,13 +51,13 @@ class LoginService {
     } else if (!checkInvalid(monthlyPayment)) {
       return false;
     } else if (password != confirmPassword) {
-      errorToast("Confirm password incorrect");
+      errorToast('Confirm password incorrect');
       return false;
     } else if (!verifyPhoneNumber(phoneNumber)) {
-      errorToast("Entered mobile number is invalid");
+      errorToast('Entered mobile number is invalid');
       return false;
     } else if (int.tryParse(monthlyPayment) == null) {
-      errorToast("Monthly payment invalid");
+      errorToast('Monthly payment invalid');
       return false;
     }
     UserModel user = UserModel(
@@ -76,13 +76,13 @@ class LoginService {
         context: context,
         builder: (ctx) {
           return AlertDialog(
-            title: const Text("Logout"),
-            content: const Text("Are you sure ?"),
+            title: const Text('Logout'),
+            content: const Text('Are you sure ?'),
             actions: [
               ElevatedButton(
                   onPressed: () {
                     SharedPreferences.getInstance().then((pref) {
-                      pref.remove("username");
+                      pref.remove('username');
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -90,7 +90,7 @@ class LoginService {
                           (Route<dynamic> route) => false);
                     });
                   },
-                  child: const Text("Logout"))
+                  child: const Text('Logout'))
             ],
           );
         });
@@ -105,8 +105,8 @@ class LoginService {
   }
 
   static bool checkInvalid(String text) {
-    if (text == "") {
-      errorToast("Invalid field detected");
+    if (text == '') {
+      errorToast('Invalid field detected');
       return false;
     }
     return true;
@@ -114,19 +114,25 @@ class LoginService {
 
   static void errorToast(String text) {
     Fluttertoast.showToast(
-        msg: text,
-        toastLength: Toast.LENGTH_SHORT,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      fontSize: 16.0,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      webBgColor: "linear-gradient(to right, #F44336, #F44336)",
+      webPosition: "center",
+    );
   }
 
   static void successToast(String text) {
     Fluttertoast.showToast(
-        msg: text,
-        toastLength: Toast.LENGTH_SHORT,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0);
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      fontSize: 16.0,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+      webBgColor: "linear-gradient(to right, #4CAF50, #4CAF50)",
+      webPosition: "center",
+    );
   }
 }

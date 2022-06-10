@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: const Text("Profile"),
+        title: const Text('Profile'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    "Change profile photo",
+                    'Change profile photo',
                     style: TextStyle(color: Colors.blue),
                   )
                 ],
@@ -44,18 +44,15 @@ class ProfileScreen extends StatelessWidget {
             ),
 
             // User details
-            ProfileListTile(text: user.name, subText: "Name", needEdit: true),
+            ProfileListTile(text: user.name, subText: 'Name'),
             ProfileListTile(
-                text: "${user.phoneNumber}",
-                subText: "Phone number",
-                needEdit: true),
-            ProfileListTile(text: user.username, subText: "Username"),
-            const ProfileListTile(
-                text: "********", subText: "Password", needEdit: true),
+                text: '${user.phoneNumber}', subText: 'Phone number'),
+            ProfileListTile(text: user.username, subText: 'Username'),
+            const ProfileListTile(text: '********', subText: 'Password'),
             ProfileListTile(
-                text: "₹ ${user.monthlyPayment}",
-                subText: "Monthly payment",
-                needEdit: true),
+              text: '₹ ${user.monthlyPayment}',
+              subText: 'Monthly payment',
+            ),
 
             // Payment tile
             PaymentListTile(
@@ -78,45 +75,40 @@ class ProfileScreen extends StatelessWidget {
 class ProfileListTile extends StatelessWidget {
   final String text;
   final String subText;
-  final bool needEdit;
 
   const ProfileListTile({
     Key? key,
     required this.text,
     required this.subText,
-    this.needEdit = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 8),
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    subText,
-                    style: const TextStyle(fontSize: 15, color: Colors.grey),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    text,
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                ],
+              Text(
+                subText,
+                style: const TextStyle(fontSize: 15, color: Colors.grey),
               ),
-              needEdit
-                  ? Icon(Icons.edit, size: 30, color: Colors.grey.shade800)
-                  : const SizedBox(),
+              const SizedBox(height: 5),
+              Text(
+                text,
+                style: const TextStyle(fontSize: 20),
+              ),
             ],
           ),
         ),
-        const Divider(thickness: 1),
+        const Divider(
+          thickness: 1,
+          height: 0,
+        ),
       ],
     );
   }
@@ -130,24 +122,20 @@ class PaymentListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Payments",
-                  style: TextStyle(fontSize: 20),
-                ),
-                Icon(Icons.arrow_forward_ios,
-                    size: 16, color: Colors.grey.shade700),
-              ],
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Payments',
+              style: TextStyle(fontSize: 20),
             ),
-          ),
-          const Divider(),
-        ],
+            Icon(Icons.arrow_forward_ios,
+                size: 16, color: Colors.grey.shade700),
+          ],
+        ),
       ),
       onTap: () {
         Navigator.push(

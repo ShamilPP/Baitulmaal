@@ -13,7 +13,7 @@ class MyListTile extends StatelessWidget {
     required this.subText,
     this.subColor = Colors.black,
     required this.onTap,
-    this.suffixText = "",
+    this.suffixText = '',
   }) : super(key: key);
 
   @override

@@ -38,14 +38,14 @@ class NotificationListTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  "Amount : ${userPayment.payment.amount}",
+                  'Amount : ${userPayment.payment.amount}',
                   style: const TextStyle(fontSize: 20),
                 ),
                 const SizedBox(height: 10),
                 Row(
                   children: [
                     ActionButton(
-                      text: "Accept",
+                      text: 'Accept',
                       color: Colors.green,
                       icon: Icons.done,
                       status: paymentAccepted,
@@ -53,7 +53,7 @@ class NotificationListTile extends StatelessWidget {
                     ),
                     const Expanded(flex: 1, child: SizedBox()),
                     ActionButton(
-                      text: "Reject",
+                      text: 'Reject',
                       color: Colors.red,
                       icon: Icons.close,
                       status: paymentRejected,
@@ -121,15 +121,15 @@ class ActionButton extends StatelessWidget {
               AdminProvider provider =
                   Provider.of<AdminProvider>(context, listen: false);
               // Accept + ing.. = Accepting..
-              provider.showMyDialog(context, text + "ing..");
+              provider.showMyDialog(context, text + 'ing..');
               CollectionReference<Map<String, dynamic>> collection =
                   FirebaseFirestore.instance.collection('users');
               await collection
                   .doc(userPayment.user.docId)
-                  .collection("payments")
+                  .collection('payments')
                   .doc(userPayment.payment.docId)
                   .update({
-                "verify": status,
+                'verify': status,
               });
               Provider.of<AdminProvider>(context, listen: false)
                   .removePaymentNotVerifiedItem(userPayment);
@@ -164,25 +164,25 @@ class PaymentDialog extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DetailsText(
-                  text: "Name : ${userPayment.user.name}",
+                  text: 'Name : ${userPayment.user.name}',
                 ),
                 DetailsText(
-                  text: "Amount : ₹ ${userPayment.payment.amount}",
-                ),
-                DetailsText(
-                  text:
-                      "Date : ${userPayment.payment.dateTime.day}/${userPayment.payment.dateTime.month}/${userPayment.payment.dateTime.year}",
+                  text: 'Amount : ₹ ${userPayment.payment.amount}',
                 ),
                 DetailsText(
                   text:
-                      "User status : ${userPayment.user.analytics!.isPending ? "PENDING" : "COMPLETED"}",
-                ),
-                DetailsText(
-                  text: "Monthly amount : ₹ ${userPayment.user.monthlyPayment}",
+                      'Date : ${userPayment.payment.dateTime.day}/${userPayment.payment.dateTime.month}/${userPayment.payment.dateTime.year}',
                 ),
                 DetailsText(
                   text:
-                      "Months : ${userPayment.payment.amount ~/ userPayment.user.monthlyPayment} Months",
+                      'User status : ${userPayment.user.analytics!.isPending ? 'PENDING' : 'COMPLETED'}',
+                ),
+                DetailsText(
+                  text: 'Monthly amount : ₹ ${userPayment.user.monthlyPayment}',
+                ),
+                DetailsText(
+                  text:
+                      'Months : ${userPayment.payment.amount ~/ userPayment.user.monthlyPayment} Months',
                 ),
                 ifAdmin
                     ? Padding(
@@ -196,7 +196,7 @@ class PaymentDialog extends StatelessWidget {
                                           builder: (_) => ProfileScreen(
                                               user: userPayment.user)));
                                 },
-                                child: const Text("View profile"))),
+                                child: const Text('View profile'))),
                       )
                     : const SizedBox()
               ],

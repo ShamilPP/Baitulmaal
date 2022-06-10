@@ -22,14 +22,14 @@ class UserHomeScreen extends StatelessWidget {
                 Consumer<UserProvider>(builder: (context, provider, child) {
                   return AnalyticsContainer(
                     topLeftAmount: provider.user.monthlyPayment,
-                    topLeftText: "Monthly payment",
+                    topLeftText: 'Monthly payment',
                     topRightAmount:
                         provider.user.analytics!.totalReceivedAmount,
-                    topRightText: " Paid amount",
+                    topRightText: ' Paid amount',
                     bottomLeftAmount: provider.user.analytics!.pendingAmount,
-                    bottomLeftText: "Pending amount",
+                    bottomLeftText: 'Pending amount',
                     bottomRightAmount: provider.user.analytics!.totalAmount,
-                    bottomRightText: "Total amount",
+                    bottomRightText: 'Total amount',
                     showRupeeText: true,
                   );
                 }),
@@ -39,7 +39,7 @@ class UserHomeScreen extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.all(20),
                       child: Text(
-                        "Payments",
+                        'Payments',
                         style: TextStyle(
                             fontSize: 21, fontWeight: FontWeight.bold),
                       ),

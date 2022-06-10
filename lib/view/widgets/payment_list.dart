@@ -17,17 +17,17 @@ class PaymentList extends StatelessWidget {
       itemCount: paymentList.length,
       itemBuilder: (ctx, index) {
         UserPaymentModel pay = paymentList[index];
-        String _status = "";
+        String _status = '';
         if (pay.payment.verify == 1) {
-          _status = "Not verified";
+          _status = 'Not verified';
         } else if (pay.payment.verify == 2) {
-          _status = "Accepted";
+          _status = 'Accepted';
         } else if (pay.payment.verify == 3) {
-          _status = "Rejected";
+          _status = 'Rejected';
         }
         return MyListTile(
           name: pay.user.name,
-          subText: "Amount : ${pay.payment.amount}",
+          subText: 'Amount : ${pay.payment.amount}',
           onTap: () {
             showDialog(
                 context: context,

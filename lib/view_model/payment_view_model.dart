@@ -22,7 +22,7 @@ class PaymentProvider extends ChangeNotifier {
       BuildContext context, String money, UserModel user, bool isAdmin) async {
     // start loading
     setLoading(true);
-    if (money != "") {
+    if (money != '') {
       int amount = int.parse(money);
       // When the admin pay the user, automatically verified
       int verify = paymentNotVerified;

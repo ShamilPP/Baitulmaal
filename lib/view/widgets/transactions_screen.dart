@@ -21,7 +21,7 @@ class TransactionScreen extends StatelessWidget {
             child: AppBar(
               backgroundColor: primaryColor,
               title: const Text(
-                "Transactions",
+                'Transactions',
                 style: TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.w400,
@@ -29,10 +29,10 @@ class TransactionScreen extends StatelessWidget {
               ),
               bottom: const TabBar(
                 tabs: [
-                  Tab(text: "All"),
-                  Tab(text: "Accepted"),
-                  Tab(text: "Rejected"),
-                  Tab(text: "Not verified"),
+                  Tab(text: 'All'),
+                  Tab(text: 'Accepted'),
+                  Tab(text: 'Rejected'),
+                  Tab(text: 'Not verified'),
                 ],
               ),
             ),

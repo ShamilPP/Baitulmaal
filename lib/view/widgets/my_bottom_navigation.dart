@@ -17,23 +17,23 @@ class MyBottomNavigation extends StatelessWidget {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_outlined),
-              label: "Transactions",
+              label: 'Transactions',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outlined),
-              label: "Users",
+              label: 'Users',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
-              label: "Home",
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications_outlined),
-              label: "Notifications",
+              label: 'Notifications',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.analytics_outlined),
-              label: "Analytics",
+              label: 'Analytics',
             ),
           ],
           onTap: (newIndex) {
@@ -55,7 +55,7 @@ class MyBottomNavigation extends StatelessWidget {
     int initialLength = provider.initialLength;
     int newLength = provider.paymentNotVerifiedList.length;
     if (initialLength != newLength) {
-      provider.showMyDialog(context, "Updating...");
+      provider.showMyDialog(context, 'Updating...');
       await provider.initData();
       Navigator.pop(context);
     }

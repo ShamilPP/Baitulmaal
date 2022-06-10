@@ -47,7 +47,7 @@ class PayScreen extends StatelessWidget {
                             provider.startPayment(
                                 context, paymentController.text, user, isAdmin);
                           },
-                          child: const Text("PAY")),
+                          child: const Text('PAY')),
                     ),
                   ],
                 );
@@ -73,7 +73,7 @@ class PaymentTextField extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("₹", style: TextStyle(fontSize: 35)),
+        const Text('₹', style: TextStyle(fontSize: 35)),
         const SizedBox(width: 5),
         SizedBox(
           width: 100,
@@ -81,7 +81,7 @@ class PaymentTextField extends StatelessWidget {
             controller: controller,
             style: const TextStyle(fontSize: 35),
             decoration: const InputDecoration(
-              hintText: " 000",
+              hintText: ' 000',
               border: InputBorder.none,
             ),
           ),

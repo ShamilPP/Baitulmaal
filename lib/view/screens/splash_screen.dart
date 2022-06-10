@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 CircularProgressIndicator(),
                 SizedBox(width: 30),
                 Text(
-                  "Fetching account details",
+                  'Fetching account details',
                   style: TextStyle(fontSize: 20),
                 ),
               ],
@@ -55,13 +55,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void init() async {
     final prefs = await SharedPreferences.getInstance();
     final latestVersion = await FirebaseService.getLatestVersion();
-    String? username = prefs.getString("username");
+    String? username = prefs.getString('username');
     if (latestVersion == version) {
       if (username == null) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const LoginScreen()));
       } else {
-        if (username == "admin") {
+        if (username == 'admin') {
           // If admin init all data's
           await Provider.of<AdminProvider>(context, listen: false).initData();
           Navigator.pushReplacement(
@@ -89,15 +89,15 @@ class UpdateDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Update is available"),
-      content: const Text("Please update to latest version"),
+      title: const Text('Update is available'),
+      content: const Text('Please update to latest version'),
       actions: [
         ElevatedButton(
             onPressed: () {
               launchUrl(Uri.parse(webLink),
                   mode: LaunchMode.externalApplication);
             },
-            child: const Text("Update"))
+            child: const Text('Update'))
       ],
     );
   }

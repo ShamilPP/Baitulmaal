@@ -21,13 +21,13 @@ class AdminHomeScreen extends StatelessWidget {
               Consumer<AdminProvider>(builder: (ctx, provider, child) {
                 return AnalyticsContainer(
                   topLeftAmount: provider.adminOverview.pendingUsers,
-                  topLeftText: "Pending users",
+                  topLeftText: 'Pending users',
                   topRightAmount: provider.adminOverview.totalUsers,
-                  topRightText: "Total users",
+                  topRightText: 'Total users',
                   bottomLeftAmount: provider.adminOverview.pendingAmount,
-                  bottomLeftText: "Pending amount",
+                  bottomLeftText: 'Pending amount',
                   bottomRightAmount: provider.adminOverview.totalAmount,
-                  bottomRightText: "Total amount",
+                  bottomRightText: 'Total amount',
                 );
               }),
               Row(
@@ -36,7 +36,7 @@ class AdminHomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      "Users",
+                      'Users',
                       style:
                           TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                     ),
@@ -134,6 +134,7 @@ class UserPickerDialog extends StatelessWidget {
           children: [
             // AppBar
             Container(
+              height: 50,
               decoration: BoxDecoration(
                   color: Colors.grey.shade400,
                   borderRadius: const BorderRadius.only(
@@ -144,7 +145,7 @@ class UserPickerDialog extends StatelessWidget {
                   CloseButton(),
                   SizedBox(width: 10),
                   Text(
-                    "Pay the user",
+                    'Pay the user',
                     style: TextStyle(fontSize: 18),
                   )
                 ],
@@ -164,7 +165,7 @@ class UserPickerDialog extends StatelessWidget {
                   border: InputBorder.none,
                   filled: true,
                   fillColor: Colors.white,
-                  hintText: "Search",
+                  hintText: 'Search',
                   prefixIcon: Icon(Icons.search),
                 ),
               ),
@@ -181,7 +182,7 @@ class UserPickerDialog extends StatelessWidget {
                       return ListTile(
                           title: Text(searchedUsers.value[index].name),
                           subtitle: Text(
-                              "₹ ${searchedUsers.value[index].monthlyPayment}"),
+                              '₹ ${searchedUsers.value[index].monthlyPayment}'),
                           onTap: () {
                             // Go to pay screen
                             Navigator.pushReplacement(

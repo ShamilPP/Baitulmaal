@@ -15,14 +15,14 @@ class FirebaseService {
     }
     await users
         .add({
-          "name": user.name,
-          "phoneNumber": user.phoneNumber,
-          "username": user.username,
-          "password": user.password,
-          "monthlyPayment": user.monthlyPayment,
+          'name': user.name,
+          'phoneNumber': user.phoneNumber,
+          'username': user.username,
+          'password': user.password,
+          'monthlyPayment': user.monthlyPayment,
         })
-        .then((value) => LoginService.successToast("Logged in"))
-        .catchError((error) => LoginService.errorToast("loginFailed : $error"));
+        .then((value) => LoginService.successToast('Logged in'))
+        .catchError((error) => LoginService.errorToast('loginFailed : $error'));
     return true;
   }
 
@@ -31,12 +31,12 @@ class FirebaseService {
         .instance
         .collection('users')
         .doc(userDocId)
-        .collection("payments");
+        .collection('payments');
 
     payments.add({
-      "amount": amount,
-      "date": DateTime.now().toString(),
-      "verify": verify,
+      'amount': amount,
+      'date': DateTime.now().toString(),
+      'verify': verify,
     });
     return false;
   }
@@ -49,26 +49,26 @@ class FirebaseService {
     QuerySnapshot<Map<String, dynamic>> userCollection = await collection.get();
     for (var user in userCollection.docs) {
       List<PaymentModel> payments = [];
-      var payDocs = await collection.doc(user.id).collection("payments").get();
+      var payDocs = await collection.doc(user.id).collection('payments').get();
       for (var paymentDoc in payDocs.docs) {
         payments.add(PaymentModel(
           docId: paymentDoc.id,
-          amount: paymentDoc.get("amount"),
-          verify: paymentDoc.get("verify"),
-          dateTime: DateTime.parse(paymentDoc.get("date")),
+          amount: paymentDoc.get('amount'),
+          verify: paymentDoc.get('verify'),
+          dateTime: DateTime.parse(paymentDoc.get('date')),
         ));
       }
 
       UserAnalyticsModel analytics = await AnalyticsService.getUserAnalytics(
-          user.get("monthlyPayment"), payments);
+          user.get('monthlyPayment'), payments);
 
       users.add(UserModel(
         docId: user.id,
-        name: user.get("name"),
-        phoneNumber: user.get("phoneNumber"),
-        username: user.get("username"),
-        password: user.get("password"),
-        monthlyPayment: user.get("monthlyPayment"),
+        name: user.get('name'),
+        phoneNumber: user.get('phoneNumber'),
+        username: user.get('username'),
+        password: user.get('password'),
+        monthlyPayment: user.get('monthlyPayment'),
         analytics: analytics,
         payments: payments,
       ));
@@ -83,35 +83,35 @@ class FirebaseService {
     QuerySnapshot<Map<String, dynamic>> users = await collection.get();
 
     for (var user in users.docs) {
-      if (user.get("username") == username) {
+      if (user.get('username') == username) {
         UserAnalyticsModel? analytics;
         List<PaymentModel> payments = [];
 
         // if need user payment details
         if (needAllDetails) {
           var payDocs =
-              await collection.doc(user.id).collection("payments").get();
+              await collection.doc(user.id).collection('payments').get();
           for (var paymentDoc in payDocs.docs) {
             payments.add(PaymentModel(
               docId: paymentDoc.id,
-              amount: paymentDoc.get("amount"),
-              dateTime: DateTime.parse(paymentDoc.get("date")),
-              verify: paymentDoc.get("verify"),
+              amount: paymentDoc.get('amount'),
+              dateTime: DateTime.parse(paymentDoc.get('date')),
+              verify: paymentDoc.get('verify'),
             ));
           }
 
           analytics = await AnalyticsService.getUserAnalytics(
-              user.get("monthlyPayment"), payments);
+              user.get('monthlyPayment'), payments);
         }
 
         // returning user data
         return UserModel(
           docId: user.id,
-          name: user.get("name"),
-          phoneNumber: user.get("phoneNumber"),
-          username: user.get("username"),
-          password: user.get("password"),
-          monthlyPayment: user.get("monthlyPayment"),
+          name: user.get('name'),
+          phoneNumber: user.get('phoneNumber'),
+          username: user.get('username'),
+          password: user.get('password'),
+          monthlyPayment: user.get('monthlyPayment'),
           analytics: analytics,
           payments: payments,
         );
@@ -125,12 +125,12 @@ class FirebaseService {
         await FirebaseFirestore.instance.collection('users').get();
 
     for (var _user in users.docs) {
-      if (_user.get("username") == user.username) {
-        LoginService.errorToast("Username already exits");
+      if (_user.get('username') == user.username) {
+        LoginService.errorToast('Username already exits');
         return true;
       }
-      if (_user.get("phoneNumber") == user.phoneNumber) {
-        LoginService.errorToast("Phone number already exits");
+      if (_user.get('phoneNumber') == user.phoneNumber) {
+        LoginService.errorToast('Phone number already exits');
         return true;
       }
     }
@@ -140,20 +140,20 @@ class FirebaseService {
   static Future<String> getAdminPassword() async {
     DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
         await FirebaseFirestore.instance
-            .collection("application")
-            .doc("admin")
+            .collection('application')
+            .doc('admin')
             .get();
-    String password = documentSnapshot["password"];
+    String password = documentSnapshot['password'];
     return password;
   }
 
   static Future<int> getLatestVersion() async {
     DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
         await FirebaseFirestore.instance
-            .collection("application")
-            .doc("version")
+            .collection('application')
+            .doc('version')
             .get();
-    int version = documentSnapshot["version"];
+    int version = documentSnapshot['version'];
     return version;
   }
 }

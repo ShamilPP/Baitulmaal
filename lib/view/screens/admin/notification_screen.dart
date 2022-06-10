@@ -11,7 +11,7 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyAppBar(
-      title: "Notifications",
+      title: 'Notifications',
       child: Expanded(
         child: Consumer<AdminProvider>(builder: (ctx, provider, child) {
           return ListView.builder(
