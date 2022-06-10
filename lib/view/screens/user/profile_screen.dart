@@ -15,57 +15,83 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: const Text('Profile'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //user profile photo
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Center(
-                  child: Column(
-                children: const [
-                  Icon(
-                    Icons.account_circle,
-                    size: 130,
-                    color: Colors.grey,
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Change profile photo',
-                    style: TextStyle(color: Colors.blue),
-                  )
-                ],
-              )),
-            ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// AppBar
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  children: const [
+                    CloseButton(),
+                    SizedBox(width: 15),
+                    Text(
+                      "Profile",
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ],
+                ),
+              ),
 
-            // User details
-            ProfileListTile(text: user.name, subText: 'Name'),
-            ProfileListTile(
-                text: '${user.phoneNumber}', subText: 'Phone number'),
-            ProfileListTile(text: user.username, subText: 'Username'),
-            const ProfileListTile(text: '********', subText: 'Password'),
-            ProfileListTile(
-              text: '₹ ${user.monthlyPayment}',
-              subText: 'Monthly payment',
-            ),
+              /// User profile photo
+              Center(
+                child: Stack(
+                  children: [
+                    const Icon(
+                      Icons.account_circle,
+                      size: 130,
+                      color: Colors.grey,
+                    ),
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 4,
+                            color: Colors.white,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
-            // Payment tile
-            PaymentListTile(
-              user: user,
-            ),
+              /// User details
+              ProfileListTile(text: user.name, subText: 'Name'),
+              ProfileListTile(
+                  text: '${user.phoneNumber}', subText: 'Phone number'),
+              ProfileListTile(text: user.username, subText: 'Username'),
+              const ProfileListTile(text: '********', subText: 'Password'),
+              ProfileListTile(
+                text: '₹ ${user.monthlyPayment}',
+                subText: 'Monthly payment',
+              ),
 
-            // Logout button
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 10),
-              child: Center(
-                  child: isAdmin ? const SizedBox() : const LogoutButton()),
-            ),
-          ],
+              // Payment tile
+              PaymentListTile(
+                user: user,
+              ),
+
+              // Logout button
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 10),
+                child: Center(
+                    child: isAdmin ? const SizedBox() : const LogoutButton()),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -84,32 +110,24 @@ class ProfileListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 8),
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                subText,
-                style: const TextStyle(fontSize: 15, color: Colors.grey),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                text,
-                style: const TextStyle(fontSize: 20),
-              ),
-            ],
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            subText,
+            style: const TextStyle(fontSize: 15, color: Colors.grey),
           ),
-        ),
-        const Divider(
-          thickness: 1,
-          height: 0,
-        ),
-      ],
+          const SizedBox(height: 5),
+          Text(
+            text,
+            style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+          ),
+          const Divider(thickness: 1,height: 10,color: Colors.grey,)
+        ],
+      ),
     );
   }
 }
