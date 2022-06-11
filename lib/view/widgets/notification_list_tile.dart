@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_payment.dart';
+import 'package:meekath/repo/firebase_service.dart';
 import 'package:meekath/utils/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -122,17 +122,9 @@ class ActionButton extends StatelessWidget {
                   Provider.of<AdminProvider>(context, listen: false);
               // Accept + ing.. = Accepting..
               provider.showMyDialog(context, text + 'ing..');
-              CollectionReference<Map<String, dynamic>> collection =
-                  FirebaseFirestore.instance.collection('users');
-              await collection
-                  .doc(userPayment.user.docId)
-                  .collection('payments')
-                  .doc(userPayment.payment.docId)
-                  .update({
-                'verify': status,
-              });
-              Provider.of<AdminProvider>(context, listen: false)
-                  .removePaymentNotVerifiedItem(userPayment);
+              await FirebaseService.updatePayment(
+                  userPayment.payment.docId, status);
+              provider.removePaymentNotVerifiedItem(userPayment);
               Navigator.pop(context);
             },
           ),

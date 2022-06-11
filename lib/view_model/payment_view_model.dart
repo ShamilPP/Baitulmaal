@@ -33,12 +33,12 @@ class PaymentProvider extends ChangeNotifier {
       await FirebaseService.uploadPayment(amount, verify, user.docId);
       // Refresh all data
       if (isAdmin) {
-        Provider.of<AdminProvider>(context, listen: false).initData();
+        await Provider.of<AdminProvider>(context, listen: false).initData();
       } else {
         UserProvider provider =
             Provider.of<UserProvider>(context, listen: false);
 
-        provider.initData(provider.user.username);
+        await provider.initData(provider.user.username);
       }
       // payment finished show checkmark
       setLoading(false);

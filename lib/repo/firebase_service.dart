@@ -28,18 +28,29 @@ class FirebaseService {
 
   static Future<bool> uploadPayment(
       int amount, int verify, String userDocId) async {
-    CollectionReference<Map<String, dynamic>> payments = FirebaseFirestore
-        .instance
-        .collection('users')
-        .doc(userDocId)
-        .collection('payments');
+    CollectionReference<Map<String, dynamic>> payments =
+        FirebaseFirestore.instance.collection('transactions');
 
     payments.add({
       'amount': amount,
       'date': DateTime.now().toString(),
       'verify': verify,
+    }).then((value) async {
+      // add payment in user
+      String docID = value.id;
+      FirebaseFirestore.instance.collection('users').doc(userDocId).update({
+        "payments": FieldValue.arrayUnion([docID]),
+      });
     });
     return false;
+  }
+
+  static Future updatePayment(String docId, int status) async {
+    CollectionReference<Map<String, dynamic>> collection =
+        FirebaseFirestore.instance.collection('transactions');
+    await collection.doc(docId).update({
+      'verify': status,
+    });
   }
 
   static Future<List<UserModel>> getAllUsers() async {
@@ -49,14 +60,21 @@ class FirebaseService {
         FirebaseFirestore.instance.collection('users');
     QuerySnapshot<Map<String, dynamic>> userCollection = await collection.get();
     for (var user in userCollection.docs) {
+      // Payments Details
       List<PaymentModel> payments = [];
-      var payDocs = await collection.doc(user.id).collection('payments').get();
-      for (var paymentDoc in payDocs.docs) {
+      List<dynamic> userPaymentDocs =
+          (await collection.doc(user.id).get())["payments"];
+      for (var paymentDoc in userPaymentDocs) {
+        var payment = await FirebaseFirestore.instance
+            .collection('transactions')
+            .doc(paymentDoc)
+            .get();
+
         payments.add(PaymentModel(
-          docId: paymentDoc.id,
-          amount: paymentDoc.get('amount'),
-          verify: paymentDoc.get('verify'),
-          dateTime: DateTime.parse(paymentDoc.get('date')),
+          docId: payment.id,
+          amount: payment.get('amount'),
+          verify: payment.get('verify'),
+          dateTime: DateTime.parse(payment.get('date')),
         ));
       }
 
@@ -90,14 +108,19 @@ class FirebaseService {
 
         // if need user payment details
         if (needAllDetails) {
-          var payDocs =
-              await collection.doc(user.id).collection('payments').get();
-          for (var paymentDoc in payDocs.docs) {
+          List<dynamic> userPaymentDocs =
+              (await collection.doc(user.id).get())["payments"];
+          for (var paymentDoc in userPaymentDocs) {
+            var payment = await FirebaseFirestore.instance
+                .collection('transactions')
+                .doc(paymentDoc.toString())
+                .get();
+
             payments.add(PaymentModel(
-              docId: paymentDoc.id,
-              amount: paymentDoc.get('amount'),
-              dateTime: DateTime.parse(paymentDoc.get('date')),
-              verify: paymentDoc.get('verify'),
+              docId: payment.id,
+              amount: payment.get('amount'),
+              verify: payment.get('verify'),
+              dateTime: DateTime.parse(payment.get('date')),
             ));
           }
 
