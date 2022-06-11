@@ -118,15 +118,13 @@ class AnalyticsSection extends StatelessWidget {
               text: 'Total Amount : ₹ ${adminOverview.totalAmount}',
             ),
             DetailsText(
-              text:
-                  'Total Received : ₹ ${adminOverview.totalReceivedAmount}',
+              text: 'Total Received : ₹ ${adminOverview.totalReceivedAmount}',
             ),
             DetailsText(
               text: 'Pending Amount : ₹ ${adminOverview.pendingAmount}',
             ),
             DetailsText(
-              text:
-                  'Extra Amount : ₹ ${(adminOverview.extraAmount)}',
+              text: 'Extra Amount : ₹ ${(adminOverview.extraAmount)}',
             ),
           ],
         ),

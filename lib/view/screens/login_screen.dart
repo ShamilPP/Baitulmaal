@@ -5,7 +5,6 @@ import 'package:meekath/view/screens/splash_screen.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../utils/colors.dart';
-import '../../utils/constants.dart';
 import '../widgets/login_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -147,14 +146,14 @@ class LoginContainer extends StatelessWidget {
   }
 
   _login(BuildContext context) async {
-    int status = await LoginService.loginAccount(
+    bool status = await LoginService.loginAccount(
         usernameController.text, passwordController.text);
-    if (status == loginSuccess) {
+    if (status) {
       buttonController.success();
       await Future.delayed(const Duration(milliseconds: 500));
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => const SplashScreen()));
-    } else if (status == loginFailed) {
+    } else {
       buttonController.error();
       await Future.delayed(const Duration(seconds: 2));
       buttonController.reset();

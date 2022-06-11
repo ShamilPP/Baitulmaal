@@ -26,7 +26,8 @@ class FirebaseService {
     return true;
   }
 
-  static Future<bool> uploadPayment(int amount, int verify, String userDocId) async {
+  static Future<bool> uploadPayment(
+      int amount, int verify, String userDocId) async {
     CollectionReference<Map<String, dynamic>> payments = FirebaseFirestore
         .instance
         .collection('users')

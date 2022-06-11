@@ -123,9 +123,13 @@ class ProfileListTile extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             text,
-            style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          const Divider(thickness: 1,height: 10,color: Colors.grey,)
+          const Divider(
+            thickness: 1,
+            height: 10,
+            color: Colors.grey,
+          )
         ],
       ),
     );

@@ -5,30 +5,28 @@ import 'package:meekath/repo/firebase_service.dart';
 import 'package:meekath/view/screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/constants.dart';
-
 class LoginService {
-  static Future<int> loginAccount(String username, String password) async {
+  static Future<bool> loginAccount(String username, String password) async {
     UserModel? user = await FirebaseService.getUser(username, false);
     final prefs = await SharedPreferences.getInstance();
     if (username == 'admin' &&
         password == await FirebaseService.getAdminPassword()) {
       await prefs.setString('username', 'admin');
-      return loginSuccess;
+      return true;
     } else if (!checkInvalid(username)) {
-      return loginFailed;
+      return false;
     } else if (!checkInvalid(password)) {
-      return loginFailed;
+      return false;
     } else if (user == null) {
       errorToast('Username not exits');
-      return loginFailed;
+      return false;
     } else if (password != user.password) {
       errorToast('Password is incorrect');
-      return loginFailed;
+      return false;
     }
     await prefs.setString('username', username);
     successToast('Logged in');
-    return loginSuccess;
+    return true;
   }
 
   static Future<bool> createAccount(
