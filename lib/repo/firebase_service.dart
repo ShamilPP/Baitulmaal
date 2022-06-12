@@ -26,21 +26,15 @@ class FirebaseService {
     return true;
   }
 
-  static Future<bool> uploadPayment(
-      int amount, int verify, String userDocId) async {
+  static Future<bool> uploadPayment(PaymentModel payment) async {
     CollectionReference<Map<String, dynamic>> payments =
         FirebaseFirestore.instance.collection('transactions');
 
     payments.add({
-      'amount': amount,
-      'date': DateTime.now().toString(),
-      'verify': verify,
-    }).then((value) async {
-      // add payment in user
-      String docID = value.id;
-      FirebaseFirestore.instance.collection('users').doc(userDocId).update({
-        "payments": FieldValue.arrayUnion([docID]),
-      });
+      'userId': payment.userDocId,
+      'amount': payment.amount,
+      'date': payment.dateTime.toString(),
+      'verify': payment.verify,
     });
     return false;
   }
@@ -55,6 +49,8 @@ class FirebaseService {
 
   static Future<List<UserModel>> getAllUsers() async {
     List<UserModel> users = [];
+    List<PaymentModel> allPayments = await getAllPayments();
+    allPayments.addAll(await getAllPayments());
 
     CollectionReference<Map<String, dynamic>> collection =
         FirebaseFirestore.instance.collection('users');
@@ -62,23 +58,14 @@ class FirebaseService {
     for (var user in userCollection.docs) {
       // Payments Details
       List<PaymentModel> payments = [];
-      List<dynamic> userPaymentDocs =
-          (await collection.doc(user.id).get())["payments"];
-      for (var paymentDoc in userPaymentDocs) {
-        var payment = await FirebaseFirestore.instance
-            .collection('transactions')
-            .doc(paymentDoc)
-            .get();
 
-        payments.add(PaymentModel(
-          docId: payment.id,
-          amount: payment.get('amount'),
-          verify: payment.get('verify'),
-          dateTime: DateTime.parse(payment.get('date')),
-        ));
+      for (var payment in allPayments) {
+        if (user.id == payment.userDocId) {
+          payments.add(payment);
+        }
       }
 
-      UserAnalyticsModel analytics = await AnalyticsService.getUserAnalytics(
+      UserAnalyticsModel analytics = AnalyticsService.getUserAnalytics(
           user.get('monthlyPayment'), payments);
 
       users.add(UserModel(
@@ -108,23 +95,14 @@ class FirebaseService {
 
         // if need user payment details
         if (needAllDetails) {
-          List<dynamic> userPaymentDocs =
-              (await collection.doc(user.id).get())["payments"];
-          for (var paymentDoc in userPaymentDocs) {
-            var payment = await FirebaseFirestore.instance
-                .collection('transactions')
-                .doc(paymentDoc.toString())
-                .get();
+          List<PaymentModel> allPayments = await getAllPayments();
 
-            payments.add(PaymentModel(
-              docId: payment.id,
-              amount: payment.get('amount'),
-              verify: payment.get('verify'),
-              dateTime: DateTime.parse(payment.get('date')),
-            ));
+          for (var payment in allPayments) {
+            if (user.id == payment.userDocId) {
+              payments.add(payment);
+            }
           }
-
-          analytics = await AnalyticsService.getUserAnalytics(
+          analytics = AnalyticsService.getUserAnalytics(
               user.get('monthlyPayment'), payments);
         }
 
@@ -142,6 +120,26 @@ class FirebaseService {
       }
     }
     return null;
+  }
+
+  static Future<List<PaymentModel>> getAllPayments() async {
+    List<PaymentModel> payments = [];
+    CollectionReference<Map<String, dynamic>> collection =
+        FirebaseFirestore.instance.collection('transactions');
+
+    QuerySnapshot<Map<String, dynamic>> paymentCollection =
+        await collection.get();
+
+    for (var payment in paymentCollection.docs) {
+      payments.add(PaymentModel(
+        docId: payment.id,
+        userDocId: payment.get('userId'),
+        amount: payment.get('amount'),
+        verify: payment.get('verify'),
+        dateTime: DateTime.parse(payment.get('date')),
+      ));
+    }
+    return payments;
   }
 
   static Future<bool> checkUserIsAvailable(UserModel user) async {

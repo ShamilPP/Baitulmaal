@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meekath/model/payment_model.dart';
 import 'package:meekath/model/user_model.dart';
 import 'package:meekath/utils/constants.dart';
 import 'package:meekath/view_model/admin_view_model.dart';
@@ -30,7 +31,13 @@ class PaymentProvider extends ChangeNotifier {
         verify = paymentAccepted;
       }
       // upload payment to firebase
-      await FirebaseService.uploadPayment(amount, verify, user.docId);
+      PaymentModel payment = PaymentModel(
+          userDocId: user.docId,
+          amount: amount,
+          verify: verify,
+          dateTime: DateTime.now());
+
+      await FirebaseService.uploadPayment(payment);
       // Refresh all data
       if (isAdmin) {
         await Provider.of<AdminProvider>(context, listen: false).initData();

@@ -58,8 +58,8 @@ class AnalyticsService {
     return payments;
   }
 
-  static Future<UserAnalyticsModel> getUserAnalytics(
-      int monthlyPayment, List<PaymentModel> payments) async {
+  static UserAnalyticsModel getUserAnalytics(
+      int monthlyPayment, List<PaymentModel> payments) {
     int month = DateTime.now().month;
     int totalAmount = monthlyPayment * 12;
     int receivedAmount = getTotalReceivedAmount(payments);
