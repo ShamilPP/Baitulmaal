@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/view/screens/admin/transactions_screen.dart';
 import 'package:meekath/view/widgets/my_bottom_navigation.dart';
+import 'package:meekath/view_model/navigation_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../../view_model/admin_view_model.dart';
 import 'analytics_screen.dart';
 import 'home_screen.dart';
 import 'notification_screen.dart';
@@ -21,7 +21,7 @@ class AdminMainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AdminProvider>(builder: (ctx, provider, child) {
+    return Consumer<NavigationProvider>(builder: (ctx, provider, child) {
       return DefaultTabController(
         length: 4,
         child: Scaffold(

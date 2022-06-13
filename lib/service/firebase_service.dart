@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meekath/model/payment_model.dart';
 import 'package:meekath/model/user_model.dart';
-import 'package:meekath/repo/analytics_service.dart';
-import 'package:meekath/repo/login_service.dart';
+import 'package:meekath/service/analytics_service.dart';
+import 'package:meekath/service/login_service.dart';
 
 import '../model/user_analytics_model.dart';
 
@@ -50,7 +50,6 @@ class FirebaseService {
   static Future<List<UserModel>> getAllUsers() async {
     List<UserModel> users = [];
     List<PaymentModel> allPayments = await getAllPayments();
-    allPayments.addAll(await getAllPayments());
 
     CollectionReference<Map<String, dynamic>> collection =
         FirebaseFirestore.instance.collection('users');
@@ -170,12 +169,22 @@ class FirebaseService {
   }
 
   static Future<int> getLatestVersion() async {
-    DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-        await FirebaseFirestore.instance
-            .collection('application')
-            .doc('version')
-            .get();
-    int version = documentSnapshot['version'];
+    int version;
+    DocumentSnapshot<Map<String, dynamic>>? doc = await FirebaseFirestore
+        .instance
+        .collection('application')
+        .doc('version')
+        .get();
+
+    // check document exists ( avoiding null exceptions )
+    if (doc.exists && doc.data()!.containsKey("version")) {
+      // if document exists, fetch version in firebase
+      version = doc['version'];
+    } else {
+      // if document not exists, manually assign 1 ( avoiding null exceptions )
+      version = 1;
+    }
+
     return version;
   }
 }

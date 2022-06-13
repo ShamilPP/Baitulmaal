@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/utils/colors.dart';
-import 'package:meekath/view_model/admin_view_model.dart';
+import 'package:meekath/view_model/navigation_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MyBottomNavigation extends StatelessWidget {
@@ -8,7 +8,7 @@ class MyBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AdminProvider>(
+    return Consumer<NavigationProvider>(
       builder: (ctx, provider, child) {
         return BottomNavigationBar(
           currentIndex: provider.currentBottomNavigator,
@@ -37,27 +37,10 @@ class MyBottomNavigation extends StatelessWidget {
             ),
           ],
           onTap: (newIndex) {
-            // Update data if payment verified
-            // 3 == Notification screen
-            if (provider.currentBottomNavigator == 3) {
-              updateData(context);
-            }
-
             provider.setCurrentBottomNavigator(newIndex);
           },
         );
       },
     );
-  }
-
-  void updateData(BuildContext context) async {
-    AdminProvider provider = Provider.of<AdminProvider>(context, listen: false);
-    int initialLength = provider.initialLength;
-    int newLength = provider.paymentNotVerifiedList.length;
-    if (initialLength != newLength) {
-      provider.showMyDialog(context, 'Updating...');
-      await provider.initData();
-      Navigator.pop(context);
-    }
   }
 }

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/model/user_model.dart';
-import 'package:meekath/model/user_payment.dart';
-import 'package:meekath/repo/analytics_service.dart';
 import 'package:meekath/utils/constants.dart';
 import 'package:meekath/view/widgets/logout_button.dart';
 import 'package:provider/provider.dart';
@@ -71,7 +68,7 @@ class AnalyticsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AnalyticsSection(adminOverview: provider.adminOverview),
-                        PaymentSection(),
+                        const PaymentSection(),
                       ],
                     ),
                   );
@@ -134,47 +131,36 @@ class AnalyticsSection extends StatelessWidget {
 }
 
 class PaymentSection extends StatelessWidget {
-  PaymentSection({Key? key}) : super(key: key);
-
-  List<UserModel> users = [];
-  List<UserPaymentModel> _notVerifiedPayments = [];
-  List<UserPaymentModel> _acceptedPayments = [];
-  List<UserPaymentModel> _rejectedPayments = [];
+  const PaymentSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    users = Provider.of<AdminProvider>(context).users;
-    _notVerifiedPayments =
-        AnalyticsService.getUserPaymentList(users, paymentNotVerified);
-    _acceptedPayments =
-        AnalyticsService.getUserPaymentList(users, paymentAccepted);
-    _rejectedPayments =
-        AnalyticsService.getUserPaymentList(users, paymentRejected);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 40, bottom: 10),
-          child: Text(
-            'Payment details',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return Consumer<AdminProvider>(builder: (ctx, provider, child) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 40, bottom: 10),
+            child: Text(
+              'Payment details',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
-        DetailsText(
-          text:
-              'Total Not verified amount : ₹ ${AnalyticsService.getTotalAmount(_notVerifiedPayments)}',
-        ),
-        DetailsText(
-          text:
-              'Total Accepted amount : ₹ ${AnalyticsService.getTotalAmount(_acceptedPayments)}',
-        ),
-        DetailsText(
-          text:
-              'Total Rejected amount : ₹ ${AnalyticsService.getTotalAmount(_rejectedPayments)}',
-        ),
-      ],
-    );
+          DetailsText(
+            text:
+                'Total Not verified amount : ₹ ${provider.getTotalAmount(paymentNotVerified)}',
+          ),
+          DetailsText(
+            text:
+                'Total Accepted amount : ₹ ${provider.getTotalAmount(paymentAccepted)}',
+          ),
+          DetailsText(
+            text:
+                'Total Rejected amount : ₹ ${provider.getTotalAmount(paymentRejected)}',
+          ),
+        ],
+      );
+    });
   }
 }
 

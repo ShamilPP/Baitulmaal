@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meekath/view_model/login_view_model.dart';
+import 'package:provider/provider.dart';
 
-import '../../repo/login_service.dart';
 import '../../utils/colors.dart';
 
 class LogoutButton extends StatelessWidget {
@@ -17,7 +18,8 @@ class LogoutButton extends StatelessWidget {
           style: TextStyle(fontSize: 20, color: primaryColor),
         ),
         onPressed: () {
-          LoginService.logout(context);
+          LoginProvider provider = Provider.of<LoginProvider>(context);
+          provider.logout(context);
         },
       ),
     );

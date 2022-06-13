@@ -4,6 +4,7 @@ import 'package:meekath/view_model/admin_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/user_model.dart';
+import '../../../view_model/navigation_view_model.dart';
 import '../../widgets/analytics_container.dart';
 import '../../widgets/users_list.dart';
 
@@ -107,7 +108,7 @@ class NotifyIcon extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Provider.of<AdminProvider>(context, listen: false)
+        Provider.of<NavigationProvider>(context, listen: false)
             .setCurrentBottomNavigator(3);
       },
     );
@@ -195,7 +196,7 @@ class UserPickerDialog extends StatelessWidget {
                           });
                     },
                     separatorBuilder: (ctx, index) {
-                      return const Divider(height: 0);
+                      return const Divider(thickness: 1, height: 0);
                     },
                   );
                 },

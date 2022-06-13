@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_model.dart';
 import 'package:meekath/utils/colors.dart';
+import 'package:meekath/view_model/payment_view_model.dart';
+import 'package:provider/provider.dart';
 
-import '../../repo/analytics_service.dart';
 import '../../utils/constants.dart';
 import 'payment_list.dart';
 
@@ -37,36 +38,38 @@ class TransactionScreen extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: TabBarView(
-              children: [
-                PaymentList(
-                  paymentList: AnalyticsService.getUserPaymentList(
-                    users,
-                    allPayments,
+          Consumer<PaymentProvider>(builder: (ctx, provider, child) {
+            return Expanded(
+              child: TabBarView(
+                children: [
+                  PaymentList(
+                    paymentList: provider.getUserPaymentList(
+                      users,
+                      allPayments,
+                    ),
                   ),
-                ),
-                PaymentList(
-                  paymentList: AnalyticsService.getUserPaymentList(
-                    users,
-                    paymentAccepted,
+                  PaymentList(
+                    paymentList: provider.getUserPaymentList(
+                      users,
+                      paymentAccepted,
+                    ),
                   ),
-                ),
-                PaymentList(
-                  paymentList: AnalyticsService.getUserPaymentList(
-                    users,
-                    paymentRejected,
+                  PaymentList(
+                    paymentList: provider.getUserPaymentList(
+                      users,
+                      paymentRejected,
+                    ),
                   ),
-                ),
-                PaymentList(
-                  paymentList: AnalyticsService.getUserPaymentList(
-                    users,
-                    paymentNotVerified,
+                  PaymentList(
+                    paymentList: provider.getUserPaymentList(
+                      users,
+                      paymentNotVerified,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          )
+                ],
+              ),
+            );
+          })
         ],
       ),
     );

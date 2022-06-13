@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meekath/model/user_model.dart';
-import 'package:meekath/repo/firebase_service.dart';
-import 'package:meekath/view/screens/login_screen.dart';
+import 'package:meekath/service/firebase_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService {
@@ -69,29 +68,11 @@ class LoginService {
     return FirebaseService.uploadUser(user);
   }
 
-  static void logout(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (ctx) {
-          return AlertDialog(
-            title: const Text('Logout'),
-            content: const Text('Are you sure ?'),
-            actions: [
-              ElevatedButton(
-                  onPressed: () {
-                    SharedPreferences.getInstance().then((pref) {
-                      pref.remove('username');
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const LoginScreen()),
-                          (Route<dynamic> route) => false);
-                    });
-                  },
-                  child: const Text('Logout'))
-            ],
-          );
-        });
+  static void logout() async {
+    // init shared preferences
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    // remove username in shared preferences
+    pref.remove('username');
   }
 
   static bool verifyPhoneNumber(String number) {

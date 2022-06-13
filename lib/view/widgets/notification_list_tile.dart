@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_payment.dart';
-import 'package:meekath/repo/firebase_service.dart';
 import 'package:meekath/utils/constants.dart';
+import 'package:meekath/view_model/payment_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view_model/admin_view_model.dart';
@@ -118,13 +118,15 @@ class ActionButton extends StatelessWidget {
               ],
             ),
             onTap: () async {
-              AdminProvider provider =
+              AdminProvider adminProvider =
                   Provider.of<AdminProvider>(context, listen: false);
+              PaymentProvider paymentProvider =
+                  Provider.of<PaymentProvider>(context, listen: false);
               // Accept + ing.. = Accepting..
-              provider.showMyDialog(context, text + 'ing..');
-              await FirebaseService.updatePayment(
+              adminProvider.showMyDialog(context, text + 'ing..');
+              await paymentProvider.updatePayment(
                   userPayment.payment.docId, status);
-              provider.removePaymentNotVerifiedItem(userPayment);
+              await adminProvider.initData();
               Navigator.pop(context);
             },
           ),

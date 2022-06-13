@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/repo/firebase_service.dart';
 import 'package:meekath/utils/constants.dart';
 import 'package:meekath/view/screens/admin/main_screen.dart';
 import 'package:meekath/view/screens/login_screen.dart';
 import 'package:meekath/view/screens/user/home_screen.dart';
 import 'package:meekath/view_model/admin_view_model.dart';
+import 'package:meekath/view_model/splash_view_model.dart';
 import 'package:meekath/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -53,32 +52,40 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void init() async {
-    final prefs = await SharedPreferences.getInstance();
-    final latestVersion = await FirebaseService.getLatestVersion();
-    String? username = prefs.getString('username');
-    if (latestVersion == version) {
+    SplashProvider provider =
+        Provider.of<SplashProvider>(context, listen: false);
+    final latestVersion = await provider.getLatestVersion();
+    String? username = await provider.getUsername();
+    if (latestVersion != version) {
+      // If this is not the latest version
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (ctx) => const UpdateDialog());
+    } else {
       if (username == null) {
+        // if not logged in
+
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const LoginScreen()));
       } else {
+        // if logged in
+
         if (username == 'admin') {
           // If admin init all data's
+
           await Provider.of<AdminProvider>(context, listen: false).initData();
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (_) => AdminMainScreen()));
         } else {
           // If User init User data's
+
           await Provider.of<UserProvider>(context, listen: false)
               .initData(username);
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (_) => const UserHomeScreen()));
         }
       }
-    } else {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (ctx) => const UpdateDialog());
     }
   }
 }

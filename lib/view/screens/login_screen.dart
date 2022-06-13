@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/repo/login_service.dart';
 import 'package:meekath/view/screens/create_account_screen.dart';
 import 'package:meekath/view/screens/splash_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../utils/colors.dart';
+import '../../view_model/login_view_model.dart';
 import '../widgets/login_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -146,8 +147,9 @@ class LoginContainer extends StatelessWidget {
   }
 
   _login(BuildContext context) async {
-    bool status = await LoginService.loginAccount(
-        usernameController.text, passwordController.text);
+    LoginProvider provider = Provider.of<LoginProvider>(context);
+    bool status =
+        await provider.login(usernameController.text, passwordController.text);
     if (status) {
       buttonController.success();
       await Future.delayed(const Duration(milliseconds: 500));

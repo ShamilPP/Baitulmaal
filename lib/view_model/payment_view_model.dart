@@ -7,7 +7,9 @@ import 'package:meekath/view_model/admin_view_model.dart';
 import 'package:meekath/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../repo/firebase_service.dart';
+import '../model/user_payment.dart';
+import '../service/analytics_service.dart';
+import '../service/firebase_service.dart';
 
 class PaymentProvider extends ChangeNotifier {
   bool? _isLoading;
@@ -19,7 +21,7 @@ class PaymentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void startPayment(
+  void uploadPayment(
       BuildContext context, String money, UserModel user, bool isAdmin) async {
     // start loading
     setLoading(true);
@@ -55,5 +57,17 @@ class PaymentProvider extends ChangeNotifier {
       Navigator.pop(context);
       notifyListeners();
     }
+  }
+
+  Future updatePayment(String docId, int status) async {
+    await FirebaseService.updatePayment(docId, status);
+  }
+
+  List<UserPaymentModel> getUserPaymentList(List<UserModel> users, int status) {
+    List<UserPaymentModel> list = AnalyticsService.getUserPaymentList(
+      users,
+      status,
+    );
+    return list;
   }
 }

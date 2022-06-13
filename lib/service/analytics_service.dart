@@ -74,14 +74,6 @@ class AnalyticsService {
     return analytics;
   }
 
-  static int getTotalAmount(List<UserPaymentModel> payments) {
-    int total = 0;
-    for (var pay in payments) {
-      total = total + pay.payment.amount;
-    }
-    return total;
-  }
-
   static int getTotalReceivedAmount(List<PaymentModel> payments) {
     int amount = 0;
     for (var pay in payments) {

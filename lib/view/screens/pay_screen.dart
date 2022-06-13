@@ -44,7 +44,7 @@ class PayScreen extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                           onPressed: () {
-                            provider.startPayment(
+                            provider.uploadPayment(
                                 context, paymentController.text, user, isAdmin);
                           },
                           child: const Text('PAY')),
