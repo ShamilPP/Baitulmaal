@@ -1,5 +1,5 @@
 // Application
-int version = 5;
+int version = 6;
 String webLink = 'https://meekath.web.app/';
 
 // Payment success verification

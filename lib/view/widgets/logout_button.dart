@@ -18,7 +18,8 @@ class LogoutButton extends StatelessWidget {
           style: TextStyle(fontSize: 20, color: primaryColor),
         ),
         onPressed: () {
-          LoginProvider provider = Provider.of<LoginProvider>(context);
+          LoginProvider provider =
+              Provider.of<LoginProvider>(context, listen: false);
           provider.logout(context);
         },
       ),

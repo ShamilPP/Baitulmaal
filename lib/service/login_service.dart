@@ -34,7 +34,8 @@ class LoginService {
       String username,
       String password,
       String confirmPassword,
-      String monthlyPayment) async {
+      String monthlyPayment,
+      bool isLogin) async {
     final prefs = await SharedPreferences.getInstance();
 
     if (!checkInvalid(name)) {
@@ -64,7 +65,9 @@ class LoginService {
       password: password,
       monthlyPayment: int.parse(monthlyPayment),
     );
-    await prefs.setString('username', username);
+    if (isLogin) {
+      await prefs.setString('username', username);
+    }
     return FirebaseService.uploadUser(user);
   }
 

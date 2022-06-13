@@ -66,7 +66,7 @@ class AdminHomeScreen extends StatelessWidget {
                       context: context,
                       builder: (ctx) => UserPickerDialog(users: users));
                 }),
-          )
+          ),
         ],
       ),
     );

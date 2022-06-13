@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/view/screens/splash_screen.dart';
 import 'package:meekath/view/widgets/my_appbar.dart';
+import 'package:meekath/view_model/admin_view_model.dart';
 import 'package:meekath/view_model/login_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -9,7 +10,9 @@ import '../../utils/colors.dart';
 import '../widgets/login_text_field.dart';
 
 class CreateAccountScreen extends StatelessWidget {
-  CreateAccountScreen({Key? key}) : super(key: key);
+  final bool isAddUser;
+
+  CreateAccountScreen({Key? key, this.isAddUser = false}) : super(key: key);
 
   final RoundedLoadingButtonController buttonController =
       RoundedLoadingButtonController();
@@ -29,7 +32,7 @@ class CreateAccountScreen extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: SingleChildScrollView(
         child: MyAppBar(
-          title: 'Create new account',
+          title: isAddUser ? 'Add new user' : 'Create new account',
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -88,15 +91,15 @@ class CreateAccountScreen extends StatelessWidget {
                 RoundedLoadingButton(
                   color: primaryColor,
                   successColor: Colors.green,
-                  child: const Text(
-                    'Create',
-                    style: TextStyle(
+                  child: Text(
+                    isAddUser ? 'Add' : 'Create',
+                    style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
                   controller: buttonController,
-                  onPressed: () => _createAccount(context),
+                  onPressed: () => _createAccount(context, !isAddUser),
                 )
               ],
             ),
@@ -106,8 +109,8 @@ class CreateAccountScreen extends StatelessWidget {
     ));
   }
 
-  void _createAccount(BuildContext context) async {
-    LoginProvider provider = Provider.of<LoginProvider>(context);
+  void _createAccount(BuildContext context, bool isLogin) async {
+    LoginProvider provider = Provider.of<LoginProvider>(context, listen: false);
     bool success = await provider.createAccount(
       nameController.text,
       phoneNumberController.text,
@@ -115,14 +118,22 @@ class CreateAccountScreen extends StatelessWidget {
       passwordController.text,
       confirmPasswordController.text,
       monthlyPaymentController.text,
+      isLogin,
     );
     if (success) {
       buttonController.success();
       await Future.delayed(const Duration(milliseconds: 500));
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const SplashScreen()),
-          (Route<dynamic> route) => false);
+      // if admin add user
+      if (isAddUser) {
+        Provider.of<AdminProvider>(context, listen: false).initData();
+        Navigator.pop(context);
+      } else {
+        // if create account go to splash screen
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (_) => const SplashScreen()),
+            (Route<dynamic> route) => false);
+      }
     } else {
       buttonController.error();
       await Future.delayed(const Duration(seconds: 2));

@@ -147,7 +147,7 @@ class LoginContainer extends StatelessWidget {
   }
 
   _login(BuildContext context) async {
-    LoginProvider provider = Provider.of<LoginProvider>(context);
+    LoginProvider provider = Provider.of<LoginProvider>(context, listen: false);
     bool status =
         await provider.login(usernameController.text, passwordController.text);
     if (status) {

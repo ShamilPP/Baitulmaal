@@ -9,10 +9,24 @@ class LoginProvider extends ChangeNotifier {
     return result;
   }
 
-  Future<bool> createAccount(String name, String phoneNumber, String username,
-      String password, String confirmPassword, String monthlyPayment) async {
+  Future<bool> createAccount(
+    String name,
+    String phoneNumber,
+    String username,
+    String password,
+    String confirmPassword,
+    String monthlyPayment,
+    bool isLogin,
+  ) async {
     bool result = await LoginService.createAccount(
-        name, phoneNumber, username, password, confirmPassword, monthlyPayment);
+      name,
+      phoneNumber,
+      username,
+      password,
+      confirmPassword,
+      monthlyPayment,
+      isLogin,
+    );
 
     return result;
   }
