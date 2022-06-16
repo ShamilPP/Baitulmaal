@@ -2,28 +2,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meekath/model/payment_model.dart';
 import 'package:meekath/model/user_model.dart';
 import 'package:meekath/service/analytics_service.dart';
-import 'package:meekath/service/login_service.dart';
 
+import '../model/success_failure_model.dart';
 import '../model/user_analytics_model.dart';
 
 class FirebaseService {
-  static Future<bool> uploadUser(UserModel user) async {
+  static Future<SuccessFailModel> uploadUser(UserModel user) async {
     CollectionReference<Map<String, dynamic>> users =
         FirebaseFirestore.instance.collection('users');
-    if (await checkUserIsAvailable(user)) {
-      return false;
+    // Check user is already exists
+    SuccessFailModel alreadyExists = await checkUserIsAlreadyExists(user);
+    if (!alreadyExists.isSucceed) {
+      return alreadyExists;
     }
-    await users
-        .add({
-          'name': user.name,
-          'phoneNumber': user.phoneNumber,
-          'username': user.username,
-          'password': user.password,
-          'monthlyPayment': user.monthlyPayment,
-        })
-        .then((value) => LoginService.successToast('Logged in'))
-        .catchError((error) => LoginService.errorToast('loginFailed : $error'));
-    return true;
+    // Then uploading user to firebase
+    await users.add({
+      'name': user.name,
+      'phoneNumber': user.phoneNumber,
+      'username': user.username,
+      'password': user.password,
+      'monthlyPayment': user.monthlyPayment,
+    });
+    return SuccessFailModel(
+        isSucceed: true, message: 'Logged in', username: user.username);
   }
 
   static Future<bool> uploadPayment(PaymentModel payment) async {
@@ -141,21 +142,22 @@ class FirebaseService {
     return payments;
   }
 
-  static Future<bool> checkUserIsAvailable(UserModel user) async {
+  static Future<SuccessFailModel> checkUserIsAlreadyExists(
+      UserModel user) async {
     QuerySnapshot<Map<String, dynamic>> users =
         await FirebaseFirestore.instance.collection('users').get();
 
     for (var _user in users.docs) {
       if (_user.get('username') == user.username) {
-        LoginService.errorToast('Username already exits');
-        return true;
+        return SuccessFailModel(
+            isSucceed: false, message: 'Username already exists');
       }
       if (_user.get('phoneNumber') == user.phoneNumber) {
-        LoginService.errorToast('Phone number already exits');
-        return true;
+        return SuccessFailModel(
+            isSucceed: false, message: 'Phone number already exists');
       }
     }
-    return false;
+    return SuccessFailModel(isSucceed: true, message: "Success");
   }
 
   static Future<String> getAdminPassword() async {

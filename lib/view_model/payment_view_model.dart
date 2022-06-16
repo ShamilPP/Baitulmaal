@@ -25,8 +25,12 @@ class PaymentProvider extends ChangeNotifier {
       BuildContext context, String money, UserModel user, bool isAdmin) async {
     // start loading
     setLoading(true);
-    if (money != '') {
-      int amount = int.parse(money);
+    // Check entered amount is null
+    int? amount = int.tryParse(money);
+    if (amount == null || amount == 0) {
+      await Future.delayed(const Duration(seconds: 2));
+      setLoading(null);
+    } else {
       // When the admin pay the user, automatically verified
       int verify = paymentNotVerified;
       if (isAdmin) {
@@ -40,6 +44,7 @@ class PaymentProvider extends ChangeNotifier {
           dateTime: DateTime.now());
 
       await FirebaseService.uploadPayment(payment);
+
       // Refresh all data
       if (isAdmin) {
         await Provider.of<AdminProvider>(context, listen: false).initData();
