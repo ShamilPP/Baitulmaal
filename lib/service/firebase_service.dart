@@ -34,7 +34,8 @@ class FirebaseService {
     payments.add({
       'userId': payment.userDocId,
       'amount': payment.amount,
-      'date': payment.dateTime.toString(),
+      // DateTime convert to timestamp
+      'date': Timestamp.fromDate(payment.dateTime),
       'verify': payment.verify,
     });
     return false;
@@ -136,7 +137,8 @@ class FirebaseService {
         userDocId: payment.get('userId'),
         amount: payment.get('amount'),
         verify: payment.get('verify'),
-        dateTime: DateTime.parse(payment.get('date')),
+        // Timestamp convert to datetime
+        dateTime: (payment.get('date') as Timestamp).toDate(),
       ));
     }
     return payments;
