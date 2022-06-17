@@ -5,7 +5,7 @@ import 'package:meekath/view_model/payment_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constants.dart';
-import 'payment_list.dart';
+import '../widgets/payment_list.dart';
 
 class TransactionScreen extends StatelessWidget {
   final List<UserModel> users;

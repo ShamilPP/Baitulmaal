@@ -3,16 +3,16 @@ import 'package:meekath/model/payment_model.dart';
 import 'package:meekath/model/user_model.dart';
 import 'package:meekath/service/analytics_service.dart';
 
-import '../model/success_failure_model.dart';
+import '../model/login_response.dart';
 import '../model/user_analytics_model.dart';
 
 class FirebaseService {
-  static Future<SuccessFailModel> uploadUser(UserModel user) async {
+  static Future<LoginResponse> uploadUser(UserModel user) async {
     CollectionReference<Map<String, dynamic>> users =
         FirebaseFirestore.instance.collection('users');
     // Check user is already exists
-    SuccessFailModel alreadyExists = await checkUserIsAlreadyExists(user);
-    if (!alreadyExists.isSucceed) {
+    LoginResponse alreadyExists = await checkUserIsAlreadyExists(user);
+    if (!alreadyExists.isSuccessful) {
       return alreadyExists;
     }
     // Then uploading user to firebase
@@ -23,8 +23,8 @@ class FirebaseService {
       'password': user.password,
       'monthlyPayment': user.monthlyPayment,
     });
-    return SuccessFailModel(
-        isSucceed: true, message: 'Logged in', username: user.username);
+    return LoginResponse(
+        isSuccessful: true, message: 'Logged in', username: user.username);
   }
 
   static Future<bool> uploadPayment(PaymentModel payment) async {
@@ -142,22 +142,21 @@ class FirebaseService {
     return payments;
   }
 
-  static Future<SuccessFailModel> checkUserIsAlreadyExists(
-      UserModel user) async {
+  static Future<LoginResponse> checkUserIsAlreadyExists(UserModel user) async {
     QuerySnapshot<Map<String, dynamic>> users =
         await FirebaseFirestore.instance.collection('users').get();
 
     for (var _user in users.docs) {
       if (_user.get('username') == user.username) {
-        return SuccessFailModel(
-            isSucceed: false, message: 'Username already exists');
+        return LoginResponse(
+            isSuccessful: false, message: 'Username already exists');
       }
       if (_user.get('phoneNumber') == user.phoneNumber) {
-        return SuccessFailModel(
-            isSucceed: false, message: 'Phone number already exists');
+        return LoginResponse(
+            isSuccessful: false, message: 'Phone number already exists');
       }
     }
-    return SuccessFailModel(isSucceed: true, message: "Success");
+    return LoginResponse(isSuccessful: true, message: "Success");
   }
 
   static Future<String> getAdminPassword() async {
@@ -170,8 +169,8 @@ class FirebaseService {
     return password;
   }
 
-  static Future<int> getLatestVersion() async {
-    int version;
+  static Future<double> getLatestVersion() async {
+    double version;
     DocumentSnapshot<Map<String, dynamic>>? doc = await FirebaseFirestore
         .instance
         .collection('application')
@@ -181,10 +180,14 @@ class FirebaseService {
     // check document exists ( avoiding null exceptions )
     if (doc.exists && doc.data()!.containsKey("version")) {
       // if document exists, fetch version in firebase
-      version = doc['version'];
+      try {
+        version = doc['version'];
+      } catch (e) {
+        version = 0.0;
+      }
     } else {
-      // if document not exists, manually assign 1 ( avoiding null exceptions )
-      version = 1;
+      // if document not exists, manually assign 0.0 ( avoiding null exceptions )
+      version = 0.0;
     }
 
     return version;

@@ -72,13 +72,13 @@ class _SplashScreenState extends State<SplashScreen> {
         // if logged in
 
         if (username == 'admin') {
-          // If admin init all data's
+          // If admin, init all data's
 
           await Provider.of<AdminProvider>(context, listen: false).initData();
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (_) => AdminMainScreen()));
         } else {
-          // If User init User data's
+          // If User, init User data's
 
           await Provider.of<UserProvider>(context, listen: false)
               .initData(username);

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:meekath/model/success_failure_model.dart';
+import 'package:meekath/model/login_response.dart';
 import 'package:meekath/service/login_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
   Future<bool> login(String username, String password) async {
-    SuccessFailModel result =
-        await LoginService.loginAccount(username, password);
-    successToast(result.message, result.isSucceed);
-    if (result.isSucceed) {
+    LoginResponse result = await LoginService.loginAccount(username, password);
+    successToast(result.message, result.isSuccessful);
+    if (result.isSuccessful) {
       final SharedPreferences pref = await SharedPreferences.getInstance();
       pref.setString('username', result.username!);
     }
-    return result.isSucceed;
+    return result.isSuccessful;
   }
 
   Future<bool> createAccount(
@@ -25,7 +24,7 @@ class LoginProvider extends ChangeNotifier {
     String monthlyPayment,
     bool isLogin,
   ) async {
-    SuccessFailModel result = await LoginService.createAccount(
+    LoginResponse result = await LoginService.createAccount(
       name,
       phoneNumber,
       username,
@@ -33,12 +32,12 @@ class LoginProvider extends ChangeNotifier {
       confirmPassword,
       monthlyPayment,
     );
-    successToast(result.message, result.isSucceed);
-    if (result.isSucceed && isLogin) {
+    successToast(result.message, result.isSuccessful);
+    if (result.isSuccessful && isLogin) {
       final SharedPreferences pref = await SharedPreferences.getInstance();
       pref.setString('username', result.username!);
     }
-    return result.isSucceed;
+    return result.isSuccessful;
   }
 
   void logout(BuildContext context) async {

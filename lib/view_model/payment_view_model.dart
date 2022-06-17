@@ -38,7 +38,7 @@ class PaymentProvider extends ChangeNotifier {
       }
       // upload payment to firebase
       PaymentModel payment = PaymentModel(
-          userDocId: user.docId,
+          userDocId: user.docId!,
           amount: amount,
           verify: verify,
           dateTime: DateTime.now());

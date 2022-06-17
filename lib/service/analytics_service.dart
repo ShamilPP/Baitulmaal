@@ -44,7 +44,7 @@ class AnalyticsService {
       List<UserModel> users, int status) {
     List<UserPaymentModel> payments = [];
     for (var user in users) {
-      for (var payment in user.payments) {
+      for (var payment in user.payments!) {
         // 123 == All Payment details
         if (status == allPayments || payment.verify == status) {
           payments.add(UserPaymentModel(

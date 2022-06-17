@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../service/firebase_service.dart';
 
 class SplashProvider extends ChangeNotifier {
-  Future<int?> getLatestVersion() async {
-    int? latestVersion = await FirebaseService.getLatestVersion();
+  Future<double?> getLatestVersion() async {
+    double? latestVersion = await FirebaseService.getLatestVersion();
     return latestVersion;
   }
 

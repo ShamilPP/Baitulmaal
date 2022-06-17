@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_model.dart';
 
-import '../../widgets/transactions_screen.dart';
+import '../transactions_screen.dart';
 
 class UserTransactionScreen extends StatelessWidget {
   final UserModel user;

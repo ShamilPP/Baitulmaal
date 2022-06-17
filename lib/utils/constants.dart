@@ -1,5 +1,6 @@
 // Application
-int version = 6;
+double version = 2.1;
+int buildNumber = 21;
 String webLink = 'https://meekath.web.app/';
 
 // Payment success verification

@@ -125,7 +125,7 @@ class ActionButton extends StatelessWidget {
               // Accept + ing.. = Accepting..
               adminProvider.showMyDialog(context, text + 'ing..');
               await paymentProvider.updatePayment(
-                  userPayment.payment.docId, status);
+                  userPayment.payment.docId!, status);
               await adminProvider.initData();
               Navigator.pop(context);
             },
