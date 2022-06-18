@@ -26,25 +26,40 @@ class PayScreen extends StatelessWidget {
               if (provider.isLoading == null) {
                 // If not loading show payment screen
                 return Stack(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const CloseButton(),
-                        // User details
-                        const SizedBox(height: 30),
-                        Center(
-                          child: Text(
+                    const CloseButton(),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //User details
+                          const Icon(
+                            Icons.account_circle,
+                            size: 70,
+                            color: Colors.grey,
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
                             "${user.name} paying",
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 10),
+                          Text(
+                            "+91 ${user.phoneNumber}",
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          const SizedBox(height: 40),
+                          // Payment TextField
+                          PaymentTextField(controller: paymentController),
+                          const SizedBox(height: 100),
+
+                        ],
+                      ),
                     ),
-                    // Payment TextField
-                    Center(
-                        child: PaymentTextField(controller: paymentController)),
                     // Pay button
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -52,8 +67,10 @@ class PayScreen extends StatelessWidget {
                         height: 45,
                         width: double.infinity,
                         child: ElevatedButton(
-                          style:
-                              ElevatedButton.styleFrom(primary: Colors.green),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                            shape: const StadiumBorder(),
+                          ),
                           child: const Text(
                             'PAY',
                             style: TextStyle(fontSize: 18, color: Colors.white),

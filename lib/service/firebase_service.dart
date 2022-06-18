@@ -171,8 +171,8 @@ class FirebaseService {
     return password;
   }
 
-  static Future<double> getLatestVersion() async {
-    double version;
+  static Future<int> getLatestVersion() async {
+    int version;
     DocumentSnapshot<Map<String, dynamic>>? doc = await FirebaseFirestore
         .instance
         .collection('application')
@@ -185,11 +185,11 @@ class FirebaseService {
       try {
         version = doc['version'];
       } catch (e) {
-        version = 0.0;
+        version = 0;
       }
     } else {
-      // if document not exists, manually assign 0.0 ( avoiding null exceptions )
-      version = 0.0;
+      // if document not exists, manually assign 0 ( avoiding null exceptions )
+      version = 0;
     }
 
     return version;

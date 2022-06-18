@@ -18,7 +18,7 @@ class AmountPercentageIndicator extends StatelessWidget {
       lineWidth: 10,
       percent: percentage,
       animation: true,
-      animationDuration: 1000,
+      animationDuration: 2000,
       center: Icon(
         Icons.currency_rupee,
         color: centerIconColor,

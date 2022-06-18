@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void init() async {
     SplashProvider provider =
         Provider.of<SplashProvider>(context, listen: false);
-    final latestVersion = await provider.getLatestVersion();
+    int latestVersion = await provider.getLatestVersion();
     String? username = await provider.getUsername();
     if (latestVersion != version) {
       // If this is not the latest version
