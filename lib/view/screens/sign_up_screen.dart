@@ -9,10 +9,10 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../../utils/colors.dart';
 import '../widgets/login_text_field.dart';
 
-class CreateAccountScreen extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   final bool isAddUser;
 
-  CreateAccountScreen({Key? key, this.isAddUser = false}) : super(key: key);
+  SignUpScreen({Key? key, this.isAddUser = false}) : super(key: key);
 
   final RoundedLoadingButtonController buttonController =
       RoundedLoadingButtonController();
@@ -92,7 +92,7 @@ class CreateAccountScreen extends StatelessWidget {
                   color: primaryColor,
                   successColor: Colors.green,
                   child: Text(
-                    isAddUser ? 'Add' : 'Create',
+                    isAddUser ? 'Add' : 'Sign up',
                     style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/view/screens/create_account_screen.dart';
+import 'package:meekath/view/screens/sign_up_screen.dart';
 import 'package:meekath/view/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -127,14 +127,14 @@ class LoginContainer extends StatelessWidget {
                         side: MaterialStateProperty.all(
                             BorderSide(width: 2, color: primaryColor))),
                     child: Text(
-                      'Create new account',
-                      style: TextStyle(fontSize: 18, color: primaryColor),
+                      'Sign up',
+                      style: TextStyle(fontSize: 20, color: primaryColor),
                     ),
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => CreateAccountScreen()));
+                              builder: (_) => SignUpScreen()));
                     },
                   ),
                 ),

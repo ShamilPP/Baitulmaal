@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_model.dart';
 import 'package:meekath/utils/colors.dart';
-import 'package:meekath/view/screens/create_account_screen.dart';
+import 'package:meekath/view/screens/sign_up_screen.dart';
 import 'package:meekath/view_model/admin_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -71,7 +71,7 @@ class UsersScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => CreateAccountScreen(isAddUser: true),
+                    builder: (_) => SignUpScreen(isAddUser: true),
                   ),
                 );
               },
