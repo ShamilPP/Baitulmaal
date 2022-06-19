@@ -4,7 +4,7 @@ import 'package:meekath/utils/colors.dart';
 import 'package:meekath/view_model/payment_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/constants.dart';
+import '../../utils/enums.dart';
 import '../widgets/payment_list.dart';
 
 class TransactionScreen extends StatelessWidget {
@@ -45,25 +45,25 @@ class TransactionScreen extends StatelessWidget {
                   PaymentList(
                     paymentList: provider.getUserPaymentList(
                       users,
-                      allPayments,
+                      PaymentStatus.allPayments,
                     ),
                   ),
                   PaymentList(
                     paymentList: provider.getUserPaymentList(
                       users,
-                      paymentAccepted,
+                      PaymentStatus.accepted,
                     ),
                   ),
                   PaymentList(
                     paymentList: provider.getUserPaymentList(
                       users,
-                      paymentRejected,
+                      PaymentStatus.rejected,
                     ),
                   ),
                   PaymentList(
                     paymentList: provider.getUserPaymentList(
                       users,
-                      paymentNotVerified,
+                      PaymentStatus.notVerified,
                     ),
                   ),
                 ],

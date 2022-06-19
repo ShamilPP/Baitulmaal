@@ -1,10 +1,10 @@
 import 'package:meekath/model/admin_overview_model.dart';
 import 'package:meekath/model/user_analytics_model.dart';
 import 'package:meekath/model/user_payment.dart';
+import 'package:meekath/utils/enums.dart';
 
 import '../model/payment_model.dart';
 import '../model/user_model.dart';
-import '../utils/constants.dart';
 
 class AnalyticsService {
   static Future<AdminOverviewModel> getAdminOverview(
@@ -41,12 +41,12 @@ class AnalyticsService {
   }
 
   static List<UserPaymentModel> getUserPaymentList(
-      List<UserModel> users, int status) {
+      List<UserModel> users, PaymentStatus status) {
     List<UserPaymentModel> payments = [];
     for (var user in users) {
       for (var payment in user.payments!) {
-        // 123 == All Payment details
-        if (status == allPayments || payment.verify == status) {
+        // if need all payments or specific payments
+        if (status == PaymentStatus.allPayments || payment.verify == status.index) {
           payments.add(UserPaymentModel(
             user: user,
             payment: payment,
@@ -77,7 +77,7 @@ class AnalyticsService {
   static int getTotalReceivedAmount(List<PaymentModel> payments) {
     int amount = 0;
     for (var pay in payments) {
-      if (pay.verify == paymentAccepted) {
+      if (pay.verify == PaymentStatus.accepted.index) {
         amount = amount + pay.amount;
       }
     }

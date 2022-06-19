@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_payment.dart';
-import 'package:meekath/utils/constants.dart';
 import 'package:meekath/view_model/payment_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view_model/admin_view_model.dart';
+import '../../utils/enums.dart';
 import '../screens/admin/analytics_screen.dart';
 import '../screens/user/profile_screen.dart';
 
@@ -48,7 +48,7 @@ class NotificationListTile extends StatelessWidget {
                       text: 'Accept',
                       color: Colors.green,
                       icon: Icons.done,
-                      status: paymentAccepted,
+                      status: PaymentStatus.accepted,
                       userPayment: userPayment,
                     ),
                     const Expanded(flex: 1, child: SizedBox()),
@@ -56,7 +56,7 @@ class NotificationListTile extends StatelessWidget {
                       text: 'Reject',
                       color: Colors.red,
                       icon: Icons.close,
-                      status: paymentRejected,
+                      status: PaymentStatus.rejected,
                       userPayment: userPayment,
                     ),
                   ],
@@ -77,7 +77,7 @@ class ActionButton extends StatelessWidget {
   final String text;
   final Color color;
   final IconData icon;
-  final int status;
+  final PaymentStatus status;
   final UserPaymentModel userPayment;
 
   const ActionButton({

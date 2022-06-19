@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/utils/constants.dart';
+import 'package:meekath/utils/enums.dart';
 import 'package:meekath/view/widgets/logout_button.dart';
 import 'package:provider/provider.dart';
 
@@ -148,15 +148,15 @@ class PaymentSection extends StatelessWidget {
           ),
           DetailsText(
             text:
-                'Total Not verified amount : ₹ ${provider.getTotalAmount(paymentNotVerified)}',
+                'Total Not verified amount : ₹ ${provider.getTotalAmount(PaymentStatus.notVerified)}',
           ),
           DetailsText(
             text:
-                'Total Accepted amount : ₹ ${provider.getTotalAmount(paymentAccepted)}',
+                'Total Accepted amount : ₹ ${provider.getTotalAmount(PaymentStatus.accepted)}',
           ),
           DetailsText(
             text:
-                'Total Rejected amount : ₹ ${provider.getTotalAmount(paymentRejected)}',
+                'Total Rejected amount : ₹ ${provider.getTotalAmount(PaymentStatus.rejected)}',
           ),
         ],
       );

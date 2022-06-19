@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meekath/model/user_model.dart';
+import 'package:meekath/utils/enums.dart';
 import 'package:meekath/view_model/payment_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,7 @@ class PayScreen extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           child: Consumer<PaymentProvider>(
             builder: (ctx, provider, child) {
-              if (provider.isLoading == null) {
+              if (provider.uploadStatus == PayUploadStatus.none) {
                 // If not loading show payment screen
                 return Stack(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,7 +57,6 @@ class PayScreen extends StatelessWidget {
                           // Payment TextField
                           PaymentTextField(controller: paymentController),
                           const SizedBox(height: 100),
-
                         ],
                       ),
                     ),
@@ -85,7 +85,7 @@ class PayScreen extends StatelessWidget {
                   ],
                 );
               } else {
-                return AnimatedCheck(isLoading: provider.isLoading!);
+                return AnimatedCheck(status: provider.uploadStatus);
               }
             },
           ),

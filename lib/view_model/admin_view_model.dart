@@ -3,9 +3,9 @@ import 'package:meekath/model/admin_overview_model.dart';
 import 'package:meekath/model/user_payment.dart';
 import 'package:meekath/service/analytics_service.dart';
 import 'package:meekath/service/firebase_service.dart';
-import 'package:meekath/utils/constants.dart';
 
 import '../model/user_model.dart';
+import '../utils/enums.dart';
 
 class AdminProvider extends ChangeNotifier {
   late AdminOverviewModel _adminOverview;
@@ -24,7 +24,7 @@ class AdminProvider extends ChangeNotifier {
 
     // Init payment not verified list
     _paymentNotVerifiedList =
-        AnalyticsService.getUserPaymentList(users, paymentNotVerified);
+        AnalyticsService.getUserPaymentList(users, PaymentStatus.notVerified);
 
     // Init admin overview
     _adminOverview = await AnalyticsService.getAdminOverview(_users);
@@ -36,7 +36,7 @@ class AdminProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int getTotalAmount(int status) {
+  int getTotalAmount(PaymentStatus status) {
     // fetching all payment list
     List<UserPaymentModel> list =
         AnalyticsService.getUserPaymentList(users, status);

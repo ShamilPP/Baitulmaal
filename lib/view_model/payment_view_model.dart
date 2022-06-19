@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meekath/model/payment_model.dart';
 import 'package:meekath/model/user_model.dart';
-import 'package:meekath/utils/constants.dart';
 import 'package:meekath/view_model/admin_view_model.dart';
 import 'package:meekath/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
@@ -10,31 +9,36 @@ import 'package:provider/provider.dart';
 import '../model/user_payment.dart';
 import '../service/analytics_service.dart';
 import '../service/firebase_service.dart';
+import '../utils/enums.dart';
 
 class PaymentProvider extends ChangeNotifier {
-  bool? _isLoading;
+  PayUploadStatus _uploadStatus = PayUploadStatus.none;
 
-  bool? get isLoading => _isLoading;
+  PayUploadStatus get uploadStatus => _uploadStatus;
 
-  void setLoading(bool? loading) {
-    _isLoading = loading;
+  void setUploadStatus(PayUploadStatus status) {
+    _uploadStatus = status;
     notifyListeners();
   }
 
   void uploadPayment(
       BuildContext context, String money, UserModel user, bool isAdmin) async {
     // start loading
-    setLoading(true);
+    setUploadStatus(PayUploadStatus.loading);
     // Check entered amount is null
     int? amount = int.tryParse(money);
     if (amount == null || amount == 0) {
+      // amount == null return failed checkmark after 2 second
       await Future.delayed(const Duration(seconds: 2));
-      setLoading(null);
+      setUploadStatus(PayUploadStatus.failed);
+      // remove failed checkmark after 2 second
+      await Future.delayed(const Duration(seconds: 3));
+      setUploadStatus(PayUploadStatus.none);
     } else {
       // When the admin pay the user, automatically verified
-      int verify = paymentNotVerified;
+      int verify = PaymentStatus.notVerified.index;
       if (isAdmin) {
-        verify = paymentAccepted;
+        verify = PaymentStatus.accepted.index;
       }
       // upload payment to firebase
       PaymentModel payment = PaymentModel(
@@ -55,20 +59,21 @@ class PaymentProvider extends ChangeNotifier {
         await provider.initData(provider.user.username);
       }
       // payment finished show checkmark
-      setLoading(false);
+      setUploadStatus(PayUploadStatus.success);
       //after few seconds show payment screen
       await Future.delayed(const Duration(seconds: 3));
-      setLoading(null);
+      setUploadStatus(PayUploadStatus.none);
       Navigator.pop(context);
       notifyListeners();
     }
   }
 
-  Future updatePayment(String docId, int status) async {
-    await FirebaseService.updatePayment(docId, status);
+  Future updatePayment(String docId, PaymentStatus status) async {
+    await FirebaseService.updatePayment(docId, status.index);
   }
 
-  List<UserPaymentModel> getUserPaymentList(List<UserModel> users, int status) {
+  List<UserPaymentModel> getUserPaymentList(
+      List<UserModel> users, PaymentStatus status) {
     List<UserPaymentModel> list = AnalyticsService.getUserPaymentList(
       users,
       status,

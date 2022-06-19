@@ -3,7 +3,8 @@ import 'package:meekath/model/user_model.dart';
 import 'package:meekath/model/user_payment.dart';
 import 'package:meekath/service/analytics_service.dart';
 import 'package:meekath/service/firebase_service.dart';
-import 'package:meekath/utils/constants.dart';
+
+import '../utils/enums.dart';
 
 class UserProvider extends ChangeNotifier {
   late UserModel _user;
@@ -16,7 +17,7 @@ class UserProvider extends ChangeNotifier {
   Future initData(String username) async {
     _user = (await FirebaseService.getUser(username, true))!;
     _userPaymentList =
-        AnalyticsService.getUserPaymentList(List.filled(1, _user), allPayments);
+        AnalyticsService.getUserPaymentList(List.filled(1, _user), PaymentStatus.allPayments);
     notifyListeners();
   }
 }
