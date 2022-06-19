@@ -17,7 +17,7 @@ class AnimatedCheck extends StatelessWidget {
     } else if (status == PayUploadStatus.success) {
       return const CheckMark(color: Colors.green, icon: Icons.check);
     } else if (status == PayUploadStatus.failed) {
-      return const CheckMark(color: Colors.red,icon: Icons.close);
+      return const CheckMark(color: Colors.red, icon: Icons.close);
     } else {
       return const SizedBox();
     }

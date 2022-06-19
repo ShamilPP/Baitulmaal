@@ -7,7 +7,6 @@ import 'package:meekath/view_model/admin_view_model.dart';
 import 'package:meekath/view_model/splash_view_model.dart';
 import 'package:meekath/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -58,28 +57,21 @@ class _SplashScreenState extends State<SplashScreen> {
     String? username = await provider.getUsername();
     if (latestVersion != version) {
       // If this is not the latest version
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (ctx) => const UpdateDialog());
+      provider.showUpdateDialog(context);
     } else {
       if (username == null) {
         // if not logged in
-
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const LoginScreen()));
       } else {
         // if logged in
-
         if (username == 'admin') {
           // If admin, init all data's
-
           await Provider.of<AdminProvider>(context, listen: false).initData();
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => AdminMainScreen()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (_) => const AdminMainScreen()));
         } else {
           // If User, init User data's
-
           await Provider.of<UserProvider>(context, listen: false)
               .initData(username);
           Navigator.pushReplacement(context,
@@ -87,25 +79,5 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       }
     }
-  }
-}
-
-class UpdateDialog extends StatelessWidget {
-  const UpdateDialog({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Update is available'),
-      content: const Text('Please update to latest version'),
-      actions: [
-        ElevatedButton(
-            onPressed: () {
-              launchUrl(Uri.parse(webLink),
-                  mode: LaunchMode.externalApplication);
-            },
-            child: const Text('Update'))
-      ],
-    );
   }
 }

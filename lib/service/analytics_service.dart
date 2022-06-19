@@ -46,7 +46,8 @@ class AnalyticsService {
     for (var user in users) {
       for (var payment in user.payments!) {
         // if need all payments or specific payments
-        if (status == PaymentStatus.allPayments || payment.verify == status.index) {
+        if (status == PaymentStatus.allPayments ||
+            payment.verify == status.index) {
           payments.add(UserPaymentModel(
             user: user,
             payment: payment,

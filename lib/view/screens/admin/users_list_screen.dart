@@ -7,16 +7,26 @@ import 'package:provider/provider.dart';
 
 import '../../widgets/users_list.dart';
 
-class UsersScreen extends StatelessWidget {
-  UsersScreen({Key? key}) : super(key: key);
+class UsersScreen extends StatefulWidget {
+  const UsersScreen({Key? key}) : super(key: key);
 
+  @override
+  State<UsersScreen> createState() => _UsersScreenState();
+}
+
+class _UsersScreenState extends State<UsersScreen> {
   List<UserModel> users = [];
   final ValueNotifier<List<UserModel>> searchedUsers = ValueNotifier([]);
 
   @override
-  Widget build(BuildContext context) {
-    users = Provider.of<AdminProvider>(context).users;
+  void initState() {
+    users = Provider.of<AdminProvider>(context, listen: false).users;
     searchedUsers.value = users;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
         children: [

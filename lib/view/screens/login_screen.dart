@@ -131,10 +131,8 @@ class LoginContainer extends StatelessWidget {
                       style: TextStyle(fontSize: 20, color: primaryColor),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => SignUpScreen()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => SignUpScreen()));
                     },
                   ),
                 ),

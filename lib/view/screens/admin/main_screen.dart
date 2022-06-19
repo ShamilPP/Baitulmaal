@@ -10,13 +10,13 @@ import 'notification_screen.dart';
 import 'users_list_screen.dart';
 
 class AdminMainScreen extends StatelessWidget {
-  AdminMainScreen({Key? key}) : super(key: key);
-  final List<Widget> pages = [
-    const AdminTransactionScreen(),
+  const AdminMainScreen({Key? key}) : super(key: key);
+  final List<Widget> pages = const [
+    AdminTransactionScreen(),
     UsersScreen(),
-    const AdminHomeScreen(),
-    const NotificationScreen(),
-    const AnalyticsScreen()
+    AdminHomeScreen(),
+    NotificationScreen(),
+    AnalyticsScreen()
   ];
 
   @override
