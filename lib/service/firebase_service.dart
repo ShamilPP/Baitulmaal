@@ -5,6 +5,7 @@ import 'package:meekath/service/analytics_service.dart';
 
 import '../model/login_response.dart';
 import '../model/user_analytics_model.dart';
+import '../utils/constants.dart';
 
 class FirebaseService {
   static Future<LoginResponse> uploadUser(UserModel user) async {
@@ -29,7 +30,7 @@ class FirebaseService {
 
   static Future<bool> uploadPayment(PaymentModel payment) async {
     CollectionReference<Map<String, dynamic>> payments =
-        FirebaseFirestore.instance.collection('transactions');
+        FirebaseFirestore.instance.collection(transactionsCollection);
 
     payments.add({
       'userId': payment.userDocId,
@@ -43,7 +44,7 @@ class FirebaseService {
 
   static Future updatePayment(String docId, int status) async {
     CollectionReference<Map<String, dynamic>> collection =
-        FirebaseFirestore.instance.collection('transactions');
+        FirebaseFirestore.instance.collection(transactionsCollection);
     await collection.doc(docId).update({
       'verify': status,
     });
@@ -126,7 +127,7 @@ class FirebaseService {
   static Future<List<PaymentModel>> getAllPayments() async {
     List<PaymentModel> payments = [];
     CollectionReference<Map<String, dynamic>> collection =
-        FirebaseFirestore.instance.collection('transactions');
+        FirebaseFirestore.instance.collection(transactionsCollection);
 
     QuerySnapshot<Map<String, dynamic>> paymentCollection =
         await collection.get();
