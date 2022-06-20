@@ -6,9 +6,9 @@ import '../service/firebase_service.dart';
 import '../utils/constants.dart';
 
 class SplashProvider extends ChangeNotifier {
-  Future<int> getLatestVersion() async {
-    int latestVersion = await FirebaseService.getLatestVersion();
-    return latestVersion;
+  Future<int> getMajorVersion() async {
+    int majorVersion = await FirebaseService.getMajorVersion();
+    return majorVersion;
   }
 
   Future<String?> getUsername() async {

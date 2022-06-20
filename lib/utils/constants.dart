@@ -1,3 +1,3 @@
 // Application
-int version = 24;
+int majorVersion = 25;
 String webLink = 'https://meekath.web.app/';

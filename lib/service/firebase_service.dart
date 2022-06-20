@@ -166,7 +166,7 @@ class FirebaseService {
     return password;
   }
 
-  static Future<int> getLatestVersion() async {
+  static Future<int> getMajorVersion() async {
     int version;
     var doc = await FirebaseFirestore.instance
         .collection('application')
