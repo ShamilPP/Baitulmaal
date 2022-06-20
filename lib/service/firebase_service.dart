@@ -5,12 +5,10 @@ import 'package:meekath/service/analytics_service.dart';
 
 import '../model/login_response.dart';
 import '../model/user_analytics_model.dart';
-import '../utils/constants.dart';
 
 class FirebaseService {
   static Future<LoginResponse> uploadUser(UserModel user) async {
-    CollectionReference<Map<String, dynamic>> users =
-        FirebaseFirestore.instance.collection('users');
+    var users = FirebaseFirestore.instance.collection('users');
     // Check user is already exists
     LoginResponse alreadyExists = await checkUserIsAlreadyExists(user);
     if (!alreadyExists.isSuccessful) {
@@ -29,8 +27,7 @@ class FirebaseService {
   }
 
   static Future<bool> uploadPayment(PaymentModel payment) async {
-    CollectionReference<Map<String, dynamic>> payments =
-        FirebaseFirestore.instance.collection(transactionsCollection);
+    var payments = FirebaseFirestore.instance.collection('transactions');
 
     payments.add({
       'userId': payment.userDocId,
@@ -43,8 +40,7 @@ class FirebaseService {
   }
 
   static Future updatePayment(String docId, int status) async {
-    CollectionReference<Map<String, dynamic>> collection =
-        FirebaseFirestore.instance.collection(transactionsCollection);
+    var collection = FirebaseFirestore.instance.collection('transactions');
     await collection.doc(docId).update({
       'verify': status,
     });
@@ -54,10 +50,9 @@ class FirebaseService {
     List<UserModel> users = [];
     List<PaymentModel> allPayments = await getAllPayments();
 
-    CollectionReference<Map<String, dynamic>> collection =
-        FirebaseFirestore.instance.collection('users');
-    QuerySnapshot<Map<String, dynamic>> userCollection = await collection.get();
-    for (var user in userCollection.docs) {
+    var collection = FirebaseFirestore.instance.collection('users');
+    var allDocs = await collection.get();
+    for (var user in allDocs.docs) {
       // Payments Details
       List<PaymentModel> payments = [];
 
@@ -86,9 +81,8 @@ class FirebaseService {
 
   static Future<UserModel?> getUser(
       String username, bool needAllDetails) async {
-    CollectionReference<Map<String, dynamic>> collection =
-        FirebaseFirestore.instance.collection('users');
-    QuerySnapshot<Map<String, dynamic>> users = await collection.get();
+    var collection = FirebaseFirestore.instance.collection('users');
+    var users = await collection.get();
 
     for (var user in users.docs) {
       if (user.get('username') == username) {
@@ -126,28 +120,29 @@ class FirebaseService {
 
   static Future<List<PaymentModel>> getAllPayments() async {
     List<PaymentModel> payments = [];
-    CollectionReference<Map<String, dynamic>> collection =
-        FirebaseFirestore.instance.collection(transactionsCollection);
+    var collection = FirebaseFirestore.instance.collection('transactions');
 
-    QuerySnapshot<Map<String, dynamic>> paymentCollection =
-        await collection.get();
+    var paymentCollection = await collection.get();
 
     for (var payment in paymentCollection.docs) {
-      payments.add(PaymentModel(
-        docId: payment.id,
-        userDocId: payment.get('userId'),
-        amount: payment.get('amount'),
-        verify: payment.get('verify'),
-        // Timestamp convert to datetime
-        dateTime: (payment.get('date') as Timestamp).toDate(),
-      ));
+      DateTime date = (payment.get('date') as Timestamp).toDate();
+      // To take all the payments for this year
+      if (date.year == DateTime.now().year) {
+        payments.add(PaymentModel(
+          docId: payment.id,
+          userDocId: payment.get('userId'),
+          amount: payment.get('amount'),
+          verify: payment.get('verify'),
+          // Timestamp convert to datetime
+          dateTime: date,
+        ));
+      }
     }
     return payments;
   }
 
   static Future<LoginResponse> checkUserIsAlreadyExists(UserModel user) async {
-    QuerySnapshot<Map<String, dynamic>> users =
-        await FirebaseFirestore.instance.collection('users').get();
+    var users = await FirebaseFirestore.instance.collection('users').get();
 
     for (var _user in users.docs) {
       if (_user.get('username') == user.username) {
@@ -163,19 +158,17 @@ class FirebaseService {
   }
 
   static Future<String> getAdminPassword() async {
-    DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-        await FirebaseFirestore.instance
-            .collection('application')
-            .doc('admin')
-            .get();
+    var documentSnapshot = await FirebaseFirestore.instance
+        .collection('application')
+        .doc('admin')
+        .get();
     String password = documentSnapshot['password'];
     return password;
   }
 
   static Future<int> getLatestVersion() async {
     int version;
-    DocumentSnapshot<Map<String, dynamic>>? doc = await FirebaseFirestore
-        .instance
+    var doc = await FirebaseFirestore.instance
         .collection('application')
         .doc('version')
         .get();
