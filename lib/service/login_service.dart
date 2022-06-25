@@ -1,6 +1,6 @@
-import 'package:meekath/model/login_response.dart';
-import 'package:meekath/model/user_model.dart';
-import 'package:meekath/service/firebase_service.dart';
+import 'package:baitulmaal/model/login_response.dart';
+import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/service/firebase_service.dart';
 
 class LoginService {
   static Future<LoginResponse> loginAccount(

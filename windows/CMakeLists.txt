@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(meekath LANGUAGES CXX)
+project(baitulmaal LANGUAGES CXX)
 
-set(BINARY_NAME "meekath")
+set(BINARY_NAME "baitulmaal")
 
 cmake_policy(SET CMP0063 NEW)
 

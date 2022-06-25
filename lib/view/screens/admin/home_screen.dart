@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/view/screens/pay_screen.dart';
-import 'package:meekath/view_model/admin_view_model.dart';
+import 'package:baitulmaal/view/screens/pay_screen.dart';
+import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/user_model.dart';

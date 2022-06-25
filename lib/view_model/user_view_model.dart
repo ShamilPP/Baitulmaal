@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:meekath/model/user_model.dart';
-import 'package:meekath/model/user_payment.dart';
-import 'package:meekath/service/analytics_service.dart';
-import 'package:meekath/service/firebase_service.dart';
+import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/user_payment.dart';
+import 'package:baitulmaal/service/analytics_service.dart';
+import 'package:baitulmaal/service/firebase_service.dart';
 
 import '../utils/enums.dart';
 

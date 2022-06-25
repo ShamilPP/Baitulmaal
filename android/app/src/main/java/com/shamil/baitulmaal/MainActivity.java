@@ -1,4 +1,4 @@
-package com.shamil.meekath;
+package com.shamil.baitulmaal;
 
 import io.flutter.embedding.android.FlutterActivity;
 

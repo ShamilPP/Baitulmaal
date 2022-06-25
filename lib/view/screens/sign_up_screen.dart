@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/view/screens/splash_screen.dart';
-import 'package:meekath/view/widgets/my_appbar.dart';
-import 'package:meekath/view_model/admin_view_model.dart';
-import 'package:meekath/view_model/login_view_model.dart';
+import 'package:baitulmaal/view/screens/splash_screen.dart';
+import 'package:baitulmaal/view/widgets/my_appbar.dart';
+import 'package:baitulmaal/view_model/admin_view_model.dart';
+import 'package:baitulmaal/view_model/login_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 

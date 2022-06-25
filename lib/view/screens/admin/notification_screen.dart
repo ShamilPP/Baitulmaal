@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/view/widgets/my_appbar.dart';
+import 'package:baitulmaal/view/widgets/my_appbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view_model/admin_view_model.dart';

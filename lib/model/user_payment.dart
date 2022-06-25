@@ -1,5 +1,5 @@
-import 'package:meekath/model/payment_model.dart';
-import 'package:meekath/model/user_model.dart';
+import 'package:baitulmaal/model/payment_model.dart';
+import 'package:baitulmaal/model/user_model.dart';
 
 class UserPaymentModel {
   final UserModel user;

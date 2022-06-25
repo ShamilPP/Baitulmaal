@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/model/user_model.dart';
-import 'package:meekath/utils/colors.dart';
-import 'package:meekath/view/screens/pay_screen.dart';
-import 'package:meekath/view/screens/user/profile_screen.dart';
-import 'package:meekath/view/widgets/analytics_container.dart';
-import 'package:meekath/view/widgets/payment_list.dart';
-import 'package:meekath/view_model/user_view_model.dart';
+import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/utils/colors.dart';
+import 'package:baitulmaal/view/screens/pay_screen.dart';
+import 'package:baitulmaal/view/screens/user/profile_screen.dart';
+import 'package:baitulmaal/view/widgets/analytics_container.dart';
+import 'package:baitulmaal/view/widgets/payment_list.dart';
+import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 class UserHomeScreen extends StatelessWidget {

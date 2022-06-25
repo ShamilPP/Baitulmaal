@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/view/screens/user/profile_screen.dart';
+import 'package:baitulmaal/view/screens/user/profile_screen.dart';
 
 import '../../../model/user_model.dart';
 import 'my_list_tile.dart';

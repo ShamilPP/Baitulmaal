@@ -1,5 +1,5 @@
-import 'package:meekath/model/payment_model.dart';
-import 'package:meekath/model/user_analytics_model.dart';
+import 'package:baitulmaal/model/payment_model.dart';
+import 'package:baitulmaal/model/user_analytics_model.dart';
 
 class UserModel {
   final String? docId;

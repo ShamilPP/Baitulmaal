@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/utils/constants.dart';
-import 'package:meekath/view/screens/admin/main_screen.dart';
-import 'package:meekath/view/screens/login_screen.dart';
-import 'package:meekath/view/screens/user/home_screen.dart';
-import 'package:meekath/view_model/admin_view_model.dart';
-import 'package:meekath/view_model/splash_view_model.dart';
-import 'package:meekath/view_model/user_view_model.dart';
+import 'package:baitulmaal/utils/constants.dart';
+import 'package:baitulmaal/view/screens/admin/main_screen.dart';
+import 'package:baitulmaal/view/screens/login_screen.dart';
+import 'package:baitulmaal/view/screens/user/home_screen.dart';
+import 'package:baitulmaal/view_model/admin_view_model.dart';
+import 'package:baitulmaal/view_model/splash_view_model.dart';
+import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {

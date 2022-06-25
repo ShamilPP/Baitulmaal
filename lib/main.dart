@@ -1,13 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:meekath/utils/colors.dart';
-import 'package:meekath/view/screens/splash_screen.dart';
-import 'package:meekath/view_model/admin_view_model.dart';
-import 'package:meekath/view_model/login_view_model.dart';
-import 'package:meekath/view_model/navigation_view_model.dart';
-import 'package:meekath/view_model/payment_view_model.dart';
-import 'package:meekath/view_model/splash_view_model.dart';
-import 'package:meekath/view_model/user_view_model.dart';
+import 'package:baitulmaal/utils/colors.dart';
+import 'package:baitulmaal/view/screens/splash_screen.dart';
+import 'package:baitulmaal/view_model/admin_view_model.dart';
+import 'package:baitulmaal/view_model/login_view_model.dart';
+import 'package:baitulmaal/view_model/navigation_view_model.dart';
+import 'package:baitulmaal/view_model/payment_view_model.dart';
+import 'package:baitulmaal/view_model/splash_view_model.dart';
+import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
       ],
       child: MaterialApp(
-        title: 'Meekath',
+        title: 'Baitulmaal',
         theme: ThemeData(
           primarySwatch: primarySwatch,
           scaffoldBackgroundColor: backgroundColor,

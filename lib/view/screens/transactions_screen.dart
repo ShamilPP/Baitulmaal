@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/model/user_model.dart';
-import 'package:meekath/utils/colors.dart';
-import 'package:meekath/view_model/payment_view_model.dart';
+import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/utils/colors.dart';
+import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/enums.dart';

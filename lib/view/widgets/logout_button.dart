@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/view_model/login_view_model.dart';
+import 'package:baitulmaal/view_model/login_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/colors.dart';

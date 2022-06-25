@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.shamil" "\0"
-            VALUE "FileDescription", "meekath" "\0"
+            VALUE "FileDescription", "baitulmaal" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "meekath" "\0"
+            VALUE "InternalName", "baitulmaal" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.shamil. All rights reserved." "\0"
-            VALUE "OriginalFilename", "meekath.exe" "\0"
-            VALUE "ProductName", "meekath" "\0"
+            VALUE "OriginalFilename", "baitulmaal.exe" "\0"
+            VALUE "ProductName", "baitulmaal" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

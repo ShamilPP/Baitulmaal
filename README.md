@@ -1,4 +1,4 @@
-# meekath
+# baitulmaal
 
 A new Flutter project.
 

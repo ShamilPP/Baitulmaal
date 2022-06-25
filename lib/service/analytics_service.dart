@@ -1,7 +1,7 @@
-import 'package:meekath/model/admin_overview_model.dart';
-import 'package:meekath/model/user_analytics_model.dart';
-import 'package:meekath/model/user_payment.dart';
-import 'package:meekath/utils/enums.dart';
+import 'package:baitulmaal/model/admin_overview_model.dart';
+import 'package:baitulmaal/model/user_analytics_model.dart';
+import 'package:baitulmaal/model/user_payment.dart';
+import 'package:baitulmaal/utils/enums.dart';
 
 import '../model/payment_model.dart';
 import '../model/user_model.dart';

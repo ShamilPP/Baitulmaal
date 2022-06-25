@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/utils/enums.dart';
-import 'package:meekath/view/widgets/logout_button.dart';
+import 'package:baitulmaal/utils/enums.dart';
+import 'package:baitulmaal/view/widgets/logout_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/admin_overview_model.dart';

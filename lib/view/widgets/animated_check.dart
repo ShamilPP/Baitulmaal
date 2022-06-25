@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/utils/enums.dart';
+import 'package:baitulmaal/utils/enums.dart';
 
 class AnimatedCheck extends StatelessWidget {
   final PayUploadStatus status;

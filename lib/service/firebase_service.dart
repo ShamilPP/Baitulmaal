@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meekath/model/payment_model.dart';
-import 'package:meekath/model/user_model.dart';
-import 'package:meekath/service/analytics_service.dart';
+import 'package:baitulmaal/model/payment_model.dart';
+import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/service/analytics_service.dart';
 
 import '../model/login_response.dart';
 import '../model/user_analytics_model.dart';

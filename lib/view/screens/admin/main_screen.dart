@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meekath/view/screens/admin/transactions_screen.dart';
-import 'package:meekath/view/widgets/my_bottom_navigation.dart';
-import 'package:meekath/view_model/navigation_view_model.dart';
+import 'package:baitulmaal/view/screens/admin/transactions_screen.dart';
+import 'package:baitulmaal/view/widgets/my_bottom_navigation.dart';
+import 'package:baitulmaal/view_model/navigation_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'analytics_screen.dart';
