@@ -1,4 +1,4 @@
-import 'package:baitulmaal/model/login_response.dart';
+import 'package:baitulmaal/model/response.dart';
 import 'package:baitulmaal/service/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,11 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
   Future<bool> login(String username, String password) async {
-    LoginResponse result = await LoginService.loginAccount(username, password);
+    Response result = await LoginService.loginAccount(username, password);
     successToast(result.message, result.isSuccessful);
     if (result.isSuccessful) {
       final SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.setString('username', result.username!);
+      pref.setString('user', result.value!);
     }
     return result.isSuccessful;
   }
@@ -24,7 +24,7 @@ class LoginProvider extends ChangeNotifier {
     String monthlyPayment,
     bool isLogin,
   ) async {
-    LoginResponse result = await LoginService.createAccount(
+    Response result = await LoginService.createAccount(
       name,
       phoneNumber,
       username,
@@ -35,14 +35,14 @@ class LoginProvider extends ChangeNotifier {
     successToast(result.message, result.isSuccessful);
     if (result.isSuccessful && isLogin) {
       final SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.setString('username', result.username!);
+      pref.setString('user', result.value!);
     }
     return result.isSuccessful;
   }
 
   void logout(BuildContext context) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.remove('username');
+    pref.remove('user');
   }
 
   void successToast(String text, bool isSuccess) {

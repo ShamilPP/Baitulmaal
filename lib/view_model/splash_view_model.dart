@@ -11,10 +11,10 @@ class SplashProvider extends ChangeNotifier {
     return majorVersion;
   }
 
-  Future<String?> getUsername() async {
+  Future<String?> getDocId() async {
     final prefs = await SharedPreferences.getInstance();
-    String? username = prefs.getString('username');
-    return username;
+    String? docId = prefs.getString('user');
+    return docId;
   }
 
   void showUpdateDialog(BuildContext context) {

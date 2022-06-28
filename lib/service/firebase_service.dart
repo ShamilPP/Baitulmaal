@@ -3,26 +3,26 @@ import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/service/analytics_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../model/login_response.dart';
+import '../model/response.dart';
 import '../model/user_analytics_model.dart';
 
 class FirebaseService {
-  static Future<LoginResponse> uploadUser(UserModel user) async {
+  static Future<Response> uploadUser(UserModel user) async {
     var users = FirebaseFirestore.instance.collection('users');
     // Check user is already exists
-    LoginResponse alreadyExists = await checkUserIsAlreadyExists(user);
+    Response alreadyExists = await checkUserIsAlreadyExists(user);
     if (!alreadyExists.isSuccessful) {
       return alreadyExists;
     }
     // Then uploading user to firebase
-    await users.add({
+    var result = await users.add({
       'name': user.name,
       'phoneNumber': user.phoneNumber,
       'username': user.username,
       'password': user.password,
       'monthlyPayment': user.monthlyPayment,
     });
-    return LoginResponse(isSuccessful: true, message: 'Logged in', username: user.username);
+    return Response(value: result.id, isSuccessful: true, message: 'Logged in');
   }
 
   static Future<bool> uploadPayment(PaymentModel payment) async {
@@ -78,27 +78,12 @@ class FirebaseService {
     return users;
   }
 
-  static Future<UserModel?> getUser(String username, bool needAllDetails) async {
+  static Future<UserModel?> getUserWithUsername(String username) async {
     var collection = FirebaseFirestore.instance.collection('users');
     var users = await collection.get();
 
     for (var user in users.docs) {
       if (user.get('username') == username) {
-        UserAnalyticsModel? analytics;
-        List<PaymentModel> payments = [];
-
-        // if need user payment details
-        if (needAllDetails) {
-          List<PaymentModel> allPayments = await getAllPayments(DateTime.now().year);
-
-          for (var payment in allPayments) {
-            if (user.id == payment.userDocId) {
-              payments.add(payment);
-            }
-          }
-          analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
-        }
-
         // returning user data
         return UserModel(
           docId: user.id,
@@ -107,10 +92,39 @@ class FirebaseService {
           username: user.get('username'),
           password: user.get('password'),
           monthlyPayment: user.get('monthlyPayment'),
-          analytics: analytics,
-          payments: payments,
         );
       }
+    }
+    return null;
+  }
+
+  static Future<UserModel?> getUserWithDocId(String docId) async {
+    var collection = FirebaseFirestore.instance.collection('users');
+    var user = await collection.doc(docId).get();
+    if (user.exists) {
+      List<PaymentModel> payments = [];
+
+      // user payment details
+      List<PaymentModel> allPayments = await getAllPayments(DateTime.now().year);
+
+      for (var payment in allPayments) {
+        if (user.id == payment.userDocId) {
+          payments.add(payment);
+        }
+      }
+      UserAnalyticsModel analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
+
+      // returning user data
+      return UserModel(
+        docId: user.id,
+        name: user.get('name'),
+        phoneNumber: user.get('phoneNumber'),
+        username: user.get('username'),
+        password: user.get('password'),
+        monthlyPayment: user.get('monthlyPayment'),
+        analytics: analytics,
+        payments: payments,
+      );
     }
     return null;
   }
@@ -137,18 +151,18 @@ class FirebaseService {
     return payments;
   }
 
-  static Future<LoginResponse> checkUserIsAlreadyExists(UserModel user) async {
+  static Future<Response> checkUserIsAlreadyExists(UserModel user) async {
     var users = await FirebaseFirestore.instance.collection('users').get();
 
     for (var _user in users.docs) {
       if (_user.get('username') == user.username) {
-        return LoginResponse(isSuccessful: false, message: 'Username already exists');
+        return Response(isSuccessful: false, message: 'Username already exists');
       }
       if (_user.get('phoneNumber') == user.phoneNumber) {
-        return LoginResponse(isSuccessful: false, message: 'Phone number already exists');
+        return Response(isSuccessful: false, message: 'Phone number already exists');
       }
     }
-    return LoginResponse(isSuccessful: true, message: "Success");
+    return Response(isSuccessful: true, message: "Success");
   }
 
   static Future<String> getAdminPassword() async {

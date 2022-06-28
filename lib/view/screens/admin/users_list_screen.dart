@@ -20,7 +20,7 @@ class _UsersScreenState extends State<UsersScreen> {
 
   @override
   void initState() {
-    users = Provider.of<AdminProvider>(context).users;
+    users = Provider.of<AdminProvider>(context, listen: false).users;
     searchedUsers.value = users;
     super.initState();
   }

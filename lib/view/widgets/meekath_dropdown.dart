@@ -25,11 +25,9 @@ class MeekathDropdown extends StatelessWidget {
           provider.showLoadingDialog(context, "Updating...");
           provider.setMeekath(newValue!);
           if (isAdmin) {
-            AdminProvider adminProvider = Provider.of<AdminProvider>(context, listen: false);
-            await adminProvider.initData(context);
+            await Provider.of<AdminProvider>(context, listen: false).initData(context);
           } else {
-            UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-            await userProvider.initData(userProvider.user.username);
+            await Provider.of<UserProvider>(context, listen: false).initData();
           }
           Navigator.pop(context);
         },

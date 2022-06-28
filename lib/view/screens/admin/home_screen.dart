@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/user_model.dart';
-import '../../../view_model/payment_view_model.dart';
 import '../../widgets/analytics_container.dart';
 import '../../widgets/users_list.dart';
 

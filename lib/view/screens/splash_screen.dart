@@ -53,23 +53,25 @@ class _SplashScreenState extends State<SplashScreen> {
   void init() async {
     SplashProvider provider = Provider.of<SplashProvider>(context, listen: false);
     int _majorVersion = await provider.getMajorVersion();
-    String? username = await provider.getUsername();
+    String? docId = await provider.getDocId();
     if (_majorVersion != majorVersion) {
       // If this is not the major version
       provider.showUpdateDialog(context);
     } else {
-      if (username == null) {
+      if (docId == null) {
         // if not logged in
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginScreen()));
       } else {
         // if logged in
-        if (username == 'admin') {
+        if (docId == 'admin') {
           // If admin, init all data's
           await Provider.of<AdminProvider>(context, listen: false).initData(context);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const AdminMainScreen()));
         } else {
           // If User, init User data's
-          await Provider.of<UserProvider>(context, listen: false).initData(username);
+          UserProvider provider = Provider.of<UserProvider>(context, listen: false);
+          provider.setDocID(docId);
+          await provider.initData();
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const UserHomeScreen()));
         }
       }

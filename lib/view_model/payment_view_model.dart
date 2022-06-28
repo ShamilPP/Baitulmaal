@@ -2,7 +2,6 @@ import 'package:baitulmaal/model/payment_model.dart';
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/user_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,9 +52,7 @@ class PaymentProvider extends ChangeNotifier {
       if (isAdmin) {
         await Provider.of<AdminProvider>(context, listen: false).initData(context);
       } else {
-        UserProvider provider = Provider.of<UserProvider>(context, listen: false);
-
-        await provider.initData(provider.user.username);
+        await Provider.of<UserProvider>(context, listen: false).initData();
       }
       // payment finished show checkmark
       setUploadStatus(PayUploadStatus.success);

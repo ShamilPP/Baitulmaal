@@ -1,11 +1,11 @@
-class LoginResponse {
+class Response {
+  final String? value;
   final bool isSuccessful;
   final String message;
-  final String? username;
 
-  LoginResponse({
+  Response({
+    this.value,
     required this.isSuccessful,
     required this.message,
-    this.username,
   });
 }
