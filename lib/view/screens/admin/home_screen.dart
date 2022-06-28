@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:baitulmaal/view/screens/pay_screen.dart';
+import 'package:baitulmaal/view/widgets/meekath_dropdown.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/user_model.dart';
-import '../../../view_model/navigation_view_model.dart';
+import '../../../view_model/payment_view_model.dart';
 import '../../widgets/analytics_container.dart';
 import '../../widgets/users_list.dart';
 
@@ -42,7 +43,10 @@ class AdminHomeScreen extends StatelessWidget {
                           TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  NotifyIcon(),
+                  Padding(
+                    padding: EdgeInsets.only(right: 10),
+                    child: MeekathDropdown(isAdmin: true),
+                  ),
                 ],
               ),
               Consumer<AdminProvider>(builder: (ctx, provider, child) {
@@ -69,48 +73,6 @@ class AdminHomeScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class NotifyIcon extends StatelessWidget {
-  const NotifyIcon({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Stack(
-          children: [
-            const Icon(
-              Icons.notifications_outlined,
-              color: Colors.orange,
-              size: 35,
-            ),
-            Consumer<AdminProvider>(builder: (ctx, provider, child) {
-              return Visibility(
-                visible: provider.paymentNotVerifiedList.isNotEmpty,
-                child: Positioned(
-                  bottom: 5,
-                  right: 5,
-                  child: Container(
-                    height: 12,
-                    width: 12,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20)),
-                  ),
-                ),
-              );
-            }),
-          ],
-        ),
-      ),
-      onTap: () {
-        Provider.of<NavigationProvider>(context, listen: false)
-            .setCurrentBottomNavigator(3);
-      },
     );
   }
 }

@@ -1,3 +1,3 @@
 // Application
-int majorVersion = 25;
-String webLink = 'https://baitulmaal.web.app/';
+int majorVersion = 26;
+String webLink = 'https://sio22.web.app/';

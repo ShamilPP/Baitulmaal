@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:baitulmaal/model/user_payment.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view_model/admin_view_model.dart';
@@ -123,10 +123,10 @@ class ActionButton extends StatelessWidget {
               PaymentProvider paymentProvider =
                   Provider.of<PaymentProvider>(context, listen: false);
               // Accept + ing.. = Accepting..
-              adminProvider.showMyDialog(context, text + 'ing..');
+              paymentProvider.showLoadingDialog(context, text + 'ing..');
               await paymentProvider.updatePayment(
                   userPayment.payment.docId!, status);
-              await adminProvider.initData();
+              await adminProvider.initData(context);
               Navigator.pop(context);
             },
           ),
@@ -166,6 +166,9 @@ class PaymentDialog extends StatelessWidget {
                 DetailsText(
                   text:
                       'Date : ${userPayment.payment.dateTime.day}/${userPayment.payment.dateTime.month}/${userPayment.payment.dateTime.year}',
+                ),
+                DetailsText(
+                  text: 'Meekath : ${userPayment.payment.meekath}',
                 ),
                 DetailsText(
                   text:

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:baitulmaal/model/user_model.dart';
+import 'package:flutter/material.dart';
 
 import '../transactions_screen.dart';
 

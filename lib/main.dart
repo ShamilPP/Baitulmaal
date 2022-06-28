@@ -1,5 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:baitulmaal/utils/colors.dart';
 import 'package:baitulmaal/view/screens/splash_screen.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
@@ -8,6 +6,8 @@ import 'package:baitulmaal/view_model/navigation_view_model.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:baitulmaal/view_model/splash_view_model.dart';
 import 'package:baitulmaal/view_model/user_view_model.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

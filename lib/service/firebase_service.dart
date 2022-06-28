@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:baitulmaal/model/payment_model.dart';
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/service/analytics_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/login_response.dart';
 import '../model/user_analytics_model.dart';
@@ -34,6 +34,7 @@ class FirebaseService {
       'amount': payment.amount,
       // DateTime convert to timestamp
       'date': Timestamp.fromDate(payment.dateTime),
+      'meekath': payment.meekath,
       'verify': payment.verify,
     });
     return false;
@@ -46,9 +47,9 @@ class FirebaseService {
     });
   }
 
-  static Future<List<UserModel>> getAllUsers() async {
+  static Future<List<UserModel>> getAllUsers(int meekath) async {
     List<UserModel> users = [];
-    List<PaymentModel> allPayments = await getAllPayments();
+    List<PaymentModel> allPayments = await getAllPayments(meekath);
 
     var collection = FirebaseFirestore.instance.collection('users');
     var allDocs = await collection.get();
@@ -91,7 +92,8 @@ class FirebaseService {
 
         // if need user payment details
         if (needAllDetails) {
-          List<PaymentModel> allPayments = await getAllPayments();
+          List<PaymentModel> allPayments =
+              await getAllPayments(DateTime.now().year);
 
           for (var payment in allPayments) {
             if (user.id == payment.userDocId) {
@@ -118,23 +120,24 @@ class FirebaseService {
     return null;
   }
 
-  static Future<List<PaymentModel>> getAllPayments() async {
+  static Future<List<PaymentModel>> getAllPayments(int meekath) async {
     List<PaymentModel> payments = [];
     var collection = FirebaseFirestore.instance.collection('transactions');
 
     var paymentCollection = await collection.get();
 
     for (var payment in paymentCollection.docs) {
-      DateTime date = (payment.get('date') as Timestamp).toDate();
-      // To take all the payments for this year
-      if (date.year == DateTime.now().year) {
+      int _meekath = payment.get('meekath');
+      // To take all the payments for this meekath
+      if (_meekath == meekath) {
         payments.add(PaymentModel(
           docId: payment.id,
           userDocId: payment.get('userId'),
           amount: payment.get('amount'),
           verify: payment.get('verify'),
+          meekath: _meekath,
           // Timestamp convert to datetime
-          dateTime: date,
+          dateTime: (payment.get('date') as Timestamp).toDate(),
         ));
       }
     }

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:baitulmaal/view/screens/splash_screen.dart';
 import 'package:baitulmaal/view/widgets/my_appbar.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/login_view_model.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -125,7 +125,7 @@ class SignUpScreen extends StatelessWidget {
       await Future.delayed(const Duration(milliseconds: 500));
       // if admin add user
       if (isAddUser) {
-        Provider.of<AdminProvider>(context, listen: false).initData();
+        Provider.of<AdminProvider>(context, listen: false).initData(context);
         Navigator.pop(context);
       } else {
         // if create account go to splash screen

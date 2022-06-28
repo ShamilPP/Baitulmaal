@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:baitulmaal/model/admin_overview_model.dart';
 import 'package:baitulmaal/model/user_payment.dart';
 import 'package:baitulmaal/service/analytics_service.dart';
 import 'package:baitulmaal/service/firebase_service.dart';
+import 'package:baitulmaal/view_model/payment_view_model.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../model/user_model.dart';
 import '../utils/enums.dart';
@@ -18,9 +20,11 @@ class AdminProvider extends ChangeNotifier {
 
   List<UserPaymentModel> get paymentNotVerifiedList => _paymentNotVerifiedList;
 
-  Future initData() async {
+  Future initData(BuildContext context) async {
+    //fetch meekath
+    int meekath = Provider.of<PaymentProvider>(context,listen: false).meekath;
     // Init all data's
-    _users = await FirebaseService.getAllUsers();
+    _users = await FirebaseService.getAllUsers(meekath);
 
     // Init payment not verified list
     _paymentNotVerifiedList =
@@ -47,26 +51,5 @@ class AdminProvider extends ChangeNotifier {
     }
     // returning total amount
     return amount;
-  }
-
-  showMyDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CircularProgressIndicator(),
-              const SizedBox(width: 30),
-              Text(
-                message,
-                style: const TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
-        );
-      },
-    );
   }
 }

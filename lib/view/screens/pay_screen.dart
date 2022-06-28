@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/utils/enums.dart';
+import 'package:baitulmaal/view/widgets/meekath_dropdown.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/animated_check.dart';
@@ -53,6 +54,7 @@ class PayScreen extends StatelessWidget {
                             "+91 ${user.phoneNumber}",
                             style: const TextStyle(fontSize: 18),
                           ),
+                          MeekathDropdown(isAdmin: isAdmin),
                           const SizedBox(height: 40),
                           // Payment TextField
                           PaymentTextField(controller: paymentController),
@@ -76,8 +78,8 @@ class PayScreen extends StatelessWidget {
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                           onPressed: () {
-                            provider.uploadPayment(
-                                context, paymentController.text, user, isAdmin);
+                            provider.uploadPayment(context,
+                                paymentController.text,  user, isAdmin);
                           },
                         ),
                       ),

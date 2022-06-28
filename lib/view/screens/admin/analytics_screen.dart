@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:baitulmaal/utils/enums.dart';
 import 'package:baitulmaal/view/widgets/logout_button.dart';
+import 'package:baitulmaal/view_model/payment_view_model.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/admin_overview_model.dart';
@@ -26,8 +27,7 @@ class AnalyticsScreen extends StatelessWidget {
                     padding: EdgeInsets.all(20),
                     child: Text(
                       'Analytics',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                   ),
 
@@ -45,13 +45,10 @@ class AnalyticsScreen extends StatelessWidget {
                           child: const Icon(Icons.refresh, color: Colors.white),
                           onTap: () async {
                             // Update all data's
-                            AdminProvider provider = Provider.of<AdminProvider>(
-                                context,
-                                listen: false);
-                            provider.showMyDialog(context, 'Updating...');
-                            await Provider.of<AdminProvider>(context,
-                                    listen: false)
-                                .initData();
+                            AdminProvider provider = Provider.of<AdminProvider>(context, listen: false);
+                            Provider.of<PaymentProvider>(context, listen: false)
+                                .showLoadingDialog(context, 'Updating...');
+                            await provider.initData(context);
                             Navigator.pop(context);
                           },
                         ),
@@ -94,8 +91,7 @@ class AnalyticsScreen extends StatelessWidget {
 class AnalyticsSection extends StatelessWidget {
   final AdminOverviewModel adminOverview;
 
-  const AnalyticsSection({Key? key, required this.adminOverview})
-      : super(key: key);
+  const AnalyticsSection({Key? key, required this.adminOverview}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +99,7 @@ class AnalyticsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AmountPercentageIndicator(
-          percentage:
-              1 - (adminOverview.pendingAmount / adminOverview.totalAmount),
+          percentage: 1 - (adminOverview.pendingAmount / adminOverview.totalAmount),
           centerIconColor: Colors.black,
         ),
         const SizedBox(width: 20),
@@ -147,16 +142,13 @@ class PaymentSection extends StatelessWidget {
             ),
           ),
           DetailsText(
-            text:
-                'Total Not verified amount : ₹ ${provider.getTotalAmount(PaymentStatus.notVerified)}',
+            text: 'Total Not verified amount : ₹ ${provider.getTotalAmount(PaymentStatus.notVerified)}',
           ),
           DetailsText(
-            text:
-                'Total Accepted amount : ₹ ${provider.getTotalAmount(PaymentStatus.accepted)}',
+            text: 'Total Accepted amount : ₹ ${provider.getTotalAmount(PaymentStatus.accepted)}',
           ),
           DetailsText(
-            text:
-                'Total Rejected amount : ₹ ${provider.getTotalAmount(PaymentStatus.rejected)}',
+            text: 'Total Rejected amount : ₹ ${provider.getTotalAmount(PaymentStatus.rejected)}',
           ),
         ],
       );

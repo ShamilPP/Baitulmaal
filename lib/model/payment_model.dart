@@ -3,6 +3,7 @@ class PaymentModel {
   final String userDocId;
   final int amount;
   final int verify;
+  final int meekath;
   final DateTime dateTime;
 
   PaymentModel({
@@ -10,6 +11,7 @@ class PaymentModel {
     required this.userDocId,
     required this.amount,
     required this.verify,
+    required this.meekath,
     required this.dateTime,
   });
 }
