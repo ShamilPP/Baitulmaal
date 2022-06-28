@@ -19,20 +19,17 @@ class UserHomeScreen extends StatelessWidget {
           child: Consumer<UserProvider>(builder: (ctx, provider, child) {
             return Column(
               children: [
-                Consumer<UserProvider>(builder: (context, provider, child) {
-                  return AnalyticsContainer(
-                    topLeftAmount: provider.user.monthlyPayment,
-                    topLeftText: 'Monthly payment',
-                    topRightAmount:
-                        provider.user.analytics!.totalReceivedAmount,
-                    topRightText: ' Paid amount',
-                    bottomLeftAmount: provider.user.analytics!.pendingAmount,
-                    bottomLeftText: 'Pending amount',
-                    bottomRightAmount: provider.user.analytics!.totalAmount,
-                    bottomRightText: 'Total amount',
-                    showRupeeText: true,
-                  );
-                }),
+                AnalyticsContainer(
+                  topLeftAmount: provider.user.monthlyPayment,
+                  topLeftText: 'Monthly payment',
+                  topRightAmount: provider.user.analytics!.totalReceivedAmount,
+                  topRightText: ' Paid amount',
+                  bottomLeftAmount: provider.user.analytics!.pendingAmount,
+                  bottomLeftText: 'Pending amount',
+                  bottomRightAmount: provider.user.analytics!.totalAmount,
+                  bottomRightText: 'Total amount',
+                  showRupeeText: true,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -40,21 +37,18 @@ class UserHomeScreen extends StatelessWidget {
                       padding: EdgeInsets.all(20),
                       child: Text(
                         'Payments',
-                        style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                       ),
                     ),
                     ProfileIconButton(user: provider.user),
                   ],
                 ),
-                Consumer<UserProvider>(builder: (ctx, provider, child) {
-                  return Expanded(
-                    child: PaymentList(
-                      paymentList: provider.userPaymentList,
-                      ifAdmin: false,
-                    ),
-                  );
-                })
+                Expanded(
+                  child: PaymentList(
+                    paymentList: provider.userPaymentList,
+                    ifAdmin: false,
+                  ),
+                ),
               ],
             );
           }),
@@ -63,8 +57,7 @@ class UserHomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.currency_rupee),
           onPressed: () {
-            UserModel user =
-                Provider.of<UserProvider>(context, listen: false).user;
+            UserModel user = Provider.of<UserProvider>(context, listen: false).user;
 
             Navigator.push(
                 context,
@@ -87,8 +80,7 @@ class ProfileIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 20),
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(30), boxShadow: [
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), boxShadow: [
         BoxShadow(
           color: Colors.black.withOpacity(.4),
           blurRadius: 7,
@@ -108,8 +100,7 @@ class ProfileIconButton extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (_) => ProfileScreen(user: user)));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreen(user: user)));
           },
         ),
       ),

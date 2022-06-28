@@ -16,8 +16,7 @@ class UserProvider extends ChangeNotifier {
 
   Future initData(String username) async {
     _user = (await FirebaseService.getUser(username, true))!;
-    _userPaymentList = AnalyticsService.getUserPaymentList(
-        List.filled(1, _user), PaymentStatus.allPayments);
+    _userPaymentList = AnalyticsService.getUserPaymentList(List.filled(1, _user), PaymentStatus.allPayments);
     notifyListeners();
   }
 }

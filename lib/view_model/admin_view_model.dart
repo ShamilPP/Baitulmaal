@@ -22,28 +22,25 @@ class AdminProvider extends ChangeNotifier {
 
   Future initData(BuildContext context) async {
     //fetch meekath
-    int meekath = Provider.of<PaymentProvider>(context,listen: false).meekath;
+    int meekath = Provider.of<PaymentProvider>(context, listen: false).meekath;
     // Init all data's
     _users = await FirebaseService.getAllUsers(meekath);
 
     // Init payment not verified list
-    _paymentNotVerifiedList =
-        AnalyticsService.getUserPaymentList(users, PaymentStatus.notVerified);
+    _paymentNotVerifiedList = AnalyticsService.getUserPaymentList(users, PaymentStatus.notVerified);
 
     // Init admin overview
     _adminOverview = await AnalyticsService.getAdminOverview(_users);
 
     // order with pending amount
-    _users.sort((a, b) =>
-        b.analytics!.pendingAmount.compareTo(a.analytics!.pendingAmount));
+    _users.sort((a, b) => b.analytics!.pendingAmount.compareTo(a.analytics!.pendingAmount));
 
     notifyListeners();
   }
 
   int getTotalAmount(PaymentStatus status) {
     // fetching all payment list
-    List<UserPaymentModel> list =
-        AnalyticsService.getUserPaymentList(users, status);
+    List<UserPaymentModel> list = AnalyticsService.getUserPaymentList(users, status);
     // adding all amount
     int amount = 0;
     for (var pay in list) {

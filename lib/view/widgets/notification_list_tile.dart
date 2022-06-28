@@ -33,8 +33,7 @@ class NotificationListTile extends StatelessWidget {
               children: [
                 Text(
                   userPayment.user.name,
-                  style: const TextStyle(
-                      fontSize: 23, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
                 Text(
@@ -64,9 +63,7 @@ class NotificationListTile extends StatelessWidget {
               ],
             ),
           ),
-          onTap: () => showDialog(
-              context: context,
-              builder: (ctx) => PaymentDialog(userPayment: userPayment)),
+          onTap: () => showDialog(context: context, builder: (ctx) => PaymentDialog(userPayment: userPayment)),
         ),
       ),
     );
@@ -118,14 +115,11 @@ class ActionButton extends StatelessWidget {
               ],
             ),
             onTap: () async {
-              AdminProvider adminProvider =
-                  Provider.of<AdminProvider>(context, listen: false);
-              PaymentProvider paymentProvider =
-                  Provider.of<PaymentProvider>(context, listen: false);
+              AdminProvider adminProvider = Provider.of<AdminProvider>(context, listen: false);
+              PaymentProvider paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
               // Accept + ing.. = Accepting..
               paymentProvider.showLoadingDialog(context, text + 'ing..');
-              await paymentProvider.updatePayment(
-                  userPayment.payment.docId!, status);
+              await paymentProvider.updatePayment(userPayment.payment.docId!, status);
               await adminProvider.initData(context);
               Navigator.pop(context);
             },
@@ -140,9 +134,7 @@ class PaymentDialog extends StatelessWidget {
   final UserPaymentModel userPayment;
   final bool ifAdmin;
 
-  const PaymentDialog(
-      {Key? key, required this.userPayment, this.ifAdmin = true})
-      : super(key: key);
+  const PaymentDialog({Key? key, required this.userPayment, this.ifAdmin = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -171,15 +163,13 @@ class PaymentDialog extends StatelessWidget {
                   text: 'Meekath : ${userPayment.payment.meekath}',
                 ),
                 DetailsText(
-                  text:
-                      'User status : ${userPayment.user.analytics!.isPending ? 'PENDING' : 'COMPLETED'}',
+                  text: 'User status : ${userPayment.user.analytics!.isPending ? 'PENDING' : 'COMPLETED'}',
                 ),
                 DetailsText(
                   text: 'Monthly amount : ₹ ${userPayment.user.monthlyPayment}',
                 ),
                 DetailsText(
-                  text:
-                      'Months : ${userPayment.payment.amount ~/ userPayment.user.monthlyPayment} Months',
+                  text: 'Months : ${userPayment.payment.amount ~/ userPayment.user.monthlyPayment} Months',
                 ),
                 ifAdmin
                     ? Padding(
@@ -187,11 +177,8 @@ class PaymentDialog extends StatelessWidget {
                         child: Center(
                             child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProfileScreen(
-                                              user: userPayment.user)));
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) => ProfileScreen(user: userPayment.user)));
                                 },
                                 child: const Text('View profile'))),
                       )

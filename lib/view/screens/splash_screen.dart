@@ -51,8 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void init() async {
-    SplashProvider provider =
-        Provider.of<SplashProvider>(context, listen: false);
+    SplashProvider provider = Provider.of<SplashProvider>(context, listen: false);
     int _majorVersion = await provider.getMajorVersion();
     String? username = await provider.getUsername();
     if (_majorVersion != majorVersion) {
@@ -61,21 +60,17 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       if (username == null) {
         // if not logged in
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginScreen()));
       } else {
         // if logged in
         if (username == 'admin') {
           // If admin, init all data's
           await Provider.of<AdminProvider>(context, listen: false).initData(context);
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (_) => const AdminMainScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const AdminMainScreen()));
         } else {
           // If User, init User data's
-          await Provider.of<UserProvider>(context, listen: false)
-              .initData(username);
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (_) => const UserHomeScreen()));
+          await Provider.of<UserProvider>(context, listen: false).initData(username);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const UserHomeScreen()));
         }
       }
     }

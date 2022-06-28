@@ -7,8 +7,7 @@ import '../model/payment_model.dart';
 import '../model/user_model.dart';
 
 class AnalyticsService {
-  static Future<AdminOverviewModel> getAdminOverview(
-      List<UserModel> users) async {
+  static Future<AdminOverviewModel> getAdminOverview(List<UserModel> users) async {
     int totalUsers = users.length;
     int pendingUsers = 0;
     int totalAmount = 0;
@@ -40,14 +39,12 @@ class AnalyticsService {
     return adminOverview;
   }
 
-  static List<UserPaymentModel> getUserPaymentList(
-      List<UserModel> users, PaymentStatus status) {
+  static List<UserPaymentModel> getUserPaymentList(List<UserModel> users, PaymentStatus status) {
     List<UserPaymentModel> payments = [];
     for (var user in users) {
       for (var payment in user.payments!) {
         // if need all payments or specific payments
-        if (status == PaymentStatus.allPayments ||
-            payment.verify == status.index) {
+        if (status == PaymentStatus.allPayments || payment.verify == status.index) {
           payments.add(UserPaymentModel(
             user: user,
             payment: payment,
@@ -59,8 +56,7 @@ class AnalyticsService {
     return payments;
   }
 
-  static UserAnalyticsModel getUserAnalytics(
-      int monthlyPayment, List<PaymentModel> payments) {
+  static UserAnalyticsModel getUserAnalytics(int monthlyPayment, List<PaymentModel> payments) {
     int month = DateTime.now().month;
     int totalAmount = monthlyPayment * 12;
     int receivedAmount = getTotalReceivedAmount(payments);

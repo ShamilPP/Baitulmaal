@@ -9,8 +9,7 @@ class ProfileScreen extends StatelessWidget {
   final UserModel user;
   final bool isAdmin;
 
-  const ProfileScreen({Key? key, required this.user, this.isAdmin = false})
-      : super(key: key);
+  const ProfileScreen({Key? key, required this.user, this.isAdmin = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +69,7 @@ class ProfileScreen extends StatelessWidget {
 
               /// User details
               ProfileListTile(text: user.name, subText: 'Name'),
-              ProfileListTile(
-                  text: '+91 ${user.phoneNumber}', subText: 'Phone number'),
+              ProfileListTile(text: '+91 ${user.phoneNumber}', subText: 'Phone number'),
               ProfileListTile(text: user.username, subText: 'Username'),
               const ProfileListTile(text: '********', subText: 'Password'),
               ProfileListTile(
@@ -87,8 +85,7 @@ class ProfileScreen extends StatelessWidget {
               // Logout button
               Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 10),
-                child: Center(
-                    child: isAdmin ? const SizedBox() : const LogoutButton()),
+                child: Center(child: isAdmin ? const SizedBox() : const LogoutButton()),
               ),
             ],
           ),
@@ -154,16 +151,12 @@ class PaymentListTile extends StatelessWidget {
               'Payments',
               style: TextStyle(fontSize: 20),
             ),
-            Icon(Icons.arrow_forward_ios,
-                size: 16, color: Colors.grey.shade700),
+            Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey.shade700),
           ],
         ),
       ),
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => UserTransactionScreen(user: user)));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => UserTransactionScreen(user: user)));
       },
     );
   }

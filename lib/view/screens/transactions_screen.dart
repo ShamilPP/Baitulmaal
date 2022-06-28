@@ -23,10 +23,7 @@ class TransactionScreen extends StatelessWidget {
               backgroundColor: primaryColor,
               title: const Text(
                 'Transactions',
-                style: TextStyle(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white),
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.w400, color: Colors.white),
               ),
               bottom: const TabBar(
                 tabs: [

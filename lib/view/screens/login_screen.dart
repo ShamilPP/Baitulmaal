@@ -42,8 +42,7 @@ class WelcomeText extends StatelessWidget {
         children: const <Widget>[
           Text('Login', style: TextStyle(color: Colors.white, fontSize: 40)),
           SizedBox(height: 10),
-          Text('Welcome Back',
-              style: TextStyle(color: Colors.white, fontSize: 18)),
+          Text('Welcome Back', style: TextStyle(color: Colors.white, fontSize: 18)),
         ],
       ),
     );
@@ -55,8 +54,7 @@ class LoginContainer extends StatelessWidget {
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final RoundedLoadingButtonController buttonController =
-      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController buttonController = RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +62,7 @@ class LoginContainer extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(60), topRight: Radius.circular(60))),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30),
@@ -77,10 +74,7 @@ class LoginContainer extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
-                      BoxShadow(
-                          color: primaryColor.withOpacity(.4),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10))
+                      BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))
                     ],
                   ),
                   child: Column(
@@ -106,10 +100,7 @@ class LoginContainer extends StatelessWidget {
                     successColor: Colors.green,
                     child: const Text(
                       'Login',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     controller: buttonController,
                     onPressed: () => _login(context)),
@@ -124,15 +115,13 @@ class LoginContainer extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        side: MaterialStateProperty.all(
-                            BorderSide(width: 2, color: primaryColor))),
+                        side: MaterialStateProperty.all(BorderSide(width: 2, color: primaryColor))),
                     child: Text(
                       'Sign up',
                       style: TextStyle(fontSize: 20, color: primaryColor),
                     ),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => SignUpScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpScreen()));
                     },
                   ),
                 ),
@@ -146,13 +135,11 @@ class LoginContainer extends StatelessWidget {
 
   _login(BuildContext context) async {
     LoginProvider provider = Provider.of<LoginProvider>(context, listen: false);
-    bool status =
-        await provider.login(usernameController.text, passwordController.text);
+    bool status = await provider.login(usernameController.text, passwordController.text);
     if (status) {
       buttonController.success();
       await Future.delayed(const Duration(milliseconds: 500));
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const SplashScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const SplashScreen()));
     } else {
       buttonController.error();
       await Future.delayed(const Duration(seconds: 2));

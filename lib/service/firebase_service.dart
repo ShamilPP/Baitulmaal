@@ -22,8 +22,7 @@ class FirebaseService {
       'password': user.password,
       'monthlyPayment': user.monthlyPayment,
     });
-    return LoginResponse(
-        isSuccessful: true, message: 'Logged in', username: user.username);
+    return LoginResponse(isSuccessful: true, message: 'Logged in', username: user.username);
   }
 
   static Future<bool> uploadPayment(PaymentModel payment) async {
@@ -63,8 +62,7 @@ class FirebaseService {
         }
       }
 
-      UserAnalyticsModel analytics = AnalyticsService.getUserAnalytics(
-          user.get('monthlyPayment'), payments);
+      UserAnalyticsModel analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
 
       users.add(UserModel(
         docId: user.id,
@@ -80,8 +78,7 @@ class FirebaseService {
     return users;
   }
 
-  static Future<UserModel?> getUser(
-      String username, bool needAllDetails) async {
+  static Future<UserModel?> getUser(String username, bool needAllDetails) async {
     var collection = FirebaseFirestore.instance.collection('users');
     var users = await collection.get();
 
@@ -92,16 +89,14 @@ class FirebaseService {
 
         // if need user payment details
         if (needAllDetails) {
-          List<PaymentModel> allPayments =
-              await getAllPayments(DateTime.now().year);
+          List<PaymentModel> allPayments = await getAllPayments(DateTime.now().year);
 
           for (var payment in allPayments) {
             if (user.id == payment.userDocId) {
               payments.add(payment);
             }
           }
-          analytics = AnalyticsService.getUserAnalytics(
-              user.get('monthlyPayment'), payments);
+          analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
         }
 
         // returning user data
@@ -122,24 +117,22 @@ class FirebaseService {
 
   static Future<List<PaymentModel>> getAllPayments(int meekath) async {
     List<PaymentModel> payments = [];
-    var collection = FirebaseFirestore.instance.collection('transactions');
+    var collection = FirebaseFirestore.instance.collection('transactions').where('meekath', isEqualTo: meekath);
 
     var paymentCollection = await collection.get();
 
     for (var payment in paymentCollection.docs) {
-      int _meekath = payment.get('meekath');
-      // To take all the payments for this meekath
-      if (_meekath == meekath) {
-        payments.add(PaymentModel(
+      payments.add(
+        PaymentModel(
           docId: payment.id,
           userDocId: payment.get('userId'),
           amount: payment.get('amount'),
           verify: payment.get('verify'),
-          meekath: _meekath,
+          meekath: payment.get('meekath'),
           // Timestamp convert to datetime
           dateTime: (payment.get('date') as Timestamp).toDate(),
-        ));
-      }
+        ),
+      );
     }
     return payments;
   }
@@ -149,32 +142,24 @@ class FirebaseService {
 
     for (var _user in users.docs) {
       if (_user.get('username') == user.username) {
-        return LoginResponse(
-            isSuccessful: false, message: 'Username already exists');
+        return LoginResponse(isSuccessful: false, message: 'Username already exists');
       }
       if (_user.get('phoneNumber') == user.phoneNumber) {
-        return LoginResponse(
-            isSuccessful: false, message: 'Phone number already exists');
+        return LoginResponse(isSuccessful: false, message: 'Phone number already exists');
       }
     }
     return LoginResponse(isSuccessful: true, message: "Success");
   }
 
   static Future<String> getAdminPassword() async {
-    var documentSnapshot = await FirebaseFirestore.instance
-        .collection('application')
-        .doc('admin')
-        .get();
+    var documentSnapshot = await FirebaseFirestore.instance.collection('application').doc('admin').get();
     String password = documentSnapshot['password'];
     return password;
   }
 
   static Future<int> getMajorVersion() async {
     int version;
-    var doc = await FirebaseFirestore.instance
-        .collection('application')
-        .doc('version')
-        .get();
+    var doc = await FirebaseFirestore.instance.collection('application').doc('version').get();
 
     // check document exists ( avoiding null exceptions )
     if (doc.exists && doc.data()!.containsKey("version")) {

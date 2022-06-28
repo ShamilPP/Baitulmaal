@@ -34,8 +34,7 @@ class MyListTile extends StatelessWidget {
                   children: [
                     Text(
                       name,
-                      style: const TextStyle(
-                          fontSize: 19, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 5),
                     Text(

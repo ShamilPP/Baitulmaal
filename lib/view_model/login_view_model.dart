@@ -53,9 +53,8 @@ class LoginProvider extends ChangeNotifier {
       textColor: Colors.white,
       webPosition: "center",
       backgroundColor: isSuccess ? Colors.green : Colors.red,
-      webBgColor: isSuccess
-          ? "linear-gradient(to right, #4CAF50, #4CAF50)"
-          : "linear-gradient(to right, #F44336, #F44336)",
+      webBgColor:
+          isSuccess ? "linear-gradient(to right, #4CAF50, #4CAF50)" : "linear-gradient(to right, #F44336, #F44336)",
     );
   }
 }

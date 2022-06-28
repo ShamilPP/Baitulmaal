@@ -27,8 +27,7 @@ class SplashProvider extends ChangeNotifier {
         actions: [
           ElevatedButton(
               onPressed: () {
-                launchUrl(Uri.parse(webLink),
-                    mode: LaunchMode.externalApplication);
+                launchUrl(Uri.parse(webLink), mode: LaunchMode.externalApplication);
               },
               child: const Text('Update'))
         ],

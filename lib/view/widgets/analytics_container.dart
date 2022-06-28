@@ -31,12 +31,8 @@ class AnalyticsContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: primaryColor.withAlpha(70),
-            blurRadius: 20,
-            offset: const Offset(0, 10))
-      ]),
+      decoration: BoxDecoration(
+          boxShadow: [BoxShadow(color: primaryColor.withAlpha(70), blurRadius: 20, offset: const Offset(0, 10))]),
       child: Container(
         padding: const EdgeInsets.all(13),
         width: double.infinity,
@@ -81,8 +77,7 @@ class AnalyticsContainer extends StatelessWidget {
               ),
             ),
             Center(
-              child: AmountPercentageIndicator(
-                  percentage: 1 - (bottomLeftAmount / bottomRightAmount)),
+              child: AmountPercentageIndicator(percentage: 1 - (bottomLeftAmount / bottomRightAmount)),
             ),
           ],
         ),
@@ -109,8 +104,7 @@ class AnalyticsText extends StatelessWidget {
       children: [
         Text(
           mainText,
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: color),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color),
         ),
         Text(
           subText,

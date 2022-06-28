@@ -8,8 +8,7 @@ class PaymentList extends StatelessWidget {
   final List<UserPaymentModel> paymentList;
   final bool ifAdmin;
 
-  const PaymentList({Key? key, required this.paymentList, this.ifAdmin = true})
-      : super(key: key);
+  const PaymentList({Key? key, required this.paymentList, this.ifAdmin = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +28,7 @@ class PaymentList extends StatelessWidget {
           name: pay.user.name,
           subText: 'Amount : ${pay.payment.amount}',
           onTap: () {
-            showDialog(
-                context: context,
-                builder: (ctx) =>
-                    PaymentDialog(userPayment: pay, ifAdmin: ifAdmin));
+            showDialog(context: context, builder: (ctx) => PaymentDialog(userPayment: pay, ifAdmin: ifAdmin));
           },
           suffixText: _status,
         );

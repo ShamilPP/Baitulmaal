@@ -41,14 +41,10 @@ class _UsersScreenState extends State<UsersScreen> {
                   children: [
                     const Text(
                       'Users',
-                      style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300),
+                      style: TextStyle(fontSize: 40, color: Colors.white, fontWeight: FontWeight.w300),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 27, right: 27, top: 30),
+                      padding: const EdgeInsets.only(left: 27, right: 27, top: 30),
                       child: TextField(
                         textAlign: TextAlign.start,
                         onChanged: onTextChanged,

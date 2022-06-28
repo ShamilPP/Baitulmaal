@@ -3,14 +3,11 @@ import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/service/firebase_service.dart';
 
 class LoginService {
-  static Future<LoginResponse> loginAccount(
-      String username, String password) async {
+  static Future<LoginResponse> loginAccount(String username, String password) async {
     UserModel? user = await FirebaseService.getUser(username, false);
-    if (username == 'admin' &&
-        password == await FirebaseService.getAdminPassword()) {
+    if (username == 'admin' && password == await FirebaseService.getAdminPassword()) {
       // is admin returning admin
-      return LoginResponse(
-          isSuccessful: true, message: 'Logged in', username: 'admin');
+      return LoginResponse(isSuccessful: true, message: 'Logged in', username: 'admin');
     } else if (!checkInvalid(username)) {
       return LoginResponse(isSuccessful: false, message: 'Invalid username');
     } else if (!checkInvalid(password)) {
@@ -18,42 +15,30 @@ class LoginService {
     } else if (user == null) {
       return LoginResponse(isSuccessful: false, message: 'Username not exits');
     } else if (password != user.password) {
-      return LoginResponse(
-          isSuccessful: false, message: 'Password is incorrect');
+      return LoginResponse(isSuccessful: false, message: 'Password is incorrect');
     }
     // returning success and username
-    return LoginResponse(
-        isSuccessful: true, message: 'Logged in', username: username);
+    return LoginResponse(isSuccessful: true, message: 'Logged in', username: username);
   }
 
-  static Future<LoginResponse> createAccount(
-      String name,
-      String phoneNumber,
-      String username,
-      String password,
-      String confirmPassword,
-      String monthlyPayment) async {
+  static Future<LoginResponse> createAccount(String name, String phoneNumber, String username, String password,
+      String confirmPassword, String monthlyPayment) async {
     if (!checkInvalid(name)) {
       return LoginResponse(isSuccessful: false, message: 'Invalid name');
     } else if (!checkInvalid(phoneNumber)) {
-      return LoginResponse(
-          isSuccessful: false, message: 'Invalid phone number');
+      return LoginResponse(isSuccessful: false, message: 'Invalid phone number');
     } else if (!checkInvalid(username)) {
       return LoginResponse(isSuccessful: false, message: 'Invalid username');
     } else if (!checkInvalid(password)) {
       return LoginResponse(isSuccessful: false, message: 'Invalid password');
     } else if (!checkInvalid(monthlyPayment)) {
-      return LoginResponse(
-          isSuccessful: false, message: 'Invalid monthly payment');
+      return LoginResponse(isSuccessful: false, message: 'Invalid monthly payment');
     } else if (password != confirmPassword) {
-      return LoginResponse(
-          isSuccessful: false, message: 'Confirm password incorrect');
+      return LoginResponse(isSuccessful: false, message: 'Confirm password incorrect');
     } else if (!verifyPhoneNumber(phoneNumber)) {
-      return LoginResponse(
-          isSuccessful: false, message: 'Entered mobile number is invalid');
+      return LoginResponse(isSuccessful: false, message: 'Entered mobile number is invalid');
     } else if (int.tryParse(monthlyPayment) == null) {
-      return LoginResponse(
-          isSuccessful: false, message: 'Monthly payment invalid');
+      return LoginResponse(isSuccessful: false, message: 'Monthly payment invalid');
     }
     UserModel user = UserModel(
       name: name,

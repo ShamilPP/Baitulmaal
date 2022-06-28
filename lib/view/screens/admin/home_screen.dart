@@ -39,8 +39,7 @@ class AdminHomeScreen extends StatelessWidget {
                     padding: EdgeInsets.all(20),
                     child: Text(
                       'Users',
-                      style:
-                          TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Padding(
@@ -64,11 +63,8 @@ class AdminHomeScreen extends StatelessWidget {
             child: FloatingActionButton(
                 child: const Icon(Icons.currency_rupee),
                 onPressed: () {
-                  List<UserModel> users =
-                      Provider.of<AdminProvider>(context, listen: false).users;
-                  showDialog(
-                      context: context,
-                      builder: (ctx) => UserPickerDialog(users: users));
+                  List<UserModel> users = Provider.of<AdminProvider>(context, listen: false).users;
+                  showDialog(context: context, builder: (ctx) => UserPickerDialog(users: users));
                 }),
           ),
         ],
@@ -100,9 +96,7 @@ class UserPickerDialog extends StatelessWidget {
               height: 50,
               decoration: BoxDecoration(
                   color: Colors.grey.shade400,
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10))),
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
               child: Row(
                 children: const [
                   CloseButton(),
@@ -144,8 +138,7 @@ class UserPickerDialog extends StatelessWidget {
                     itemBuilder: (ctx, index) {
                       return ListTile(
                           title: Text(searchedUsers.value[index].name),
-                          subtitle: Text(
-                              '₹ ${searchedUsers.value[index].monthlyPayment}'),
+                          subtitle: Text('₹ ${searchedUsers.value[index].monthlyPayment}'),
                           onTap: () {
                             // Go to pay screen
                             Navigator.pushReplacement(

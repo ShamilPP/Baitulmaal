@@ -14,16 +14,13 @@ class SignUpScreen extends StatelessWidget {
 
   SignUpScreen({Key? key, this.isAddUser = false}) : super(key: key);
 
-  final RoundedLoadingButtonController buttonController =
-      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController buttonController = RoundedLoadingButtonController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  final TextEditingController monthlyPaymentController =
-      TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController monthlyPaymentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +41,7 @@ class SignUpScreen extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
-                      BoxShadow(
-                          color: primaryColor.withOpacity(.4),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10))
+                      BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))
                     ],
                   ),
                   child: Column(
@@ -93,10 +87,7 @@ class SignUpScreen extends StatelessWidget {
                   successColor: Colors.green,
                   child: Text(
                     isAddUser ? 'Add' : 'Sign up',
-                    style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   controller: buttonController,
                   onPressed: () => _createAccount(context, !isAddUser),
@@ -130,9 +121,7 @@ class SignUpScreen extends StatelessWidget {
       } else {
         // if create account go to splash screen
         Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => const SplashScreen()),
-            (Route<dynamic> route) => false);
+            context, MaterialPageRoute(builder: (_) => const SplashScreen()), (Route<dynamic> route) => false);
       }
     } else {
       buttonController.error();

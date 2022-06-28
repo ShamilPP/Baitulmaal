@@ -12,7 +12,7 @@ import '../service/firebase_service.dart';
 import '../utils/enums.dart';
 
 class PaymentProvider extends ChangeNotifier {
-   int _meekath = DateTime.now().year;
+  int _meekath = DateTime.now().year;
 
   PayUploadStatus _uploadStatus = PayUploadStatus.none;
 
@@ -25,8 +25,7 @@ class PaymentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void uploadPayment(BuildContext context, String money,
-      UserModel user, bool isAdmin) async {
+  void uploadPayment(BuildContext context, String money, UserModel user, bool isAdmin) async {
     // start loading
     setUploadStatus(PayUploadStatus.loading);
     // Check entered amount is null
@@ -46,11 +45,7 @@ class PaymentProvider extends ChangeNotifier {
       }
       // upload payment to firebase
       PaymentModel payment = PaymentModel(
-          userDocId: user.docId!,
-          amount: amount,
-          verify: verify,
-          meekath: meekath,
-          dateTime: DateTime.now());
+          userDocId: user.docId!, amount: amount, verify: verify, meekath: meekath, dateTime: DateTime.now());
 
       await FirebaseService.uploadPayment(payment);
 
@@ -58,8 +53,7 @@ class PaymentProvider extends ChangeNotifier {
       if (isAdmin) {
         await Provider.of<AdminProvider>(context, listen: false).initData(context);
       } else {
-        UserProvider provider =
-            Provider.of<UserProvider>(context, listen: false);
+        UserProvider provider = Provider.of<UserProvider>(context, listen: false);
 
         await provider.initData(provider.user.username);
       }
@@ -77,8 +71,7 @@ class PaymentProvider extends ChangeNotifier {
     await FirebaseService.updatePayment(docId, status.index);
   }
 
-  List<UserPaymentModel> getUserPaymentList(
-      List<UserModel> users, PaymentStatus status) {
+  List<UserPaymentModel> getUserPaymentList(List<UserModel> users, PaymentStatus status) {
     List<UserPaymentModel> list = AnalyticsService.getUserPaymentList(
       users,
       status,
@@ -91,34 +84,32 @@ class PaymentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<int> getAllMeekathList(){
+  List<int> getAllMeekathList() {
     List<int> allMeekath = [];
-    for(int i = 2021;i<=DateTime.now().year;i++){
+    for (int i = 2021; i <= DateTime.now().year; i++) {
       allMeekath.add(i);
     }
-  return allMeekath;
+    return allMeekath;
   }
 
-   showLoadingDialog(BuildContext context, String message) {
-     showDialog(
-       context: context,
-       builder: (ctx) {
-         return AlertDialog(
-           content: Row(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               const CircularProgressIndicator(),
-               const SizedBox(width: 30),
-               Text(
-                 message,
-                 style: const TextStyle(fontSize: 20),
-               ),
-             ],
-           ),
-         );
-       },
-     );
-   }
-
-
+  showLoadingDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(width: 30),
+              Text(
+                message,
+                style: const TextStyle(fontSize: 20),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

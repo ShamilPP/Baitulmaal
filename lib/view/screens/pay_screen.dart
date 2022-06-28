@@ -11,8 +11,7 @@ class PayScreen extends StatelessWidget {
   final UserModel user;
   final bool isAdmin;
 
-  PayScreen({Key? key, required this.user, required this.isAdmin})
-      : super(key: key);
+  PayScreen({Key? key, required this.user, required this.isAdmin}) : super(key: key);
 
   final TextEditingController paymentController = TextEditingController();
 
@@ -46,8 +45,7 @@ class PayScreen extends StatelessWidget {
                           const SizedBox(height: 10),
                           Text(
                             "${user.name} paying",
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -78,8 +76,7 @@ class PayScreen extends StatelessWidget {
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                           onPressed: () {
-                            provider.uploadPayment(context,
-                                paymentController.text,  user, isAdmin);
+                            provider.uploadPayment(context, paymentController.text, user, isAdmin);
                           },
                         ),
                       ),
@@ -100,16 +97,13 @@ class PayScreen extends StatelessWidget {
 class PaymentTextField extends StatelessWidget {
   final TextEditingController controller;
 
-  const PaymentTextField({Key? key, required this.controller})
-      : super(key: key);
+  const PaymentTextField({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-          color: Colors.blue.shade100.withOpacity(.8),
-          borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: Colors.blue.shade100.withOpacity(.8), borderRadius: BorderRadius.circular(10)),
       child: IntrinsicWidth(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
