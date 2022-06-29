@@ -52,8 +52,9 @@ class PayScreen extends StatelessWidget {
                             "+91 ${user.phoneNumber}",
                             style: const TextStyle(fontSize: 18),
                           ),
-                          MeekathDropdown(isAdmin: isAdmin),
-                          const SizedBox(height: 40),
+                          // Meekath Dropdown (Change meekath year)
+                          isAdmin ? MeekathDropdown(isAdmin: isAdmin, update: false) : const SizedBox(),
+                          const SizedBox(height: 30),
                           // Payment TextField
                           PaymentTextField(controller: paymentController),
                           const SizedBox(height: 100),

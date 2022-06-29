@@ -26,6 +26,7 @@ class TransactionScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 23, fontWeight: FontWeight.w400, color: Colors.white),
               ),
               bottom: const TabBar(
+                isScrollable: true,
                 tabs: [
                   Tab(text: 'All'),
                   Tab(text: 'Accepted'),

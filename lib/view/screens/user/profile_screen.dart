@@ -71,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileListTile(text: user.name, subText: 'Name'),
               ProfileListTile(text: '+91 ${user.phoneNumber}', subText: 'Phone number'),
               ProfileListTile(text: user.username, subText: 'Username'),
-              const ProfileListTile(text: '********', subText: 'Password'),
+              PasswordListTile(password: user.password),
               ProfileListTile(
                 text: '₹ ${user.monthlyPayment}',
                 subText: 'Monthly payment',
@@ -130,6 +130,95 @@ class ProfileListTile extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class PasswordListTile extends StatefulWidget {
+  final String password;
+
+  const PasswordListTile({
+    Key? key,
+    required this.password,
+  }) : super(key: key);
+
+  @override
+  State<PasswordListTile> createState() => _PasswordListTileState();
+}
+
+class _PasswordListTileState extends State<PasswordListTile> {
+  bool isShowing = false;
+  late String text;
+
+  @override
+  void initState() {
+    text = widget.password;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Password',
+                    style: TextStyle(fontSize: 15, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    text,
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              InkWell(
+                borderRadius: BorderRadius.circular(30),
+                child: Padding(
+                  padding: const EdgeInsets.all(7),
+                  child: Icon(
+                    isShowing ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.grey.shade700,
+                  ),
+                ),
+                onTap: () {
+                  setState(() {
+                    isShowing = !isShowing;
+                    if (isShowing) {
+                      text = widget.password;
+                    } else {
+                      text = getHidePassword();
+                    }
+                  });
+                },
+              )
+            ],
+          ),
+          const Divider(
+            thickness: 1,
+            height: 10,
+            color: Colors.grey,
+          )
+        ],
+      ),
+    );
+  }
+
+  String getHidePassword() {
+    String _pass = '';
+    for (int i = 0; i < widget.password.length; i++) {
+      _pass = _pass + '•';
+    }
+    return _pass;
   }
 }
 

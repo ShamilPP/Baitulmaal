@@ -91,7 +91,10 @@ class _UsersScreenState extends State<UsersScreen> {
   void onTextChanged(String searchedName) {
     List<UserModel> _users = [];
     for (var user in users) {
-      if (user.name.toLowerCase().contains(searchedName.toLowerCase())) {
+      if (user.name.toLowerCase().contains(searchedName.toLowerCase()) ||
+          user.username.toLowerCase().contains(searchedName.toLowerCase()) ||
+          user.phoneNumber.toString().contains(searchedName)) {
+        // Add user to list
         _users.add(user);
       }
     }
