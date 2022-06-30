@@ -66,7 +66,7 @@ class AnalyticsService {
       totalAmount: totalAmount,
       totalReceivedAmount: receivedAmount,
       pendingAmount: pendingAmount,
-      isPending: pendingAmount > 0,
+      isPending: !pendingAmount.isNegative,
     );
     return analytics;
   }

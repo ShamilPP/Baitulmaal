@@ -24,7 +24,7 @@ class UserHomeScreen extends StatelessWidget {
                   topLeftText: 'Monthly payment',
                   topRightAmount: provider.user.analytics!.totalReceivedAmount,
                   topRightText: ' Paid amount',
-                  bottomLeftAmount: provider.user.analytics!.pendingAmount,
+                  bottomLeftAmount: provider.user.analytics!.isPending ? provider.user.analytics!.pendingAmount : 0,
                   bottomLeftText: 'Pending amount',
                   bottomRightAmount: provider.user.analytics!.totalAmount,
                   bottomRightText: 'Total amount',
