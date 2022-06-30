@@ -2,6 +2,7 @@ import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/utils/enums.dart';
 import 'package:baitulmaal/view/widgets/meekath_dropdown.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,13 @@ class PayScreen extends StatelessWidget {
                             style: const TextStyle(fontSize: 18),
                           ),
                           // Meekath Dropdown (Change meekath year)
-                          isAdmin ? MeekathDropdown(isAdmin: isAdmin, update: false) : const SizedBox(),
+                          isAdmin ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text("Meekath  :  "),
+                              MeekathDropdown(update: false),
+                            ],
+                          ) : const SizedBox(),
                           const SizedBox(height: 30),
                           // Payment TextField
                           PaymentTextField(controller: paymentController),

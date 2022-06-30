@@ -147,13 +147,7 @@ class PasswordListTile extends StatefulWidget {
 
 class _PasswordListTileState extends State<PasswordListTile> {
   bool isShowing = false;
-  late String text;
-
-  @override
-  void initState() {
-    text = widget.password;
-    super.initState();
-  }
+  late String text = getHidePassword();
 
   @override
   Widget build(BuildContext context) {

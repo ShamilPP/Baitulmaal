@@ -81,14 +81,6 @@ class PaymentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<int> getAllMeekathList() {
-    List<int> allMeekath = [];
-    for (int i = 2021; i <= DateTime.now().year; i++) {
-      allMeekath.add(i);
-    }
-    return allMeekath;
-  }
-
   showLoadingDialog(BuildContext context, String message) {
     showDialog(
       context: context,

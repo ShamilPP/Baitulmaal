@@ -27,7 +27,7 @@ class LoginProvider extends ChangeNotifier {
     Response result = await LoginService.createAccount(
       name,
       phoneNumber,
-      username,
+      username.toLowerCase(),
       password,
       confirmPassword,
       monthlyPayment,

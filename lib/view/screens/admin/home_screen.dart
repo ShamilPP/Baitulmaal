@@ -42,8 +42,8 @@ class AdminHomeScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(right: 10),
-                    child: MeekathDropdown(isAdmin: true),
+                    padding: EdgeInsets.only(right: 15),
+                    child: MeekathDropdown(),
                   ),
                 ],
               ),
