@@ -60,12 +60,12 @@ class PaymentProvider extends ChangeNotifier {
       await Future.delayed(const Duration(seconds: 3));
       setUploadStatus(PayUploadStatus.none);
       Navigator.pop(context);
-      notifyListeners();
     }
   }
 
-  Future updatePayment(String docId, PaymentStatus status) async {
-    await FirebaseService.updatePayment(docId, status.index);
+  Future<bool> updatePayment(String docId, PaymentStatus status) async {
+    var result = await FirebaseService.updatePayment(docId, status.index);
+    return result;
   }
 
   List<UserPaymentModel> getUserPaymentList(List<UserModel> users, PaymentStatus status) {

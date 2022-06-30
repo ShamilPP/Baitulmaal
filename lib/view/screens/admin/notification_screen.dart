@@ -1,4 +1,6 @@
+import 'package:baitulmaal/utils/enums.dart';
 import 'package:baitulmaal/view/widgets/my_appbar.dart';
+import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,11 +16,13 @@ class NotificationScreen extends StatelessWidget {
       title: 'Notifications',
       child: Expanded(
         child: Consumer<AdminProvider>(builder: (ctx, provider, child) {
+          var paymentProvider = Provider.of<PaymentProvider>(context);
+          var paymentList = paymentProvider.getUserPaymentList(provider.users, PaymentStatus.notVerified);
           return ListView.builder(
-            itemCount: provider.paymentNotVerifiedList.length,
+            itemCount: paymentList.length,
             itemBuilder: (ctx, index) {
               return NotificationListTile(
-                userPayment: provider.paymentNotVerifiedList[index],
+                userPayment: paymentList[index],
               );
             },
           );

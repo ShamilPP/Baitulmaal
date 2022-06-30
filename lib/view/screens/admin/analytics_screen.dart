@@ -57,19 +57,20 @@ class AnalyticsScreen extends StatelessWidget {
                   )
                 ],
               ),
-              Consumer<AdminProvider>(
-                builder: (ctx, provider, child) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 17, top: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AnalyticsSection(adminOverview: provider.adminOverview),
-                        const PaymentSection(),
-                      ],
+              Padding(
+                padding: const EdgeInsets.only(left: 17, top: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Consumer<AdminProvider>(
+                      builder: (ctx, provider, child) {
+                        AdminOverviewModel adminOverview = provider.getAdminOverview();
+                        return AnalyticsSection(adminOverview: adminOverview);
+                      },
                     ),
-                  );
-                },
+                    const PaymentSection(),
+                  ],
+                ),
               ),
             ],
           ),
@@ -130,29 +131,31 @@ class PaymentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AdminProvider>(builder: (ctx, provider, child) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 40, bottom: 10),
-            child: Text(
-              'Payment details',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return Consumer<AdminProvider>(
+      builder: (ctx, provider, child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 40, bottom: 10),
+              child: Text(
+                'Payment details',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          DetailsText(
-            text: 'Total Not verified amount : ₹ ${provider.getTotalAmount(PaymentStatus.notVerified)}',
-          ),
-          DetailsText(
-            text: 'Total Accepted amount : ₹ ${provider.getTotalAmount(PaymentStatus.accepted)}',
-          ),
-          DetailsText(
-            text: 'Total Rejected amount : ₹ ${provider.getTotalAmount(PaymentStatus.rejected)}',
-          ),
-        ],
-      );
-    });
+            DetailsText(
+              text: 'Total Not verified amount : ₹ ${provider.getTotalAmount(PaymentStatus.notVerified)}',
+            ),
+            DetailsText(
+              text: 'Total Accepted amount : ₹ ${provider.getTotalAmount(PaymentStatus.accepted)}',
+            ),
+            DetailsText(
+              text: 'Total Rejected amount : ₹ ${provider.getTotalAmount(PaymentStatus.rejected)}',
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

@@ -4,6 +4,7 @@ import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../model/admin_overview_model.dart';
 import '../../../model/user_model.dart';
 import '../../widgets/analytics_container.dart';
 import '../../widgets/users_list.dart';
@@ -20,14 +21,15 @@ class AdminHomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Consumer<AdminProvider>(builder: (ctx, provider, child) {
+                AdminOverviewModel adminOverview = provider.getAdminOverview();
                 return AnalyticsContainer(
-                  topLeftAmount: provider.adminOverview.pendingUsers,
+                  topLeftAmount: adminOverview.pendingUsers,
                   topLeftText: 'Pending users',
-                  topRightAmount: provider.adminOverview.totalUsers,
+                  topRightAmount: adminOverview.totalUsers,
                   topRightText: 'Total users',
-                  bottomLeftAmount: provider.adminOverview.pendingAmount,
+                  bottomLeftAmount: adminOverview.pendingAmount,
                   bottomLeftText: 'Pending amount',
-                  bottomRightAmount: provider.adminOverview.totalAmount,
+                  bottomRightAmount: adminOverview.totalAmount,
                   bottomRightText: 'Total amount',
                 );
               }),

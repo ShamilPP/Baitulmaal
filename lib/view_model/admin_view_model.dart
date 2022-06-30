@@ -10,32 +10,27 @@ import '../model/user_model.dart';
 import '../utils/enums.dart';
 
 class AdminProvider extends ChangeNotifier {
-  late AdminOverviewModel _adminOverview;
   late List<UserModel> _users;
-  late List<UserPaymentModel> _paymentNotVerifiedList;
-
-  AdminOverviewModel get adminOverview => _adminOverview;
 
   List<UserModel> get users => _users;
 
-  List<UserPaymentModel> get paymentNotVerifiedList => _paymentNotVerifiedList;
-
-  Future initData(BuildContext context) async {
-    //fetch meekath
+  Future<bool> initData(BuildContext context) async {
+    // fetch meekath
     int meekath = Provider.of<PaymentProvider>(context, listen: false).meekath;
     // Init all data's
     _users = await FirebaseService.getAllUsers(meekath);
-
-    // Init payment not verified list
-    _paymentNotVerifiedList = AnalyticsService.getUserPaymentList(users, PaymentStatus.notVerified);
-
-    // Init admin overview
-    _adminOverview = await AnalyticsService.getAdminOverview(_users);
 
     // order with pending amount
     _users.sort((a, b) => b.analytics!.pendingAmount.compareTo(a.analytics!.pendingAmount));
 
     notifyListeners();
+
+    return true;
+  }
+
+  AdminOverviewModel getAdminOverview() {
+    AdminOverviewModel adminOverview = AnalyticsService.getAdminOverview(_users);
+    return adminOverview;
   }
 
   int getTotalAmount(PaymentStatus status) {

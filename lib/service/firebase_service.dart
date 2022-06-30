@@ -39,11 +39,12 @@ class FirebaseService {
     return false;
   }
 
-  static Future updatePayment(String docId, int status) async {
+  static Future<bool> updatePayment(String docId, int status) async {
     var collection = FirebaseFirestore.instance.collection('transactions');
     await collection.doc(docId).update({
       'verify': status,
     });
+    return true;
   }
 
   static Future<List<UserModel>> getAllUsers(int meekath) async {

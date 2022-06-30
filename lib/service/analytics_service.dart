@@ -7,7 +7,7 @@ import '../model/payment_model.dart';
 import '../model/user_model.dart';
 
 class AnalyticsService {
-  static Future<AdminOverviewModel> getAdminOverview(List<UserModel> users) async {
+  static AdminOverviewModel getAdminOverview(List<UserModel> users) {
     int totalUsers = users.length;
     int pendingUsers = 0;
     int totalAmount = 0;
