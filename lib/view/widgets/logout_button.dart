@@ -38,7 +38,7 @@ class LogoutDialog extends StatelessWidget {
         ElevatedButton(
             onPressed: () async {
               // remove username in shared preferences
-              Provider.of<LoginProvider>(context, listen: false).logout(context);
+              Provider.of<LoginProvider>(context, listen: false).logout();
               // then, go to login screen
               Navigator.pushAndRemoveUntil(
                   context, MaterialPageRoute(builder: (_) => const LoginScreen()), (Route<dynamic> route) => false);

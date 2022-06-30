@@ -1,16 +1,15 @@
 import 'package:baitulmaal/model/response.dart';
+import 'package:baitulmaal/service/local_service.dart';
 import 'package:baitulmaal/service/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
   Future<bool> login(String username, String password) async {
     Response result = await LoginService.loginAccount(username, password);
     successToast(result.message, result.isSuccessful);
     if (result.isSuccessful) {
-      final SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.setString('user', result.value!);
+      LocalService.saveUser(result.value!);
     }
     return result.isSuccessful;
   }
@@ -34,15 +33,13 @@ class LoginProvider extends ChangeNotifier {
     );
     successToast(result.message, result.isSuccessful);
     if (result.isSuccessful && isLogin) {
-      final SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.setString('user', result.value!);
+      LocalService.saveUser(result.value!);
     }
     return result.isSuccessful;
   }
 
-  void logout(BuildContext context) async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.remove('user');
+  void logout() async {
+    LocalService.removeUser();
   }
 
   void successToast(String text, bool isSuccess) {

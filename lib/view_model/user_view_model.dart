@@ -5,6 +5,7 @@ import 'package:baitulmaal/service/firebase_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../service/local_service.dart';
 import '../utils/enums.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -22,8 +23,7 @@ class UserProvider extends ChangeNotifier {
     var result = await FirebaseService.getUserWithDocId(docId);
     if (result == null) {
       // Remove DocId from database
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.remove('user');
+      LocalService.removeUser();
     } else {
       _user = result;
     }
