@@ -10,6 +10,6 @@ class AdminTransactionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<UserModel> users = Provider.of<AdminProvider>(context).users;
-    return TransactionScreen(users: users);
+    return TransactionScreen(users: users, isAdmin: true);
   }
 }

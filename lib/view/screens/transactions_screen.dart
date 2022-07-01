@@ -9,8 +9,9 @@ import '../widgets/payment_list.dart';
 
 class TransactionScreen extends StatelessWidget {
   final List<UserModel> users;
+  final bool isAdmin;
 
-  const TransactionScreen({Key? key, required this.users}) : super(key: key);
+  const TransactionScreen({Key? key, required this.users, required this.isAdmin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,24 +46,28 @@ class TransactionScreen extends StatelessWidget {
                       users,
                       PaymentStatus.allPayments,
                     ),
+                    ifAdmin: isAdmin,
                   ),
                   PaymentList(
                     paymentList: provider.getUserPaymentList(
                       users,
                       PaymentStatus.accepted,
                     ),
+                    ifAdmin: isAdmin,
                   ),
                   PaymentList(
                     paymentList: provider.getUserPaymentList(
                       users,
                       PaymentStatus.rejected,
                     ),
+                    ifAdmin: isAdmin,
                   ),
                   PaymentList(
                     paymentList: provider.getUserPaymentList(
                       users,
                       PaymentStatus.notVerified,
                     ),
+                    ifAdmin: isAdmin,
                   ),
                 ],
               ),

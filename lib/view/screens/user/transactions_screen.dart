@@ -15,6 +15,7 @@ class UserTransactionScreen extends StatelessWidget {
       child: Scaffold(
         body: TransactionScreen(
           users: List<UserModel>.filled(1, user),
+          isAdmin: false,
         ),
       ),
     );

@@ -1,14 +1,14 @@
+import 'package:baitulmaal/view/widgets/payment_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/user_payment.dart';
 import 'my_list_tile.dart';
-import 'notification_list_tile.dart';
 
 class PaymentList extends StatelessWidget {
   final List<UserPaymentModel> paymentList;
   final bool ifAdmin;
 
-  const PaymentList({Key? key, required this.paymentList, this.ifAdmin = true}) : super(key: key);
+  const PaymentList({Key? key, required this.paymentList, required this.ifAdmin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class PaymentList extends StatelessWidget {
           name: pay.user.name,
           subText: 'Amount : ${pay.payment.amount}',
           onTap: () {
-            showDialog(context: context, builder: (ctx) => PaymentDialog(userPayment: pay, ifAdmin: ifAdmin));
+            showDialog(context: context, builder: (ctx) => PaymentDialog(userPayment: pay, isAdmin: ifAdmin));
           },
           suffixText: _status,
         );
