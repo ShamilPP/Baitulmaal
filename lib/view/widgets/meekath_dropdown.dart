@@ -5,9 +5,9 @@ import '../../view_model/admin_view_model.dart';
 import '../../view_model/payment_view_model.dart';
 
 class MeekathDropdown extends StatelessWidget {
-  final bool update;
+  final bool dialog;
 
-  const MeekathDropdown({Key? key, this.update = true}) : super(key: key);
+  const MeekathDropdown({Key? key, this.dialog = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +21,10 @@ class MeekathDropdown extends StatelessWidget {
           );
         }).toList(),
         onChanged: (newValue) async {
-          if (update) provider.showLoadingDialog(context, "Updating...");
+          if (dialog) provider.showLoadingDialog(context, "Updating...");
           provider.setMeekath(newValue!);
           await Provider.of<AdminProvider>(context, listen: false).initData(context);
-          if (update) Navigator.pop(context);
+          if (dialog) Navigator.pop(context);
         },
       );
     });

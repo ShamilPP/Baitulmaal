@@ -58,7 +58,7 @@ class PayScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
                                     Text("Meekath  :  "),
-                                    MeekathDropdown(update: false),
+                                    MeekathDropdown(dialog: false),
                                   ],
                                 )
                               : const SizedBox(),
