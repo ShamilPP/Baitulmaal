@@ -1,17 +1,5 @@
-// Payment enum
+enum PaymentStatus { allPayments, notVerified, accepted, rejected }
 
-enum PaymentStatus {
-  allPayments,
-  notVerified,
-  accepted,
-  rejected,
-}
+enum PayUploadStatus { none, loading, success, failed }
 
-// Pay Upload enum
-
-enum PayUploadStatus {
-  none,
-  loading,
-  success,
-  failed,
-}
+enum SlidePosition { top, bottom, left, right }

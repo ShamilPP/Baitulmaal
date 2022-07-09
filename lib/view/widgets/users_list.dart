@@ -13,6 +13,7 @@ class UsersList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
+        cacheExtent: 0,
         itemCount: users.length,
         itemBuilder: (ctx, index) {
           UserModel user = users[index];

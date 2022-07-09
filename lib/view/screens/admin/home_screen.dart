@@ -1,3 +1,5 @@
+import 'package:baitulmaal/utils/enums.dart';
+import 'package:baitulmaal/view/animations/slide_in_widget.dart';
 import 'package:baitulmaal/view/screens/pay_screen.dart';
 import 'package:baitulmaal/view/widgets/meekath_dropdown.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
@@ -61,12 +63,15 @@ class AdminHomeScreen extends StatelessWidget {
           Positioned(
             right: 20,
             bottom: 20,
-            child: FloatingActionButton(
-                child: const Icon(Icons.currency_rupee),
-                onPressed: () {
-                  List<UserModel> users = Provider.of<AdminProvider>(context, listen: false).users;
-                  showDialog(context: context, builder: (ctx) => UserPickerDialog(users: users));
-                }),
+            child: SlideInWidget(
+              position: SlidePosition.bottom,
+              child: FloatingActionButton(
+                  child: const Icon(Icons.currency_rupee),
+                  onPressed: () {
+                    List<UserModel> users = Provider.of<AdminProvider>(context, listen: false).users;
+                    showDialog(context: context, builder: (ctx) => UserPickerDialog(users: users));
+                  }),
+            ),
           ),
         ],
       ),
