@@ -3,6 +3,7 @@ import 'package:baitulmaal/view/screens/splash_screen.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/login_view_model.dart';
 import 'package:baitulmaal/view_model/navigation_view_model.dart';
+import 'package:baitulmaal/view_model/notification_view_model.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:baitulmaal/view_model/splash_view_model.dart';
 import 'package:baitulmaal/view_model/user_view_model.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AdminProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => PaymentProvider()),
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),
         ChangeNotifierProvider(create: (_) => LoginProvider()),
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
       ],

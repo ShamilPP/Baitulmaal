@@ -1,17 +1,20 @@
 import 'package:baitulmaal/model/user_payment.dart';
 import 'package:baitulmaal/view/widgets/payment_dialog.dart';
-import 'package:baitulmaal/view_model/payment_view_model.dart';
+import 'package:baitulmaal/view_model/admin_view_model.dart';
+import 'package:baitulmaal/view_model/notification_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../view_model/admin_view_model.dart';
 import '../../utils/enums.dart';
+import '../../view_model/payment_view_model.dart';
 
 class NotificationListTile extends StatelessWidget {
+  final int index;
   final UserPaymentModel userPayment;
 
   const NotificationListTile({
     Key? key,
+    required this.index,
     required this.userPayment,
   }) : super(key: key);
 
@@ -42,7 +45,9 @@ class NotificationListTile extends StatelessWidget {
                 const SizedBox(height: 10),
                 Row(
                   children: [
+                    // Accept Button
                     ActionButton(
+                      index: index,
                       text: 'Accept',
                       color: Colors.green,
                       icon: Icons.done,
@@ -50,7 +55,9 @@ class NotificationListTile extends StatelessWidget {
                       userPayment: userPayment,
                     ),
                     const Expanded(flex: 1, child: SizedBox()),
+                    // Reject Button
                     ActionButton(
+                      index: index,
                       text: 'Reject',
                       color: Colors.red,
                       icon: Icons.close,
@@ -71,6 +78,7 @@ class NotificationListTile extends StatelessWidget {
 }
 
 class ActionButton extends StatelessWidget {
+  final int index;
   final String text;
   final Color color;
   final IconData icon;
@@ -79,6 +87,7 @@ class ActionButton extends StatelessWidget {
 
   const ActionButton({
     Key? key,
+    required this.index,
     required this.text,
     required this.color,
     required this.icon,
@@ -115,13 +124,29 @@ class ActionButton extends StatelessWidget {
               ],
             ),
             onTap: () async {
-              AdminProvider adminProvider = Provider.of<AdminProvider>(context, listen: false);
               PaymentProvider paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
-              // Accept + ing.. = Accepting..
-              paymentProvider.showLoadingDialog(context, text + 'ing..');
-              await paymentProvider.updatePayment(userPayment.payment.docId!, status);
-              await adminProvider.initData(context);
-              Navigator.pop(context);
+              AdminProvider adminProvider = Provider.of<AdminProvider>(context, listen: false);
+              NotificationProvider notificationProvider = Provider.of<NotificationProvider>(context, listen: false);
+              // Update payment in firebase
+              paymentProvider.updatePayment(userPayment.payment.docId!, status);
+              // Update all data's
+              adminProvider.initData(context);
+              // animation
+              if (notificationProvider.paymentNotVerifiedList.length>index) {
+                notificationProvider.paymentNotVerifiedList.removeAt(index);
+                notificationProvider.listKey.currentState!.removeItem(
+                  index,
+                  (context, animation) {
+                    return SizeTransition(
+                      sizeFactor: animation,
+                      child: NotificationListTile(
+                        index: index,
+                        userPayment: userPayment,
+                      ),
+                    );
+                  },
+                );
+              }
             },
           ),
         ),
