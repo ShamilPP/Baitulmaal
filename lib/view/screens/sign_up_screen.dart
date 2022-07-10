@@ -1,5 +1,4 @@
 import 'package:baitulmaal/view/screens/splash_screen.dart';
-import 'package:baitulmaal/view/widgets/my_appbar.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
@@ -25,75 +24,99 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.all(10),
-      child: SingleChildScrollView(
-        child: MyAppBar(
-          title: isAddUser ? 'Add new user' : 'Create new account',
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(height: 30),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))
-                    ],
+        body: SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // App Bar
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_outlined, size: 28),
+                    tooltip: 'Back',
+                    onPressed: () {
+                      Navigator.maybePop(context);
+                    },
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      // TextField
-                      LoginTextField(
-                        hint: 'Name',
-                        controller: nameController,
-                      ),
-                      LoginTextField(
-                        hint: 'Phone number',
-                        controller: phoneNumberController,
-                        isNumber: true,
-                      ),
-                      LoginTextField(
-                        hint: 'Username',
-                        controller: usernameController,
-                      ),
-                      LoginTextField(
-                        hint: 'Password',
-                        controller: passwordController,
-                        isPassword: true,
-                      ),
-                      LoginTextField(
-                        hint: 'Confirm password',
-                        controller: confirmPasswordController,
-                        isPassword: true,
-                      ),
-                      LoginTextField(
-                        hint: 'Monthly payment',
-                        controller: monthlyPaymentController,
-                        isNumber: true,
-                        neeIcon: true,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    child: Text(
+                      isAddUser ? 'Add new user' : 'Create new account',
+                      style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 50),
+                ],
+              ),
+              // Body
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(height: 30),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))
+                        ],
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          // TextField
+                          LoginTextField(
+                            hint: 'Name',
+                            controller: nameController,
+                          ),
+                          LoginTextField(
+                            hint: 'Phone number',
+                            controller: phoneNumberController,
+                            isNumber: true,
+                          ),
+                          LoginTextField(
+                            hint: 'Username',
+                            controller: usernameController,
+                          ),
+                          LoginTextField(
+                            hint: 'Password',
+                            controller: passwordController,
+                            isPassword: true,
+                          ),
+                          LoginTextField(
+                            hint: 'Confirm password',
+                            controller: confirmPasswordController,
+                            isPassword: true,
+                          ),
+                          LoginTextField(
+                            hint: 'Monthly payment',
+                            controller: monthlyPaymentController,
+                            isNumber: true,
+                            neeIcon: true,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 50),
 
-                // Login Button
-                RoundedLoadingButton(
-                  color: primaryColor,
-                  successColor: Colors.green,
-                  child: Text(
-                    isAddUser ? 'Add' : 'Sign up',
-                    style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  controller: buttonController,
-                  onPressed: () => _createAccount(context, !isAddUser),
-                )
-              ],
-            ),
+                    // Login Button
+                    RoundedLoadingButton(
+                      color: primaryColor,
+                      successColor: Colors.green,
+                      child: Text(
+                        isAddUser ? 'Add' : 'Sign up',
+                        style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      controller: buttonController,
+                      onPressed: () => _createAccount(context, !isAddUser),
+                    )
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -25,7 +25,7 @@ class SlideInWidgetState extends State<SlideInWidget> with SingleTickerProviderS
 
   @override
   void dispose() {
-    if(controller.isAnimating) {
+    if (controller.isAnimating) {
       controller.dispose();
     }
     super.dispose();
