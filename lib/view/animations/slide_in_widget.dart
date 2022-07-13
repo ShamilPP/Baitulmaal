@@ -1,18 +1,15 @@
-import 'package:baitulmaal/utils/enums.dart';
 import 'package:flutter/material.dart';
 
 class SlideInWidget extends StatefulWidget {
   final Widget child;
-  final SlidePosition position;
   final int delay;
   final Duration duration;
 
   const SlideInWidget({
     Key? key,
     required this.child,
-    required this.position,
     this.delay = 100,
-    this.duration = const Duration(milliseconds: 200),
+    this.duration = const Duration(milliseconds: 300),
   }) : super(key: key);
 
   @override
@@ -21,7 +18,8 @@ class SlideInWidget extends StatefulWidget {
 
 class SlideInWidgetState extends State<SlideInWidget> with SingleTickerProviderStateMixin {
   late AnimationController controller;
-  late Animation<Offset> offset;
+  late Animation<double> opacity;
+  late Animation<Offset> animOffset;
 
   @override
   void dispose() {
@@ -35,31 +33,23 @@ class SlideInWidgetState extends State<SlideInWidget> with SingleTickerProviderS
   void initState() {
     super.initState();
     controller = AnimationController(vsync: this, duration: widget.duration);
-    offset = Tween<Offset>(begin: getOffset(widget.position), end: Offset.zero).animate(controller);
-    Future.delayed(Duration(milliseconds: widget.delay)).then((value) {
-      controller.forward();
-    });
+    opacity = Tween<double>(begin: 0, end: 1).animate(controller);
+    animOffset = Tween<Offset>(begin: const Offset(0, 0.8), end: Offset.zero).animate(controller);
+    Future.delayed(Duration(milliseconds: widget.delay)).then(
+      (value) {
+        controller.forward();
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return SlideTransition(
-      position: offset,
-      child: widget.child,
+      position: animOffset,
+      child: FadeTransition(
+        opacity: opacity,
+        child: widget.child,
+      ),
     );
-  }
-
-  Offset getOffset(SlidePosition position) {
-    Offset offset = Offset.zero;
-    if (position == SlidePosition.top) {
-      offset = const Offset(0, -1);
-    } else if (position == SlidePosition.bottom) {
-      offset = const Offset(0, 1);
-    } else if (position == SlidePosition.left) {
-      offset = const Offset(-1, 0);
-    } else if (position == SlidePosition.right) {
-      offset = const Offset(1, 0);
-    }
-    return offset;
   }
 }

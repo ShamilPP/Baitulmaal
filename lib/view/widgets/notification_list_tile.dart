@@ -23,11 +23,12 @@ class NotificationListTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
       child: Card(
-        elevation: 10,
+        elevation: 7,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(15),
         ),
         child: InkWell(
+          borderRadius: BorderRadius.circular(15),
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(
@@ -107,6 +108,7 @@ class ActionButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: InkWell(
+            borderRadius: BorderRadius.circular(10),
             splashColor: Colors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

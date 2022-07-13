@@ -3,6 +3,7 @@ import 'package:baitulmaal/utils/colors.dart';
 import 'package:baitulmaal/view/screens/user/transactions_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../animations/slide_in_widget.dart';
 import '../../widgets/logout_button.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -24,11 +25,14 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: Row(
                   children: const [
-                    CloseButton(),
+                    SlideInWidget(delay: 200, child: CloseButton()),
                     SizedBox(width: 15),
-                    Text(
-                      "Profile",
-                      style: TextStyle(fontSize: 25),
+                    SlideInWidget(
+                      delay: 400,
+                      child: Text(
+                        "Profile",
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
                   ],
                 ),
@@ -38,28 +42,34 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: Stack(
                   children: [
-                    const Icon(
-                      Icons.account_circle,
-                      size: 130,
-                      color: Colors.grey,
+                    SlideInWidget(
+                      delay: 600,
+                      child: const Icon(
+                        Icons.account_circle,
+                        size: 130,
+                        color: Colors.grey,
+                      ),
                     ),
                     Positioned(
                       bottom: 10,
                       right: 10,
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 4,
+                      child: SlideInWidget(
+                        delay: 800,
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 4,
+                              color: Colors.white,
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.edit,
                             color: Colors.white,
                           ),
-                        ),
-                        child: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -113,14 +123,20 @@ class ProfileListTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            subText,
-            style: const TextStyle(fontSize: 15, color: Colors.grey),
+          SlideInWidget(
+            delay: 1000,
+            child: Text(
+              subText,
+              style: const TextStyle(fontSize: 15, color: Colors.grey),
+            ),
           ),
           const SizedBox(height: 5),
-          Text(
-            text,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          SlideInWidget(
+            delay: 1200,
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
           ),
           const Divider(
             thickness: 1,
@@ -164,36 +180,45 @@ class _PasswordListTileState extends State<PasswordListTile> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Password',
-                    style: TextStyle(fontSize: 15, color: Colors.grey),
+                  const SlideInWidget(
+                    delay: 1000,
+                    child: Text(
+                      'Password',
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                    ),
                   ),
                   const SizedBox(height: 5),
-                  Text(
-                    text,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  SlideInWidget(
+                    delay: 1200,
+                    child: Text(
+                      text,
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
-              InkWell(
-                borderRadius: BorderRadius.circular(30),
-                child: Padding(
-                  padding: const EdgeInsets.all(7),
-                  child: Icon(
-                    isShowing ? Icons.visibility_off : Icons.visibility,
-                    color: Colors.grey.shade700,
+              SlideInWidget(
+                delay: 1500,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Padding(
+                    padding: const EdgeInsets.all(7),
+                    child: Icon(
+                      isShowing ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.grey.shade700,
+                    ),
                   ),
+                  onTap: () {
+                    setState(() {
+                      isShowing = !isShowing;
+                      if (isShowing) {
+                        text = widget.password;
+                      } else {
+                        text = getHidePassword();
+                      }
+                    });
+                  },
                 ),
-                onTap: () {
-                  setState(() {
-                    isShowing = !isShowing;
-                    if (isShowing) {
-                      text = widget.password;
-                    } else {
-                      text = getHidePassword();
-                    }
-                  });
-                },
               )
             ],
           ),

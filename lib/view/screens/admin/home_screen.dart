@@ -1,4 +1,3 @@
-import 'package:baitulmaal/utils/enums.dart';
 import 'package:baitulmaal/view/animations/slide_in_widget.dart';
 import 'package:baitulmaal/view/screens/pay_screen.dart';
 import 'package:baitulmaal/view/widgets/meekath_dropdown.dart';
@@ -40,14 +39,16 @@ class AdminHomeScreen extends StatelessWidget {
                 children: const [
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: Text(
-                      'Users',
-                      style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                    child: SlideInWidget(
+                      child: Text(
+                        'Users',
+                        style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(right: 15),
-                    child: MeekathDropdown(),
+                    child: SlideInWidget(delay: 400, child: MeekathDropdown()),
                   ),
                 ],
               ),
@@ -64,13 +65,13 @@ class AdminHomeScreen extends StatelessWidget {
             right: 20,
             bottom: 20,
             child: SlideInWidget(
-              position: SlidePosition.bottom,
               child: FloatingActionButton(
-                  child: const Icon(Icons.currency_rupee),
-                  onPressed: () {
-                    List<UserModel> users = Provider.of<AdminProvider>(context, listen: false).users;
-                    showDialog(context: context, builder: (ctx) => UserPickerDialog(users: users));
-                  }),
+                child: const Icon(Icons.currency_rupee),
+                onPressed: () {
+                  List<UserModel> users = Provider.of<AdminProvider>(context, listen: false).users;
+                  showDialog(context: context, builder: (ctx) => UserPickerDialog(users: users));
+                },
+              ),
             ),
           ),
         ],

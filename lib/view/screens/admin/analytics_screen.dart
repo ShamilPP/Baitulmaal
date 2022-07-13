@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../model/admin_overview_model.dart';
 import '../../../view_model/admin_view_model.dart';
+import '../../animations/slide_in_widget.dart';
 import '../../widgets/amount_percentage_indicator.dart';
 
 class AnalyticsScreen extends StatelessWidget {
@@ -25,32 +26,38 @@ class AnalyticsScreen extends StatelessWidget {
                 children: [
                   const Padding(
                     padding: EdgeInsets.all(20),
-                    child: Text(
-                      'Analytics',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    child: SlideInWidget(
+                      delay: 200,
+                      child: Text(
+                        'Analytics',
+                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
 
                   // Refresh button
                   Padding(
                     padding: const EdgeInsets.only(right: 15),
-                    child: Material(
-                      color: Colors.orange,
-                      borderRadius: BorderRadius.circular(30),
-                      child: SizedBox(
-                        height: 40,
-                        width: 40,
-                        child: InkWell(
-                          splashColor: Colors.white,
-                          child: const Icon(Icons.refresh, color: Colors.white),
-                          onTap: () async {
-                            // Update all data's
-                            AdminProvider provider = Provider.of<AdminProvider>(context, listen: false);
-                            Provider.of<PaymentProvider>(context, listen: false)
-                                .showLoadingDialog(context, 'Updating...');
-                            await provider.initData(context);
-                            Navigator.pop(context);
-                          },
+                    child: SlideInWidget(
+                      delay: 2400,
+                      child: Material(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(30),
+                        child: SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: InkWell(
+                            splashColor: Colors.white,
+                            child: const Icon(Icons.refresh, color: Colors.white),
+                            onTap: () async {
+                              // Update all data's
+                              AdminProvider provider = Provider.of<AdminProvider>(context, listen: false);
+                              Provider.of<PaymentProvider>(context, listen: false)
+                                  .showLoadingDialog(context, 'Updating...');
+                              await provider.initData(context);
+                              Navigator.pop(context);
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -80,7 +87,7 @@ class AnalyticsScreen extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.only(bottom: 20),
-              child: LogoutButton(),
+              child: SlideInWidget(delay: 2200, child: LogoutButton()),
             ),
           ),
         ],
@@ -99,25 +106,40 @@ class AnalyticsSection extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AmountPercentageIndicator(
-          percentage: 1 - (adminOverview.pendingAmount / adminOverview.totalAmount),
-          centerIconColor: Colors.black,
+        SlideInWidget(
+          delay: 2000,
+          child: AmountPercentageIndicator(
+            percentage: 1 - (adminOverview.pendingAmount / adminOverview.totalAmount),
+            centerIconColor: Colors.black,
+          ),
         ),
         const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DetailsText(
-              text: 'Total Amount : ₹ ${adminOverview.totalAmount}',
+            SlideInWidget(
+              delay: 400,
+              child: DetailsText(
+                text: 'Total Amount : ₹ ${adminOverview.totalAmount}',
+              ),
             ),
-            DetailsText(
-              text: 'Total Received : ₹ ${adminOverview.totalReceivedAmount}',
+            SlideInWidget(
+              delay: 600,
+              child: DetailsText(
+                text: 'Total Received : ₹ ${adminOverview.totalReceivedAmount}',
+              ),
             ),
-            DetailsText(
-              text: 'Pending Amount : ₹ ${adminOverview.pendingAmount}',
+            SlideInWidget(
+              delay: 800,
+              child: DetailsText(
+                text: 'Pending Amount : ₹ ${adminOverview.pendingAmount}',
+              ),
             ),
-            DetailsText(
-              text: 'Extra Amount : ₹ ${(adminOverview.extraAmount)}',
+            SlideInWidget(
+              delay: 1000,
+              child: DetailsText(
+                text: 'Extra Amount : ₹ ${(adminOverview.extraAmount)}',
+              ),
             ),
           ],
         ),
@@ -138,19 +160,31 @@ class PaymentSection extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.only(top: 40, bottom: 10),
-              child: Text(
-                'Payment details',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              child: SlideInWidget(
+                delay: 1200,
+                child: Text(
+                  'Payment details',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-            DetailsText(
-              text: 'Total Not verified amount : ₹ ${provider.getTotalAmount(PaymentStatus.notVerified)}',
+            SlideInWidget(
+              delay: 1400,
+              child: DetailsText(
+                text: 'Total Not verified amount : ₹ ${provider.getTotalAmount(PaymentStatus.notVerified)}',
+              ),
             ),
-            DetailsText(
-              text: 'Total Accepted amount : ₹ ${provider.getTotalAmount(PaymentStatus.accepted)}',
+            SlideInWidget(
+              delay: 1600,
+              child: DetailsText(
+                text: 'Total Accepted amount : ₹ ${provider.getTotalAmount(PaymentStatus.accepted)}',
+              ),
             ),
-            DetailsText(
-              text: 'Total Rejected amount : ₹ ${provider.getTotalAmount(PaymentStatus.rejected)}',
+            SlideInWidget(
+              delay: 1800,
+              child: DetailsText(
+                text: 'Total Rejected amount : ₹ ${provider.getTotalAmount(PaymentStatus.rejected)}',
+              ),
             ),
           ],
         );

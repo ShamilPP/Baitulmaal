@@ -5,6 +5,7 @@ import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../animations/slide_in_widget.dart';
 import '../widgets/animated_check.dart';
 
 class PayScreen extends StatelessWidget {
@@ -30,41 +31,53 @@ class PayScreen extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CloseButton(),
+                    const SlideInWidget(delay: 200, child: CloseButton()),
                     Align(
                       alignment: Alignment.center,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           //User details
-                          const Icon(
-                            Icons.account_circle,
-                            size: 70,
-                            color: Colors.grey,
+                          SlideInWidget(
+                            delay: 400,
+                            child: const Icon(
+                              Icons.account_circle,
+                              size: 70,
+                              color: Colors.grey,
+                            ),
                           ),
                           const SizedBox(height: 10),
-                          Text(
-                            "${user.name} paying",
-                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          SlideInWidget(
+                            delay: 600,
+                            child: Text(
+                              "${user.name} paying",
+                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
                           ),
                           const SizedBox(height: 10),
-                          Text(
-                            "+91 ${user.phoneNumber}",
-                            style: const TextStyle(fontSize: 18),
+                          SlideInWidget(
+                            delay: 800,
+                            child: Text(
+                              "+91 ${user.phoneNumber}",
+                              style: const TextStyle(fontSize: 18),
+                            ),
                           ),
                           // Meekath Dropdown (Change meekath year)
                           isAdmin
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Text("Meekath  :  "),
-                                    MeekathDropdown(dialog: false),
-                                  ],
+                              ? SlideInWidget(
+                                  delay: 1000,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text("Meekath  :  "),
+                                      MeekathDropdown(dialog: false),
+                                    ],
+                                  ),
                                 )
                               : const SizedBox(),
                           const SizedBox(height: 30),
                           // Payment TextField
-                          PaymentTextField(controller: paymentController),
+                          SlideInWidget(delay: 1000, child: PaymentTextField(controller: paymentController)),
                           const SizedBox(height: 100),
                         ],
                       ),
@@ -72,21 +85,24 @@ class PayScreen extends StatelessWidget {
                     // Pay button
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        height: 45,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.green,
-                            shape: const StadiumBorder(),
+                      child: SlideInWidget(
+                        delay: 1500,
+                        child: SizedBox(
+                          height: 45,
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.green,
+                              shape: const StadiumBorder(),
+                            ),
+                            child: const Text(
+                              'PAY',
+                              style: TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                            onPressed: () {
+                              provider.uploadPayment(context, paymentController.text, user, isAdmin);
+                            },
                           ),
-                          child: const Text(
-                            'PAY',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                          onPressed: () {
-                            provider.uploadPayment(context, paymentController.text, user, isAdmin);
-                          },
                         ),
                       ),
                     ),

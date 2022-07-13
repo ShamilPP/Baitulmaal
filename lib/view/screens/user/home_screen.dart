@@ -8,6 +8,8 @@ import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../animations/slide_in_widget.dart';
+
 class UserHomeScreen extends StatelessWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
 
@@ -35,12 +37,15 @@ class UserHomeScreen extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.all(20),
-                      child: Text(
-                        'Payments',
-                        style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                      child: SlideInWidget(
+                        delay: 200,
+                        child: Text(
+                          'Payments',
+                          style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                    ProfileIconButton(user: provider.user),
+                    SlideInWidget(delay: 500, child: ProfileIconButton(user: provider.user)),
                   ],
                 ),
                 Expanded(

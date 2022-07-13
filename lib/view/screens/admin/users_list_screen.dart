@@ -1,5 +1,6 @@
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/utils/colors.dart';
+import 'package:baitulmaal/view/animations/slide_in_widget.dart';
 import 'package:baitulmaal/view/screens/sign_up_screen.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +19,19 @@ class _UsersScreenState extends State<UsersScreen> {
   List<UserModel> users = [];
   final ValueNotifier<List<UserModel>> searchedUsers = ValueNotifier([]);
 
+  final TextEditingController controller = TextEditingController();
+
   @override
   void initState() {
     users = Provider.of<AdminProvider>(context, listen: false).users;
     searchedUsers.value = users;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,21 +48,33 @@ class _UsersScreenState extends State<UsersScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Users',
-                      style: TextStyle(fontSize: 40, color: Colors.white, fontWeight: FontWeight.w300),
+                    const SlideInWidget(
+                      delay: 400,
+                      child: Text(
+                        'Users',
+                        style: TextStyle(fontSize: 40, color: Colors.white, fontWeight: FontWeight.w300),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 27, right: 27, top: 30),
-                      child: TextField(
-                        textAlign: TextAlign.start,
-                        onChanged: onTextChanged,
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          hintText: 'Search',
-                          prefixIcon: Icon(Icons.search),
-                          suffixIcon: Icon(Icons.cancel),
+                      child: SlideInWidget(
+                        delay: 200,
+                        child: TextField(
+                          textAlign: TextAlign.start,
+                          onChanged: onTextChanged,
+                          controller: controller,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: 'Search',
+                            prefixIcon: const Icon(Icons.search),
+                            suffixIcon: InkWell(
+                              child: const Icon(Icons.cancel),
+                              onTap: () {
+                                controller.clear();
+                              },
+                            ),
+                          ),
                         ),
                       ),
                     )
@@ -71,16 +92,18 @@ class _UsersScreenState extends State<UsersScreen> {
           Positioned(
             right: 20,
             bottom: 20,
-            child: FloatingActionButton(
-              child: const Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => SignUpScreen(isAddUser: true),
-                  ),
-                );
-              },
+            child: SlideInWidget(
+              child: FloatingActionButton(
+                child: const Icon(Icons.add),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => SignUpScreen(isAddUser: true),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],

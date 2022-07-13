@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../model/user_payment.dart';
+import '../animations/slide_in_widget.dart';
 import '../screens/admin/analytics_screen.dart';
 import '../screens/user/profile_screen.dart';
 
@@ -24,44 +25,66 @@ class PaymentDialog extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DetailsText(
-                    text: 'Name : ${userPayment.user.name}',
+                  SlideInWidget(
+                    delay: 100,
+                    child: DetailsText(
+                      text: 'Name : ${userPayment.user.name}',
+                    ),
                   ),
-                  DetailsText(
-                    text: 'Amount : ₹ ${userPayment.payment.amount}',
+                  SlideInWidget(
+                    delay: 200,
+                    child: DetailsText(
+                      text:
+                          'Amount : ₹ ${userPayment.payment.amount} (${userPayment.payment.amount ~/ userPayment.user.monthlyPayment})',
+                    ),
                   ),
-                  DetailsText(
-                    text: 'Date : ${DateFormat('EEE, MMM d').format(userPayment.payment.dateTime)}',
+                  SlideInWidget(
+                    delay: 300,
+                    child: DetailsText(
+                      text: 'Date : ${DateFormat('EEE, MMM d').format(userPayment.payment.dateTime)}',
+                    ),
                   ),
-                  DetailsText(
-                    text: 'Time : ${DateFormat('h : m a').format(userPayment.payment.dateTime)}',
+                  SlideInWidget(
+                    delay: 400,
+                    child: DetailsText(
+                      text: 'Time : ${DateFormat('h : m a').format(userPayment.payment.dateTime)}',
+                    ),
                   ),
-                  DetailsText(
-                    text: 'Meekath : ${userPayment.payment.meekath}',
+                  SlideInWidget(
+                    delay: 500,
+                    child: DetailsText(
+                      text: 'Meekath : ${userPayment.payment.meekath}',
+                    ),
                   ),
                   isAdmin
-                      ? DetailsText(
-                          text: 'User status : ${userPayment.user.analytics!.isPending ? 'PENDING' : 'COMPLETED'}',
+                      ? SlideInWidget(
+                          delay: 600,
+                          child: DetailsText(
+                            text: 'User status : ${userPayment.user.analytics!.isPending ? 'PENDING' : 'COMPLETED'}',
+                          ),
                         )
                       : const SizedBox(),
                   isAdmin
-                      ? DetailsText(
-                          text: 'Monthly amount : ₹ ${userPayment.user.monthlyPayment}',
+                      ? SlideInWidget(
+                          delay: 700,
+                          child: DetailsText(
+                            text: 'Monthly amount : ₹ ${userPayment.user.monthlyPayment}',
+                          ),
                         )
                       : const SizedBox(),
-                  DetailsText(
-                    text: 'Months : ${userPayment.payment.amount ~/ userPayment.user.monthlyPayment} Months',
-                  ),
                   isAdmin
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Center(
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) => ProfileScreen(user: userPayment.user)));
-                                  },
-                                  child: const Text('View profile'))),
+                      ? SlideInWidget(
+                          delay: 800,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Center(
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (_) => ProfileScreen(user: userPayment.user)));
+                                    },
+                                    child: const Text('View profile'))),
+                          ),
                         )
                       : const SizedBox(),
                 ],

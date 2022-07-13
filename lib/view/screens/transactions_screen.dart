@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/enums.dart';
+import '../animations/slide_in_widget.dart';
 import '../widgets/payment_list.dart';
 
 class TransactionScreen extends StatelessWidget {
@@ -22,17 +23,20 @@ class TransactionScreen extends StatelessWidget {
             height: 100,
             child: AppBar(
               backgroundColor: primaryColor,
-              title: const Text(
-                'Transactions',
-                style: TextStyle(fontSize: 23, fontWeight: FontWeight.w400, color: Colors.white),
+              title: const SlideInWidget(
+                delay: 1000,
+                child: Text(
+                  'Transactions',
+                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.w400, color: Colors.white),
+                ),
               ),
               bottom: const TabBar(
                 isScrollable: true,
                 tabs: [
-                  Tab(text: 'All'),
-                  Tab(text: 'Accepted'),
-                  Tab(text: 'Rejected'),
-                  Tab(text: 'Not verified'),
+                  SlideInWidget(delay: 200, child: Tab(text: 'All')),
+                  SlideInWidget(delay: 400, child: Tab(text: 'Accepted')),
+                  SlideInWidget(delay: 600, child: Tab(text: 'Rejected')),
+                  SlideInWidget(delay: 800, child: Tab(text: 'Not verified')),
                 ],
               ),
             ),

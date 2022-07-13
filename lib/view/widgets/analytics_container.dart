@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
+import '../animations/slide_in_widget.dart';
 import 'amount_percentage_indicator.dart';
 
 class AnalyticsContainer extends StatelessWidget {
@@ -102,13 +103,19 @@ class AnalyticsText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          mainText,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color),
+        SlideInWidget(
+          delay: 200,
+          child: Text(
+            mainText,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color),
+          ),
         ),
-        Text(
-          subText,
-          style: TextStyle(fontSize: 13, color: color),
+        SlideInWidget(
+          delay: 500,
+          child: Text(
+            subText,
+            style: TextStyle(fontSize: 13, color: color),
+          ),
         ),
       ],
     );
