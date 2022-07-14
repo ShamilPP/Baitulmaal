@@ -1,5 +1,4 @@
-import 'package:baitulmaal/model/admin_overview_model.dart';
-import 'package:baitulmaal/model/user_analytics_model.dart';
+import 'package:baitulmaal/model/total_analytics_model.dart';
 import 'package:baitulmaal/model/user_payment.dart';
 import 'package:baitulmaal/utils/enums.dart';
 
@@ -7,36 +6,31 @@ import '../model/payment_model.dart';
 import '../model/user_model.dart';
 
 class AnalyticsService {
-  static AdminOverviewModel getAdminOverview(List<UserModel> users) {
-    int totalUsers = users.length;
-    int pendingUsers = 0;
+  static TotalAnalyticsModel getAdminOverview(List<UserModel> users) {
+    int yearlyAmount = 0;
     int totalAmount = 0;
     int totalReceivedAmount = 0;
     int pendingAmount = 0;
     int extraAmount = 0;
 
     for (var user in users) {
-      UserAnalyticsModel analytics = user.analytics!;
+      TotalAnalyticsModel analytics = user.analytics!;
+
+      yearlyAmount = yearlyAmount + analytics.yearlyAmount;
       totalAmount = totalAmount + analytics.totalAmount;
       totalReceivedAmount = totalReceivedAmount + analytics.totalReceivedAmount;
-
-      if (analytics.isPending) {
-        pendingAmount = pendingAmount + analytics.pendingAmount;
-        pendingUsers++;
-      } else {
-        extraAmount = extraAmount + analytics.pendingAmount.abs();
-      }
+      pendingAmount = pendingAmount + analytics.pendingAmount;
+      extraAmount = extraAmount + analytics.extraAmount;
     }
 
-    AdminOverviewModel adminOverview = AdminOverviewModel(
-      totalUsers: totalUsers,
-      pendingUsers: pendingUsers,
+    TotalAnalyticsModel adminAnalytics = TotalAnalyticsModel(
+      yearlyAmount: yearlyAmount,
       totalAmount: totalAmount,
       totalReceivedAmount: totalReceivedAmount,
       pendingAmount: pendingAmount,
       extraAmount: extraAmount,
     );
-    return adminOverview;
+    return adminAnalytics;
   }
 
   static List<UserPaymentModel> getUserPaymentList(List<UserModel> users, PaymentStatus status) {
@@ -56,17 +50,24 @@ class AnalyticsService {
     return payments;
   }
 
-  static UserAnalyticsModel getUserAnalytics(int monthlyPayment, List<PaymentModel> payments) {
+  static TotalAnalyticsModel getUserAnalytics(int monthlyPayment, List<PaymentModel> payments) {
     int month = DateTime.now().month;
-    int totalAmount = monthlyPayment * 12;
+    int yearlyAmount = monthlyPayment * 12;
+    int totalAmount = monthlyPayment * month;
     int receivedAmount = getTotalReceivedAmount(payments);
-    int pendingAmount = (monthlyPayment * month) - receivedAmount;
+    int pendingAmount = totalAmount - receivedAmount;
+    int extraAmount = 0;
+    if (pendingAmount.isNegative) {
+      extraAmount = pendingAmount;
+      pendingAmount = 0;
+    }
 
-    UserAnalyticsModel analytics = UserAnalyticsModel(
+    TotalAnalyticsModel analytics = TotalAnalyticsModel(
+      yearlyAmount: yearlyAmount,
       totalAmount: totalAmount,
       totalReceivedAmount: receivedAmount,
       pendingAmount: pendingAmount,
-      isPending: !pendingAmount.isNegative,
+      extraAmount: extraAmount,
     );
     return analytics;
   }

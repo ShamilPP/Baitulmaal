@@ -5,7 +5,7 @@ import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/admin_overview_model.dart';
+import '../../../model/total_analytics_model.dart';
 import '../../../model/user_model.dart';
 import '../../widgets/analytics_container.dart';
 import '../../widgets/users_list.dart';
@@ -22,16 +22,17 @@ class AdminHomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Consumer<AdminProvider>(builder: (ctx, provider, child) {
-                AdminOverviewModel adminOverview = provider.getAdminOverview();
+                TotalAnalyticsModel adminAnalytics = provider.getAdminAnalytics();
                 return AnalyticsContainer(
-                  topLeftAmount: adminOverview.pendingUsers,
-                  topLeftText: 'Pending users',
-                  topRightAmount: adminOverview.totalUsers,
-                  topRightText: 'Total users',
-                  bottomLeftAmount: adminOverview.pendingAmount,
-                  bottomLeftText: 'Pending amount',
-                  bottomRightAmount: adminOverview.totalAmount,
-                  bottomRightText: 'Total amount',
+                  percentage: 1 - (adminAnalytics.pendingAmount / adminAnalytics.totalAmount),
+                  topLeftAmount: '₹ ${provider.users.length}',
+                  topLeftText: 'Total users',
+                  topRightAmount: '₹ ${adminAnalytics.yearlyAmount}',
+                  topRightText: 'Yearly amount',
+                  bottomLeftAmount: '₹ ${adminAnalytics.totalAmount}',
+                  bottomLeftText: 'Total amount',
+                  bottomRightAmount: '₹ ${adminAnalytics.pendingAmount}',
+                  bottomRightText: 'Pending amount',
                 );
               }),
               Row(

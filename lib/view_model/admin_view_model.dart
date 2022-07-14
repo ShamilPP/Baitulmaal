@@ -1,4 +1,3 @@
-import 'package:baitulmaal/model/admin_overview_model.dart';
 import 'package:baitulmaal/model/user_payment.dart';
 import 'package:baitulmaal/service/analytics_service.dart';
 import 'package:baitulmaal/service/firebase_service.dart';
@@ -7,6 +6,7 @@ import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../model/total_analytics_model.dart';
 import '../model/user_model.dart';
 import '../utils/enums.dart';
 
@@ -31,9 +31,9 @@ class AdminProvider extends ChangeNotifier {
     return true;
   }
 
-  AdminOverviewModel getAdminOverview() {
-    AdminOverviewModel adminOverview = AnalyticsService.getAdminOverview(_users);
-    return adminOverview;
+  TotalAnalyticsModel getAdminAnalytics() {
+    TotalAnalyticsModel adminAnalytics = AnalyticsService.getAdminOverview(_users);
+    return adminAnalytics;
   }
 
   int getTotalAmount(PaymentStatus status) {

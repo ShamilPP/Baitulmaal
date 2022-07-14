@@ -60,7 +60,8 @@ class PaymentDialog extends StatelessWidget {
                       ? SlideInWidget(
                           delay: 600,
                           child: DetailsText(
-                            text: 'User status : ${userPayment.user.analytics!.isPending ? 'PENDING' : 'COMPLETED'}',
+                            text:
+                                'User status : ${userPayment.user.analytics!.pendingAmount != 0 ? 'PENDING' : 'COMPLETED'}',
                           ),
                         )
                       : const SizedBox(),

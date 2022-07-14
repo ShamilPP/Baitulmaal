@@ -4,7 +4,7 @@ import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/admin_overview_model.dart';
+import '../../../model/total_analytics_model.dart';
 import '../../../view_model/admin_view_model.dart';
 import '../../animations/slide_in_widget.dart';
 import '../../widgets/amount_percentage_indicator.dart';
@@ -71,8 +71,8 @@ class AnalyticsScreen extends StatelessWidget {
                   children: [
                     Consumer<AdminProvider>(
                       builder: (ctx, provider, child) {
-                        AdminOverviewModel adminOverview = provider.getAdminOverview();
-                        return AnalyticsSection(adminOverview: adminOverview);
+                        TotalAnalyticsModel adminAnalytics = provider.getAdminAnalytics();
+                        return AnalyticsSection(adminAnalytics: adminAnalytics);
                       },
                     ),
                     const PaymentSection(),
@@ -97,9 +97,9 @@ class AnalyticsScreen extends StatelessWidget {
 }
 
 class AnalyticsSection extends StatelessWidget {
-  final AdminOverviewModel adminOverview;
+  final TotalAnalyticsModel adminAnalytics;
 
-  const AnalyticsSection({Key? key, required this.adminOverview}) : super(key: key);
+  const AnalyticsSection({Key? key, required this.adminAnalytics}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class AnalyticsSection extends StatelessWidget {
         SlideInWidget(
           delay: 2000,
           child: AmountPercentageIndicator(
-            percentage: 1 - (adminOverview.pendingAmount / adminOverview.totalAmount),
+            percentage: 1 - (adminAnalytics.pendingAmount / adminAnalytics.totalAmount),
             centerIconColor: Colors.black,
           ),
         ),
@@ -120,25 +120,25 @@ class AnalyticsSection extends StatelessWidget {
             SlideInWidget(
               delay: 400,
               child: DetailsText(
-                text: 'Total Amount : ₹ ${adminOverview.totalAmount}',
+                text: 'Total Amount : ₹ ${adminAnalytics.totalAmount}',
               ),
             ),
             SlideInWidget(
               delay: 600,
               child: DetailsText(
-                text: 'Total Received : ₹ ${adminOverview.totalReceivedAmount}',
+                text: 'Total Received : ₹ ${adminAnalytics.totalReceivedAmount}',
               ),
             ),
             SlideInWidget(
               delay: 800,
               child: DetailsText(
-                text: 'Pending Amount : ₹ ${adminOverview.pendingAmount}',
+                text: 'Pending Amount : ₹ ${adminAnalytics.pendingAmount}',
               ),
             ),
             SlideInWidget(
               delay: 1000,
               child: DetailsText(
-                text: 'Extra Amount : ₹ ${(adminOverview.extraAmount)}',
+                text: 'Extra Amount : ₹ ${(adminAnalytics.extraAmount)}',
               ),
             ),
           ],

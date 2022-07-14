@@ -1,5 +1,5 @@
 import 'package:baitulmaal/model/payment_model.dart';
-import 'package:baitulmaal/model/user_analytics_model.dart';
+import 'package:baitulmaal/model/total_analytics_model.dart';
 
 class UserModel {
   final String? docId;
@@ -8,7 +8,7 @@ class UserModel {
   final String username;
   final String password;
   final int monthlyPayment;
-  final UserAnalyticsModel? analytics;
+  final TotalAnalyticsModel? analytics;
   final List<PaymentModel>? payments;
 
   UserModel({

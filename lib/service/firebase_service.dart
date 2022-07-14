@@ -1,10 +1,10 @@
 import 'package:baitulmaal/model/payment_model.dart';
+import 'package:baitulmaal/model/total_analytics_model.dart';
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/service/analytics_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/response.dart';
-import '../model/user_analytics_model.dart';
 
 class FirebaseService {
   static Future<Response> uploadUser(UserModel user) async {
@@ -63,7 +63,7 @@ class FirebaseService {
         }
       }
 
-      UserAnalyticsModel analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
+      TotalAnalyticsModel analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
 
       users.add(UserModel(
         docId: user.id,
@@ -113,7 +113,7 @@ class FirebaseService {
           payments.add(payment);
         }
       }
-      UserAnalyticsModel analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
+      TotalAnalyticsModel analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
 
       // returning user data
       return UserModel(

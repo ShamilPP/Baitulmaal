@@ -1,13 +1,15 @@
-class UserAnalyticsModel {
+class TotalAnalyticsModel {
+  final int yearlyAmount;
   final int totalAmount;
   final int totalReceivedAmount;
   final int pendingAmount;
-  final bool isPending;
+  final int extraAmount;
 
-  UserAnalyticsModel({
+  TotalAnalyticsModel({
+    required this.yearlyAmount,
     required this.totalAmount,
     required this.totalReceivedAmount,
     required this.pendingAmount,
-    required this.isPending,
+    required this.extraAmount,
   });
 }

@@ -22,15 +22,15 @@ class UserHomeScreen extends StatelessWidget {
             return Column(
               children: [
                 AnalyticsContainer(
-                  topLeftAmount: provider.user.monthlyPayment,
+                  percentage: 1 - (provider.user.analytics!.pendingAmount / provider.user.analytics!.totalAmount),
+                  topLeftAmount: '₹ ${provider.user.monthlyPayment}',
                   topLeftText: 'Monthly payment',
-                  topRightAmount: provider.user.analytics!.totalReceivedAmount,
-                  topRightText: ' Paid amount',
-                  bottomLeftAmount: provider.user.analytics!.isPending ? provider.user.analytics!.pendingAmount : 0,
-                  bottomLeftText: 'Pending amount',
-                  bottomRightAmount: provider.user.analytics!.totalAmount,
-                  bottomRightText: 'Total amount',
-                  showRupeeText: true,
+                  topRightAmount: '₹ ${provider.user.analytics!.yearlyAmount}',
+                  topRightText: ' Yearly amount',
+                  bottomLeftAmount: '₹ ${provider.user.analytics!.totalAmount}',
+                  bottomLeftText: 'Total amount',
+                  bottomRightAmount: '₹ ${provider.user.analytics!.pendingAmount}',
+                  bottomRightText: 'Pending amount',
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

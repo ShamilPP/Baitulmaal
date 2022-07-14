@@ -5,18 +5,19 @@ import '../animations/slide_in_widget.dart';
 import 'amount_percentage_indicator.dart';
 
 class AnalyticsContainer extends StatelessWidget {
-  final int topLeftAmount;
+  final double percentage;
+  final String topLeftAmount;
   final String topLeftText;
-  final int topRightAmount;
+  final String topRightAmount;
   final String topRightText;
-  final int bottomLeftAmount;
+  final String bottomLeftAmount;
   final String bottomLeftText;
-  final int bottomRightAmount;
+  final String bottomRightAmount;
   final String bottomRightText;
-  final bool showRupeeText;
 
   const AnalyticsContainer({
     Key? key,
+    required this.percentage,
     required this.topLeftAmount,
     required this.topLeftText,
     required this.topRightAmount,
@@ -25,7 +26,6 @@ class AnalyticsContainer extends StatelessWidget {
     required this.bottomLeftText,
     required this.bottomRightAmount,
     required this.bottomRightText,
-    this.showRupeeText = false,
   }) : super(key: key);
 
   @override
@@ -47,38 +47,38 @@ class AnalyticsContainer extends StatelessWidget {
             Positioned(
               top: 0,
               left: 0,
-              child: AnalyticsText(
-                mainText: (showRupeeText ? '₹ ' : '') + '$topLeftAmount',
+              child: _AnalyticsText(
+                mainText: topLeftAmount,
                 subText: topLeftText,
               ),
             ),
             Positioned(
               top: 0,
               right: 0,
-              child: AnalyticsText(
-                mainText: (showRupeeText ? '₹ ' : '') + '$topRightAmount',
+              child: _AnalyticsText(
+                mainText: topRightAmount,
                 subText: topRightText,
               ),
             ),
             Positioned(
               bottom: 0,
               left: 0,
-              child: AnalyticsText(
-                mainText: '₹ $bottomLeftAmount',
+              child: _AnalyticsText(
+                mainText: bottomLeftAmount,
                 subText: bottomLeftText,
-                color: Colors.red,
               ),
             ),
             Positioned(
               bottom: 0,
               right: 0,
-              child: AnalyticsText(
-                mainText: '₹ $bottomRightAmount',
+              child: _AnalyticsText(
+                mainText: bottomRightAmount,
                 subText: bottomRightText,
+                color: Colors.red,
               ),
             ),
             Center(
-              child: AmountPercentageIndicator(percentage: 1 - (bottomLeftAmount / bottomRightAmount)),
+              child: AmountPercentageIndicator(percentage: percentage),
             ),
           ],
         ),
@@ -87,12 +87,12 @@ class AnalyticsContainer extends StatelessWidget {
   }
 }
 
-class AnalyticsText extends StatelessWidget {
+class _AnalyticsText extends StatelessWidget {
   final String mainText;
   final String subText;
   final Color color;
 
-  const AnalyticsText({
+  const _AnalyticsText({
     Key? key,
     required this.mainText,
     required this.subText,

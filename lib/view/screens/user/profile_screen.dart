@@ -42,9 +42,9 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: Stack(
                   children: [
-                    SlideInWidget(
+                    const SlideInWidget(
                       delay: 600,
-                      child: const Icon(
+                      child: Icon(
                         Icons.account_circle,
                         size: 130,
                         color: Colors.grey,

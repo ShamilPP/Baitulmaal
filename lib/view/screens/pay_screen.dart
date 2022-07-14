@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../animations/slide_in_widget.dart';
-import '../widgets/animated_check.dart';
 
 class PayScreen extends StatelessWidget {
   final UserModel user;
@@ -38,9 +37,9 @@ class PayScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           //User details
-                          SlideInWidget(
+                          const SlideInWidget(
                             delay: 400,
-                            child: const Icon(
+                            child: Icon(
                               Icons.account_circle,
                               size: 70,
                               color: Colors.grey,
@@ -109,7 +108,21 @@ class PayScreen extends StatelessWidget {
                   ],
                 );
               } else {
-                return AnimatedCheck(status: provider.uploadStatus);
+                // show loading or checkmar or faild mark
+                var status = provider.uploadStatus;
+                if (status == PayUploadStatus.loading) {
+                  // Payment in progressing show loading
+                  return const Center(
+                      child: SizedBox(height: 100, width: 100, child: CircularProgressIndicator(strokeWidth: 7)));
+                } else if (status == PayUploadStatus.success) {
+                  // payment finished show tick mark
+                  return const AnimatedCheckMark(color: Colors.green, icon: Icons.check);
+                } else if (status == PayUploadStatus.failed) {
+                  // payment failed show error mark
+                  return const AnimatedCheckMark(color: Colors.red, icon: Icons.close);
+                } else {
+                  return const SizedBox();
+                }
               }
             },
           ),
@@ -149,6 +162,72 @@ class PaymentTextField extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AnimatedCheckMark extends StatefulWidget {
+  final Color color;
+  final IconData icon;
+
+  const AnimatedCheckMark({Key? key, required this.color, required this.icon}) : super(key: key);
+
+  @override
+  _AnimatedCheckMarkState createState() => _AnimatedCheckMarkState();
+}
+
+class _AnimatedCheckMarkState extends State<AnimatedCheckMark> with TickerProviderStateMixin {
+  late AnimationController scaleController =
+      AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
+  late Animation<double> scaleAnimation = CurvedAnimation(parent: scaleController, curve: Curves.elasticOut);
+  late AnimationController checkController =
+      AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
+  late Animation<double> checkAnimation = CurvedAnimation(parent: checkController, curve: Curves.linear);
+
+  @override
+  void initState() {
+    super.initState();
+    scaleController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        checkController.forward();
+      }
+    });
+    scaleController.forward();
+  }
+
+  @override
+  void dispose() {
+    scaleController.dispose();
+    checkController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Center(
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Container(
+              height: 140,
+              width: 140,
+              decoration: BoxDecoration(
+                color: widget.color,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+        ),
+        SizeTransition(
+          sizeFactor: checkAnimation,
+          axis: Axis.horizontal,
+          axisAlignment: -1,
+          child: Center(
+            child: Icon(widget.icon, color: Colors.white, size: 100),
+          ),
+        ),
+      ],
     );
   }
 }
