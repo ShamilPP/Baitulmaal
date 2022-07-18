@@ -25,7 +25,7 @@ class AdminHomeScreen extends StatelessWidget {
                 TotalAnalyticsModel adminAnalytics = provider.analytics;
                 return AnalyticsContainer(
                   percentage: 1 - (adminAnalytics.pendingAmount / adminAnalytics.totalAmount),
-                  topLeftAmount: '₹ ${provider.users.length}',
+                  topLeftAmount: '${provider.users.length}',
                   topLeftText: 'Total users',
                   topRightAmount: '₹ ${adminAnalytics.yearlyAmount}',
                   topRightText: 'Yearly amount',
