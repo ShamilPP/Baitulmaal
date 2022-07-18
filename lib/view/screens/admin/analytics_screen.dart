@@ -26,7 +26,7 @@ class AnalyticsScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.all(20),
                     child: SlideInWidget(
-                      delay: 200,
+                      delay: 100,
                       child: Text(
                         'Analytics',
                         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -35,10 +35,10 @@ class AnalyticsScreen extends StatelessWidget {
                   ),
 
                   // Refresh button
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: SlideInWidget(
-                      delay: 2400,
+                  SlideInWidget(
+                    delay: 1200,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 15),
                       child: Material(
                         color: Colors.orange,
                         borderRadius: BorderRadius.circular(30),
@@ -77,11 +77,14 @@ class AnalyticsScreen extends StatelessWidget {
           ),
 
           // Logout button
-          const Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 20),
-              child: SlideInWidget(delay: 2200, child: LogoutButton()),
+          const SlideInWidget(
+            delay: 1100,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: LogoutButton(),
+              ),
             ),
           ),
         ],
@@ -100,7 +103,7 @@ class AnalyticsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SlideInWidget(
-            delay: 2000,
+            delay: 1000,
             child: AmountPercentageIndicator(
               percentage: 1 - (provider.analytics.pendingAmount / provider.analytics.totalAmount),
               centerIconColor: Colors.black,
@@ -111,25 +114,25 @@ class AnalyticsSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SlideInWidget(
-                delay: 400,
+                delay: 200,
                 child: DetailsText(
                   text: 'Total Amount : ₹ ${provider.analytics.totalAmount}',
                 ),
               ),
               SlideInWidget(
-                delay: 600,
+                delay: 300,
                 child: DetailsText(
                   text: 'Total Received : ₹ ${provider.analytics.totalReceivedAmount}',
                 ),
               ),
               SlideInWidget(
-                delay: 800,
+                delay: 400,
                 child: DetailsText(
                   text: 'Pending Amount : ₹ ${provider.analytics.pendingAmount}',
                 ),
               ),
               SlideInWidget(
-                delay: 1000,
+                delay: 500,
                 child: DetailsText(
                   text: 'Extra Amount : ₹ ${(provider.analytics.extraAmount)}',
                 ),
@@ -155,7 +158,7 @@ class PaymentSection extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(top: 40, bottom: 10),
               child: SlideInWidget(
-                delay: 1200,
+                delay: 600,
                 child: Text(
                   'Payment details',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -163,19 +166,19 @@ class PaymentSection extends StatelessWidget {
               ),
             ),
             SlideInWidget(
-              delay: 1400,
+              delay: 700,
               child: DetailsText(
                 text: 'Total Not verified amount : ₹ ${provider.getTotalAmount(PaymentStatus.notVerified)}',
               ),
             ),
             SlideInWidget(
-              delay: 1600,
+              delay: 800,
               child: DetailsText(
                 text: 'Total Accepted amount : ₹ ${provider.getTotalAmount(PaymentStatus.accepted)}',
               ),
             ),
             SlideInWidget(
-              delay: 1800,
+              delay: 900,
               child: DetailsText(
                 text: 'Total Rejected amount : ₹ ${provider.getTotalAmount(PaymentStatus.rejected)}',
               ),
