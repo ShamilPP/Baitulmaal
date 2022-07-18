@@ -60,18 +60,19 @@ class UserHomeScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.currency_rupee),
-          onPressed: () {
-            UserModel user = Provider.of<UserProvider>(context, listen: false).user;
+        child: const Icon(Icons.currency_rupee),
+        onPressed: () {
+          UserModel user = Provider.of<UserProvider>(context, listen: false).user;
 
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => PayScreen(
-                          user: user,
-                          isAdmin: false,
-                        )));
-          }),
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => PayScreen(
+                        user: user,
+                        isAdmin: false,
+                      )));
+        },
+      ),
     );
   }
 }

@@ -20,7 +20,6 @@ class AdminProvider extends ChangeNotifier {
 
   TotalAnalyticsModel get analytics => _analytics;
 
-
   Future<bool> loadDataFromFirebase(BuildContext context) async {
     // fetch meekath
     int meekath = Provider.of<PaymentProvider>(context, listen: false).meekath;

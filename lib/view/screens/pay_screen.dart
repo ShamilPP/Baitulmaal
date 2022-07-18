@@ -1,10 +1,10 @@
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/utils/enums.dart';
-import 'package:baitulmaal/view/widgets/meekath_dropdown.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../view_model/admin_view_model.dart';
 import '../animations/slide_in_widget.dart';
 
 class PayScreen extends StatelessWidget {
@@ -30,7 +30,7 @@ class PayScreen extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SlideInWidget(delay: 200, child: CloseButton()),
+                    const SlideInWidget(delay: 100, child: CloseButton()),
                     Align(
                       alignment: Alignment.center,
                       child: Column(
@@ -38,7 +38,7 @@ class PayScreen extends StatelessWidget {
                         children: [
                           //User details
                           const SlideInWidget(
-                            delay: 400,
+                            delay: 200,
                             child: Icon(
                               Icons.account_circle,
                               size: 70,
@@ -47,7 +47,7 @@ class PayScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           SlideInWidget(
-                            delay: 600,
+                            delay: 300,
                             child: Text(
                               "${user.name} paying",
                               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -55,7 +55,7 @@ class PayScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           SlideInWidget(
-                            delay: 800,
+                            delay: 400,
                             child: Text(
                               "+91 ${user.phoneNumber}",
                               style: const TextStyle(fontSize: 18),
@@ -64,19 +64,19 @@ class PayScreen extends StatelessWidget {
                           // Meekath Dropdown (Change meekath year)
                           isAdmin
                               ? SlideInWidget(
-                                  delay: 1000,
+                                  delay: 500,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: const [
                                       Text("Meekath  :  "),
-                                      MeekathDropdown(dialog: false),
+                                      MeekathDropdown(),
                                     ],
                                   ),
                                 )
                               : const SizedBox(),
                           const SizedBox(height: 30),
                           // Payment TextField
-                          SlideInWidget(delay: 1000, child: PaymentTextField(controller: paymentController)),
+                          SlideInWidget(delay: 500, child: PaymentTextField(controller: paymentController)),
                           const SizedBox(height: 100),
                         ],
                       ),
@@ -85,7 +85,7 @@ class PayScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: SlideInWidget(
-                        delay: 1500,
+                        delay: 800,
                         child: SizedBox(
                           height: 45,
                           width: double.infinity,
@@ -163,6 +163,31 @@ class PaymentTextField extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class MeekathDropdown extends StatelessWidget {
+  const MeekathDropdown({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PaymentProvider>(builder: (context, provider, child) {
+      return DropdownButtonHideUnderline(
+        child: DropdownButton<int>(
+          value: provider.meekath,
+          items: provider.getMeekathList().map((int value) {
+            return DropdownMenuItem<int>(
+              value: value,
+              child: Text('$value'),
+            );
+          }).toList(),
+          onChanged: (newValue) async {
+            provider.setMeekath(newValue!);
+            await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
+          },
+        ),
+      );
+    });
   }
 }
 

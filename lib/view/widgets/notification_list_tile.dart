@@ -1,5 +1,4 @@
 import 'package:baitulmaal/view/widgets/payment_dialog.dart';
-import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/notification_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -135,7 +134,7 @@ class ActionButton extends StatelessWidget {
                 paymentProvider.updatePayment(payment.docId!, status);
 
                 // Update payment locally
-                notificationProvider.updatePayment(context,payment,status);
+                notificationProvider.updatePayment(context, payment, status);
 
                 // animation
                 notificationProvider.listKey.currentState!.removeItem(

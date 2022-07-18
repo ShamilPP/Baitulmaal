@@ -1,8 +1,9 @@
 import 'package:baitulmaal/view/animations/slide_in_widget.dart';
 import 'package:baitulmaal/view/screens/pay_screen.dart';
-import 'package:baitulmaal/view/widgets/meekath_dropdown.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
+import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/total_analytics_model.dart';
@@ -40,18 +41,18 @@ class AdminHomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
-                  Padding(
-                    padding: EdgeInsets.all(20),
-                    child: SlideInWidget(
+                  SlideInWidget(
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
                       child: Text(
                         'Users',
                         style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 15),
-                    child: SlideInWidget(delay: 400, child: MeekathDropdown()),
+                  SlideInWidget(
+                    delay: 400,
+                    child: AdminPopupMenu(),
                   ),
                 ],
               ),
@@ -72,7 +73,7 @@ class AdminHomeScreen extends StatelessWidget {
                 child: const Icon(Icons.currency_rupee),
                 onPressed: () {
                   List<UserModel> users = Provider.of<AdminProvider>(context, listen: false).users;
-                  showDialog(context: context, builder: (ctx) => UserPickerDialog(users: users));
+                  showDialog(context: context, builder: (ctx) => PayForUserDialog(users: users));
                 },
               ),
             ),
@@ -83,10 +84,10 @@ class AdminHomeScreen extends StatelessWidget {
   }
 }
 
-class UserPickerDialog extends StatelessWidget {
+class PayForUserDialog extends StatelessWidget {
   final List<UserModel> users;
 
-  UserPickerDialog({Key? key, required this.users}) : super(key: key);
+  PayForUserDialog({Key? key, required this.users}) : super(key: key);
 
   final ValueNotifier<List<UserModel>> searchedUsers = ValueNotifier([]);
 
@@ -147,18 +148,21 @@ class UserPickerDialog extends StatelessWidget {
                     itemCount: searchedUsers.value.length,
                     itemBuilder: (ctx, index) {
                       return ListTile(
-                          title: Text(searchedUsers.value[index].name),
-                          subtitle: Text('₹ ${searchedUsers.value[index].monthlyPayment}'),
-                          onTap: () {
-                            // Go to pay screen
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => PayScreen(
-                                          user: searchedUsers.value[index],
-                                          isAdmin: true,
-                                        )));
-                          });
+                        title: Text(searchedUsers.value[index].name),
+                        subtitle: Text('₹ ${searchedUsers.value[index].monthlyPayment}'),
+                        onTap: () {
+                          // Go to pay screen
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => PayScreen(
+                                user: searchedUsers.value[index],
+                                isAdmin: true,
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     },
                     separatorBuilder: (ctx, index) {
                       return const Divider(thickness: 1, height: 0);
@@ -181,5 +185,68 @@ class UserPickerDialog extends StatelessWidget {
       }
     }
     searchedUsers.value = _users;
+  }
+}
+
+class AdminPopupMenu extends StatelessWidget {
+  const AdminPopupMenu({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ValueNotifier<int> currentMeekath = ValueNotifier(DateTime.now().year);
+    var provider = Provider.of<PaymentProvider>(context, listen: false);
+    var meekathList = provider.getMeekathList();
+    currentMeekath.value = provider.meekath;
+
+    return PopupMenuButton<String>(
+      itemBuilder: (BuildContext context) {
+        return {'Meekath'}.map((String choice) {
+          return PopupMenuItem<String>(
+            value: choice,
+            child: Text(choice),
+          );
+        }).toList();
+      },
+      onSelected: (value) {
+        showDialog(
+          context: context,
+          builder: (ctx) {
+            return AlertDialog(
+              title: const Text("Select meekath"),
+              content: ValueListenableBuilder<int>(
+                valueListenable: currentMeekath,
+                builder: (ctx, meekath, child) {
+                  return NumberPicker(
+                      itemHeight: 40,
+                      itemWidth: 50,
+                      value: meekath,
+                      minValue: meekathList.first,
+                      maxValue: meekathList.last,
+                      onChanged: (value) => currentMeekath.value = value);
+                },
+              ),
+              actions: [
+                TextButton(
+                  child: const Text("Cancel"),
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                  },
+                ),
+                ElevatedButton(
+                  child: const Text("Select"),
+                  onPressed: () async {
+                    Navigator.pop(ctx);
+                    provider.showLoadingDialog(context, 'Updating...');
+                    provider.setMeekath(currentMeekath.value);
+                    await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 }
