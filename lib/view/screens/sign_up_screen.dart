@@ -139,7 +139,7 @@ class SignUpScreen extends StatelessWidget {
       await Future.delayed(const Duration(milliseconds: 500));
       // if admin add user
       if (isAddUser) {
-        Provider.of<AdminProvider>(context, listen: false).initData(context);
+        Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
         Navigator.pop(context);
       } else {
         // if create account go to splash screen

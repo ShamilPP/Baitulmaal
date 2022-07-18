@@ -53,7 +53,7 @@ class AnalyticsScreen extends StatelessWidget {
                               AdminProvider provider = Provider.of<AdminProvider>(context, listen: false);
                               Provider.of<PaymentProvider>(context, listen: false)
                                   .showLoadingDialog(context, 'Updating...');
-                              await provider.initData(context);
+                              await provider.loadDataFromFirebase(context);
                               Navigator.pop(context);
                             },
                           ),

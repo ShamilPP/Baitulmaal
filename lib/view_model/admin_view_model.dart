@@ -20,7 +20,8 @@ class AdminProvider extends ChangeNotifier {
 
   TotalAnalyticsModel get analytics => _analytics;
 
-  Future<bool> initData(BuildContext context) async {
+
+  Future<bool> loadDataFromFirebase(BuildContext context) async {
     // fetch meekath
     int meekath = Provider.of<PaymentProvider>(context, listen: false).meekath;
 
@@ -28,6 +29,11 @@ class AdminProvider extends ChangeNotifier {
     _users = await FirebaseService.getAllUsers();
     _payments = await FirebaseService.getAllPayments(meekath, users);
 
+    updateData();
+    return true;
+  }
+
+  void updateData() {
     // Get Admin analytics ( ex: total amount,total pending amount, total users, etc..)
     _analytics = AnalyticsService.getAdminOverview(_users, _payments);
 
@@ -39,7 +45,6 @@ class AdminProvider extends ChangeNotifier {
     });
 
     notifyListeners();
-    return true;
   }
 
   // Required for user list ( to check the pending amount )

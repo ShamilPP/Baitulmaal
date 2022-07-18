@@ -23,7 +23,7 @@ class MeekathDropdown extends StatelessWidget {
         onChanged: (newValue) async {
           if (dialog) provider.showLoadingDialog(context, "Updating...");
           provider.setMeekath(newValue!);
-          await Provider.of<AdminProvider>(context, listen: false).initData(context);
+          await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
           if (dialog) Navigator.pop(context);
         },
       );

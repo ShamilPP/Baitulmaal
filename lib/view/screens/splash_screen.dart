@@ -65,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
         // if logged in
         if (docId == 'admin') {
           // If admin, init all data's
-          await Provider.of<AdminProvider>(context, listen: false).initData(context);
+          await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const AdminMainScreen()));
         } else {
           // If User, init User data's

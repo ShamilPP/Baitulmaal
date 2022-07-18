@@ -129,15 +129,15 @@ class ActionButton extends StatelessWidget {
             ),
             onTap: () async {
               PaymentProvider paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
-              AdminProvider adminProvider = Provider.of<AdminProvider>(context, listen: false);
               NotificationProvider notificationProvider = Provider.of<NotificationProvider>(context, listen: false);
               if (notificationProvider.paymentNotVerifiedList.contains(payment)) {
                 // Update payment in firebase
                 paymentProvider.updatePayment(payment.docId!, status);
-                // Update all data's
-                adminProvider.initData(notificationProvider.listKey.currentContext!);
+
+                // Update payment locally
+                notificationProvider.updatePayment(context,payment,status);
+
                 // animation
-                notificationProvider.paymentNotVerifiedList.remove(payment);
                 notificationProvider.listKey.currentState!.removeItem(
                   index,
                   (context, animation) {

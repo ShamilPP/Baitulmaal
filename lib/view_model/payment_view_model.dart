@@ -49,7 +49,7 @@ class PaymentProvider extends ChangeNotifier {
 
       // Refresh all data
       if (isAdmin) {
-        await Provider.of<AdminProvider>(context, listen: false).initData(context);
+        await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
       } else {
         await Provider.of<UserProvider>(context, listen: false).initData();
       }
