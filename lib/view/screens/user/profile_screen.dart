@@ -1,8 +1,12 @@
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/utils/colors.dart';
 import 'package:baitulmaal/view/screens/user/transactions_screen.dart';
+import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../model/payment_model.dart';
+import '../../../view_model/user_view_model.dart';
 import '../../animations/slide_in_widget.dart';
 import '../../widgets/logout_button.dart';
 
@@ -90,6 +94,7 @@ class ProfileScreen extends StatelessWidget {
               // Payment tile
               PaymentListTile(
                 user: user,
+                isAdmin: isAdmin,
               ),
 
               // Logout button
@@ -243,8 +248,9 @@ class _PasswordListTileState extends State<PasswordListTile> {
 
 class PaymentListTile extends StatelessWidget {
   final UserModel user;
+  final bool isAdmin;
 
-  const PaymentListTile({Key? key, required this.user}) : super(key: key);
+  const PaymentListTile({Key? key, required this.user, required this.isAdmin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -264,8 +270,21 @@ class PaymentListTile extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => UserTransactionScreen(user: user)));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => UserTransactionScreen(payments: getPayments(context))));
       },
     );
+  }
+
+  List<PaymentModel> getPayments(BuildContext context) {
+    late List<PaymentModel> payments;
+    if (isAdmin) {
+      var provider = Provider.of<AdminProvider>(context, listen: false);
+      payments = provider.getUserPayments(user);
+    } else {
+      var provider = Provider.of<UserProvider>(context, listen: false);
+      payments = provider.payments;
+    }
+    return payments;
   }
 }

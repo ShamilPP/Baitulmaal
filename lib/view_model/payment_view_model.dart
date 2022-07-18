@@ -5,7 +5,6 @@ import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../model/user_payment.dart';
 import '../service/analytics_service.dart';
 import '../service/firebase_service.dart';
 import '../utils/enums.dart';
@@ -68,11 +67,8 @@ class PaymentProvider extends ChangeNotifier {
     return result;
   }
 
-  List<UserPaymentModel> getUserPaymentList(List<UserModel> users, PaymentStatus status) {
-    List<UserPaymentModel> list = AnalyticsService.getUserPaymentList(
-      users,
-      status,
-    );
+  List<PaymentModel> getPaymentListWithStatus(List<PaymentModel> payments, PaymentStatus status) {
+    List<PaymentModel> list = AnalyticsService.getPaymentListWithStatus(payments, status);
     return list;
   }
 

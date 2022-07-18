@@ -1,7 +1,5 @@
 import 'package:baitulmaal/model/payment_model.dart';
-import 'package:baitulmaal/model/total_analytics_model.dart';
 import 'package:baitulmaal/model/user_model.dart';
-import 'package:baitulmaal/service/analytics_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/response.dart';
@@ -29,7 +27,7 @@ class FirebaseService {
     var payments = FirebaseFirestore.instance.collection('transactions');
 
     payments.add({
-      'userId': payment.userDocId,
+      'userId': payment.user!.docId,
       'amount': payment.amount,
       // DateTime convert to timestamp
       'date': Timestamp.fromDate(payment.dateTime),
@@ -47,24 +45,12 @@ class FirebaseService {
     return true;
   }
 
-  static Future<List<UserModel>> getAllUsers(int meekath) async {
+  static Future<List<UserModel>> getAllUsers() async {
     List<UserModel> users = [];
-    List<PaymentModel> allPayments = await getAllPayments(meekath);
 
     var collection = FirebaseFirestore.instance.collection('users');
     var allDocs = await collection.get();
     for (var user in allDocs.docs) {
-      // Payments Details
-      List<PaymentModel> payments = [];
-
-      for (var payment in allPayments) {
-        if (user.id == payment.userDocId) {
-          payments.add(payment);
-        }
-      }
-
-      TotalAnalyticsModel analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
-
       users.add(UserModel(
         docId: user.id,
         name: user.get('name'),
@@ -72,8 +58,6 @@ class FirebaseService {
         username: user.get('username'),
         password: user.get('password'),
         monthlyPayment: user.get('monthlyPayment'),
-        analytics: analytics,
-        payments: payments,
       ));
     }
     return users;
@@ -103,18 +87,6 @@ class FirebaseService {
     var collection = FirebaseFirestore.instance.collection('users');
     var user = await collection.doc(docId).get();
     if (user.exists) {
-      List<PaymentModel> payments = [];
-
-      // user payment details
-      List<PaymentModel> allPayments = await getAllPayments(DateTime.now().year);
-
-      for (var payment in allPayments) {
-        if (user.id == payment.userDocId) {
-          payments.add(payment);
-        }
-      }
-      TotalAnalyticsModel analytics = AnalyticsService.getUserAnalytics(user.get('monthlyPayment'), payments);
-
       // returning user data
       return UserModel(
         docId: user.id,
@@ -123,31 +95,41 @@ class FirebaseService {
         username: user.get('username'),
         password: user.get('password'),
         monthlyPayment: user.get('monthlyPayment'),
-        analytics: analytics,
-        payments: payments,
       );
     }
     return null;
   }
 
-  static Future<List<PaymentModel>> getAllPayments(int meekath) async {
+  static Future<List<PaymentModel>> getAllPayments(int meekath, List<UserModel> users) async {
     List<PaymentModel> payments = [];
     var collection = FirebaseFirestore.instance.collection('transactions').where('meekath', isEqualTo: meekath);
 
     var paymentCollection = await collection.get();
 
     for (var payment in paymentCollection.docs) {
-      payments.add(
-        PaymentModel(
-          docId: payment.id,
-          userDocId: payment.get('userId'),
-          amount: payment.get('amount'),
-          verify: payment.get('verify'),
-          meekath: payment.get('meekath'),
-          // Timestamp convert to datetime
-          dateTime: (payment.get('date') as Timestamp).toDate(),
-        ),
-      );
+      // find paid user
+      UserModel? user;
+      for (var _user in users) {
+        if (payment.get('userId') == _user.docId) {
+          user = _user;
+        }
+      }
+
+      // returning payments
+      if (user != null) {
+        payments.add(
+          PaymentModel(
+            docId: payment.id,
+            userDocId: payment.get('userId'),
+            user: user,
+            amount: payment.get('amount'),
+            verify: payment.get('verify'),
+            meekath: payment.get('meekath'),
+            // Timestamp convert to datetime
+            dateTime: (payment.get('date') as Timestamp).toDate(),
+          ),
+        );
+      }
     }
     return payments;
   }
@@ -182,10 +164,10 @@ class FirebaseService {
       try {
         version = doc['version'];
       } catch (e) {
-        version = 0;
+        version = 0; // 0 is error code
       }
     } else {
-      // if document not exists, manually assign 0 ( avoiding null exceptions )
+      // if document not exists, return 0 ( 0 is error code )
       version = 0;
     }
 

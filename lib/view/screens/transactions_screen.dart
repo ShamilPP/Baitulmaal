@@ -1,18 +1,18 @@
-import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/utils/colors.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/payment_model.dart';
 import '../../utils/enums.dart';
 import '../animations/slide_in_widget.dart';
 import '../widgets/payment_list.dart';
 
 class TransactionScreen extends StatelessWidget {
-  final List<UserModel> users;
+  final List<PaymentModel> payments;
   final bool isAdmin;
 
-  const TransactionScreen({Key? key, required this.users, required this.isAdmin}) : super(key: key);
+  const TransactionScreen({Key? key, required this.payments, required this.isAdmin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,36 +42,34 @@ class TransactionScreen extends StatelessWidget {
             ),
           ),
           Consumer<PaymentProvider>(builder: (ctx, provider, child) {
+            List<PaymentModel> acceptedList = provider.getPaymentListWithStatus(payments, PaymentStatus.accepted);
+            List<PaymentModel> rejectedList = provider.getPaymentListWithStatus(payments, PaymentStatus.rejected);
+            List<PaymentModel> notVerifiedList = provider.getPaymentListWithStatus(payments, PaymentStatus.notVerified);
             return Expanded(
               child: TabBarView(
                 children: [
+                  // All payments tab
                   PaymentList(
-                    paymentList: provider.getUserPaymentList(
-                      users,
-                      PaymentStatus.allPayments,
-                    ),
-                    ifAdmin: isAdmin,
+                    paymentList: payments,
+                    isAdmin: isAdmin,
                   ),
+
+                  // Accepted tab
                   PaymentList(
-                    paymentList: provider.getUserPaymentList(
-                      users,
-                      PaymentStatus.accepted,
-                    ),
-                    ifAdmin: isAdmin,
+                    paymentList: acceptedList,
+                    isAdmin: isAdmin,
                   ),
+
+                  // Rejected tab
                   PaymentList(
-                    paymentList: provider.getUserPaymentList(
-                      users,
-                      PaymentStatus.rejected,
-                    ),
-                    ifAdmin: isAdmin,
+                    paymentList: rejectedList,
+                    isAdmin: isAdmin,
                   ),
+
+                  // Not verified tab
                   PaymentList(
-                    paymentList: provider.getUserPaymentList(
-                      users,
-                      PaymentStatus.notVerified,
-                    ),
-                    ifAdmin: isAdmin,
+                    paymentList: notVerifiedList,
+                    isAdmin: isAdmin,
                   ),
                 ],
               ),

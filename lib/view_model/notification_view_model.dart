@@ -1,14 +1,14 @@
-import 'package:baitulmaal/model/user_payment.dart';
 import 'package:flutter/material.dart';
+
+import '../model/payment_model.dart';
 
 class NotificationProvider extends ChangeNotifier {
   final listKey = GlobalKey<AnimatedListState>();
-  late List<UserPaymentModel> _paymentNotVerifiedList;
+  late List<PaymentModel> _paymentNotVerifiedList;
 
-  List<UserPaymentModel> get paymentNotVerifiedList => _paymentNotVerifiedList;
+  List<PaymentModel> get paymentNotVerifiedList => _paymentNotVerifiedList;
 
-  void setNotVerifiedList(List<UserPaymentModel> notVerifiedList) {
+  void setNotVerifiedList(List<PaymentModel> notVerifiedList) {
     _paymentNotVerifiedList = notVerifiedList;
-    notifyListeners();
   }
 }

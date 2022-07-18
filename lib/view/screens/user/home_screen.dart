@@ -22,14 +22,14 @@ class UserHomeScreen extends StatelessWidget {
             return Column(
               children: [
                 AnalyticsContainer(
-                  percentage: 1 - (provider.user.analytics!.pendingAmount / provider.user.analytics!.totalAmount),
+                  percentage: 1 - (provider.analytics.pendingAmount / provider.analytics.totalAmount),
                   topLeftAmount: '₹ ${provider.user.monthlyPayment}',
                   topLeftText: 'Monthly payment',
-                  topRightAmount: '₹ ${provider.user.analytics!.yearlyAmount}',
+                  topRightAmount: '₹ ${provider.analytics.yearlyAmount}',
                   topRightText: ' Yearly amount',
-                  bottomLeftAmount: '₹ ${provider.user.analytics!.totalAmount}',
+                  bottomLeftAmount: '₹ ${provider.analytics.totalAmount}',
                   bottomLeftText: 'Total amount',
-                  bottomRightAmount: '₹ ${provider.user.analytics!.pendingAmount}',
+                  bottomRightAmount: '₹ ${provider.analytics.pendingAmount}',
                   bottomRightText: 'Pending amount',
                 ),
                 Row(
@@ -50,8 +50,8 @@ class UserHomeScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: PaymentList(
-                    paymentList: provider.userPaymentList,
-                    ifAdmin: false,
+                    paymentList: provider.payments,
+                    isAdmin: false,
                   ),
                 ),
               ],

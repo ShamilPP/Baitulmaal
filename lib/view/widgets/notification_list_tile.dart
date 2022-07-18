@@ -1,21 +1,21 @@
-import 'package:baitulmaal/model/user_payment.dart';
 import 'package:baitulmaal/view/widgets/payment_dialog.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/notification_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/payment_model.dart';
 import '../../utils/enums.dart';
 import '../../view_model/payment_view_model.dart';
 
 class NotificationListTile extends StatelessWidget {
   final int index;
-  final UserPaymentModel userPayment;
+  final PaymentModel payment;
 
   const NotificationListTile({
     Key? key,
     required this.index,
-    required this.userPayment,
+    required this.payment,
   }) : super(key: key);
 
   @override
@@ -35,12 +35,12 @@ class NotificationListTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userPayment.user.name,
+                  payment.user!.name,
                   style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  'Amount : ${userPayment.payment.amount}',
+                  'Amount : ${payment.amount}',
                   style: const TextStyle(fontSize: 20),
                 ),
                 const SizedBox(height: 10),
@@ -53,9 +53,11 @@ class NotificationListTile extends StatelessWidget {
                       color: Colors.green,
                       icon: Icons.done,
                       status: PaymentStatus.accepted,
-                      userPayment: userPayment,
+                      payment: payment,
                     ),
+
                     const Expanded(flex: 1, child: SizedBox()),
+
                     // Reject Button
                     ActionButton(
                       index: index,
@@ -63,28 +65,28 @@ class NotificationListTile extends StatelessWidget {
                       color: Colors.red,
                       icon: Icons.close,
                       status: PaymentStatus.rejected,
-                      userPayment: userPayment,
+                      payment: payment,
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          onTap: () =>
-              showDialog(context: context, builder: (ctx) => PaymentDialog(userPayment: userPayment, isAdmin: true)),
+          onTap: () => showDialog(context: context, builder: (ctx) => PaymentDialog(payment: payment, isAdmin: true)),
         ),
       ),
     );
   }
 }
 
+// Use for Accept button or Reject button
 class ActionButton extends StatelessWidget {
   final int index;
   final String text;
   final Color color;
   final IconData icon;
   final PaymentStatus status;
-  final UserPaymentModel userPayment;
+  final PaymentModel payment;
 
   const ActionButton({
     Key? key,
@@ -93,7 +95,7 @@ class ActionButton extends StatelessWidget {
     required this.color,
     required this.icon,
     required this.status,
-    required this.userPayment,
+    required this.payment,
   }) : super(key: key);
 
   @override
@@ -129,13 +131,13 @@ class ActionButton extends StatelessWidget {
               PaymentProvider paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
               AdminProvider adminProvider = Provider.of<AdminProvider>(context, listen: false);
               NotificationProvider notificationProvider = Provider.of<NotificationProvider>(context, listen: false);
-              if (notificationProvider.paymentNotVerifiedList.contains(userPayment)) {
+              if (notificationProvider.paymentNotVerifiedList.contains(payment)) {
                 // Update payment in firebase
-                paymentProvider.updatePayment(userPayment.payment.docId!, status);
+                paymentProvider.updatePayment(payment.docId!, status);
                 // Update all data's
                 adminProvider.initData(notificationProvider.listKey.currentContext!);
                 // animation
-                notificationProvider.paymentNotVerifiedList.remove(userPayment);
+                notificationProvider.paymentNotVerifiedList.remove(payment);
                 notificationProvider.listKey.currentState!.removeItem(
                   index,
                   (context, animation) {
@@ -143,7 +145,7 @@ class ActionButton extends StatelessWidget {
                       sizeFactor: animation,
                       child: NotificationListTile(
                         index: index,
-                        userPayment: userPayment,
+                        payment: payment,
                       ),
                     );
                   },

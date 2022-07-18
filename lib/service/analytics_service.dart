@@ -1,12 +1,12 @@
 import 'package:baitulmaal/model/total_analytics_model.dart';
-import 'package:baitulmaal/model/user_payment.dart';
+// import 'package:baitulmaal/model/user_payment.dart';
 import 'package:baitulmaal/utils/enums.dart';
 
 import '../model/payment_model.dart';
 import '../model/user_model.dart';
 
 class AnalyticsService {
-  static TotalAnalyticsModel getAdminOverview(List<UserModel> users) {
+  static TotalAnalyticsModel getAdminOverview(List<UserModel> users, List<PaymentModel> payments) {
     int yearlyAmount = 0;
     int totalAmount = 0;
     int totalReceivedAmount = 0;
@@ -14,7 +14,7 @@ class AnalyticsService {
     int extraAmount = 0;
 
     for (var user in users) {
-      TotalAnalyticsModel analytics = user.analytics!;
+      TotalAnalyticsModel analytics = getUserAnalytics(payments, user);
 
       yearlyAmount = yearlyAmount + analytics.yearlyAmount;
       totalAmount = totalAmount + analytics.totalAmount;
@@ -33,28 +33,31 @@ class AnalyticsService {
     return adminAnalytics;
   }
 
-  static List<UserPaymentModel> getUserPaymentList(List<UserModel> users, PaymentStatus status) {
-    List<UserPaymentModel> payments = [];
-    for (var user in users) {
-      for (var payment in user.payments!) {
-        // if need all payments or specific payments
-        if (status == PaymentStatus.allPayments || payment.verify == status.index) {
-          payments.add(UserPaymentModel(
-            user: user,
-            payment: payment,
-          ));
-        }
+  static List<PaymentModel> getPaymentListWithStatus(List<PaymentModel> payments, PaymentStatus status) {
+    List<PaymentModel> paymentList = [];
+    for (var payment in payments) {
+      // if need all payments or specific payments
+      if (status.index == payment.verify || status == PaymentStatus.allPayments) {
+        paymentList.add(payment);
       }
     }
-    payments.sort((a, b) => b.payment.dateTime.compareTo(a.payment.dateTime));
-    return payments;
+    paymentList.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+    return paymentList;
   }
 
-  static TotalAnalyticsModel getUserAnalytics(int monthlyPayment, List<PaymentModel> payments) {
+  static TotalAnalyticsModel getUserAnalytics(List<PaymentModel> payments, UserModel user) {
+    // get user payments from all payments
+    List<PaymentModel> userPayments = [];
+    for (var payment in payments) {
+      if (payment.userDocId == user.docId) {
+        userPayments.add(payment);
+      }
+    }
+
     int month = DateTime.now().month;
-    int yearlyAmount = monthlyPayment * 12;
-    int totalAmount = monthlyPayment * month;
-    int receivedAmount = getTotalReceivedAmount(payments);
+    int yearlyAmount = user.monthlyPayment * 12;
+    int totalAmount = user.monthlyPayment * month;
+    int receivedAmount = getTotalAmountWithStatus(userPayments, PaymentStatus.accepted);
     int pendingAmount = totalAmount - receivedAmount;
     int extraAmount = 0;
     if (pendingAmount.isNegative) {
@@ -72,11 +75,11 @@ class AnalyticsService {
     return analytics;
   }
 
-  static int getTotalReceivedAmount(List<PaymentModel> payments) {
+  static int getTotalAmountWithStatus(List<PaymentModel> payments, PaymentStatus status) {
     int amount = 0;
-    for (var pay in payments) {
-      if (pay.verify == PaymentStatus.accepted.index) {
-        amount = amount + pay.amount;
+    for (var payment in payments) {
+      if (status.index == payment.verify || status == PaymentStatus.allPayments) {
+        amount = amount + payment.amount;
       }
     }
     return amount;

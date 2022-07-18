@@ -1,4 +1,3 @@
-import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/view/screens/transactions_screen.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,8 @@ class AdminTransactionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<UserModel> users = Provider.of<AdminProvider>(context).users;
-    return TransactionScreen(users: users, isAdmin: true);
+    return Consumer<AdminProvider>(builder: (ctx, provider, child) {
+      return TransactionScreen(payments: provider.payments, isAdmin: true);
+    });
   }
 }

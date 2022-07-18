@@ -1,12 +1,12 @@
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/payment_model.dart';
 import 'package:flutter/material.dart';
 
 import '../transactions_screen.dart';
 
 class UserTransactionScreen extends StatelessWidget {
-  final UserModel user;
+  final List<PaymentModel> payments;
 
-  const UserTransactionScreen({Key? key, required this.user}) : super(key: key);
+  const UserTransactionScreen({Key? key, required this.payments}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class UserTransactionScreen extends StatelessWidget {
       length: 4,
       child: Scaffold(
         body: TransactionScreen(
-          users: List<UserModel>.filled(1, user),
+          payments: payments,
           isAdmin: false,
         ),
       ),

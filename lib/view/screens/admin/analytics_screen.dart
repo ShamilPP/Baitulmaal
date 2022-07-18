@@ -4,7 +4,6 @@ import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/total_analytics_model.dart';
 import '../../../view_model/admin_view_model.dart';
 import '../../animations/slide_in_widget.dart';
 import '../../widgets/amount_percentage_indicator.dart';
@@ -68,14 +67,9 @@ class AnalyticsScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 17, top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Consumer<AdminProvider>(
-                      builder: (ctx, provider, child) {
-                        TotalAnalyticsModel adminAnalytics = provider.getAdminAnalytics();
-                        return AnalyticsSection(adminAnalytics: adminAnalytics);
-                      },
-                    ),
-                    const PaymentSection(),
+                  children: const [
+                    AnalyticsSection(),
+                    PaymentSection(),
                   ],
                 ),
               ),
@@ -97,54 +91,54 @@ class AnalyticsScreen extends StatelessWidget {
 }
 
 class AnalyticsSection extends StatelessWidget {
-  final TotalAnalyticsModel adminAnalytics;
-
-  const AnalyticsSection({Key? key, required this.adminAnalytics}) : super(key: key);
+  const AnalyticsSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SlideInWidget(
-          delay: 2000,
-          child: AmountPercentageIndicator(
-            percentage: 1 - (adminAnalytics.pendingAmount / adminAnalytics.totalAmount),
-            centerIconColor: Colors.black,
+    return Consumer<AdminProvider>(builder: (ctx, provider, child) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SlideInWidget(
+            delay: 2000,
+            child: AmountPercentageIndicator(
+              percentage: 1 - (provider.analytics.pendingAmount / provider.analytics.totalAmount),
+              centerIconColor: Colors.black,
+            ),
           ),
-        ),
-        const SizedBox(width: 20),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SlideInWidget(
-              delay: 400,
-              child: DetailsText(
-                text: 'Total Amount : ₹ ${adminAnalytics.totalAmount}',
+          const SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SlideInWidget(
+                delay: 400,
+                child: DetailsText(
+                  text: 'Total Amount : ₹ ${provider.analytics.totalAmount}',
+                ),
               ),
-            ),
-            SlideInWidget(
-              delay: 600,
-              child: DetailsText(
-                text: 'Total Received : ₹ ${adminAnalytics.totalReceivedAmount}',
+              SlideInWidget(
+                delay: 600,
+                child: DetailsText(
+                  text: 'Total Received : ₹ ${provider.analytics.totalReceivedAmount}',
+                ),
               ),
-            ),
-            SlideInWidget(
-              delay: 800,
-              child: DetailsText(
-                text: 'Pending Amount : ₹ ${adminAnalytics.pendingAmount}',
+              SlideInWidget(
+                delay: 800,
+                child: DetailsText(
+                  text: 'Pending Amount : ₹ ${provider.analytics.pendingAmount}',
+                ),
               ),
-            ),
-            SlideInWidget(
-              delay: 1000,
-              child: DetailsText(
-                text: 'Extra Amount : ₹ ${(adminAnalytics.extraAmount)}',
+              SlideInWidget(
+                delay: 1000,
+                child: DetailsText(
+                  text: 'Extra Amount : ₹ ${(provider.analytics.extraAmount)}',
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
-    );
+            ],
+          ),
+        ],
+      );
+    });
   }
 }
 

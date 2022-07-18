@@ -22,7 +22,7 @@ class AdminHomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Consumer<AdminProvider>(builder: (ctx, provider, child) {
-                TotalAnalyticsModel adminAnalytics = provider.getAdminAnalytics();
+                TotalAnalyticsModel adminAnalytics = provider.analytics;
                 return AnalyticsContainer(
                   percentage: 1 - (adminAnalytics.pendingAmount / adminAnalytics.totalAmount),
                   topLeftAmount: '₹ ${provider.users.length}',
@@ -35,6 +35,8 @@ class AdminHomeScreen extends StatelessWidget {
                   bottomRightText: 'Pending amount',
                 );
               }),
+
+              // Users list
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [

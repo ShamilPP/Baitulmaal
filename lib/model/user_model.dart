@@ -1,6 +1,3 @@
-import 'package:baitulmaal/model/payment_model.dart';
-import 'package:baitulmaal/model/total_analytics_model.dart';
-
 class UserModel {
   final String? docId;
   final String name;
@@ -8,8 +5,6 @@ class UserModel {
   final String username;
   final String password;
   final int monthlyPayment;
-  final TotalAnalyticsModel? analytics;
-  final List<PaymentModel>? payments;
 
   UserModel({
     this.docId,
@@ -18,7 +13,5 @@ class UserModel {
     required this.username,
     required this.password,
     required this.monthlyPayment,
-    this.analytics,
-    this.payments,
   });
 }

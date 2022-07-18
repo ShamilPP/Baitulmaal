@@ -1,6 +1,9 @@
+import 'package:baitulmaal/model/user_model.dart';
+
 class PaymentModel {
   final String? docId;
-  final String userDocId;
+  final String? userDocId;
+  final UserModel? user;
   final int amount;
   final int verify;
   final int meekath;
@@ -8,7 +11,8 @@ class PaymentModel {
 
   PaymentModel({
     this.docId,
-    required this.userDocId,
+    this.userDocId,
+    this.user,
     required this.amount,
     required this.verify,
     required this.meekath,

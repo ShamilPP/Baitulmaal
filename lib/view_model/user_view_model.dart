@@ -1,32 +1,42 @@
+import 'package:baitulmaal/model/total_analytics_model.dart';
 import 'package:baitulmaal/model/user_model.dart';
-import 'package:baitulmaal/model/user_payment.dart';
 import 'package:baitulmaal/service/analytics_service.dart';
 import 'package:baitulmaal/service/firebase_service.dart';
 import 'package:flutter/material.dart';
 
+import '../model/payment_model.dart';
 import '../service/local_service.dart';
-import '../utils/enums.dart';
 
 class UserProvider extends ChangeNotifier {
   late String _docId;
   late UserModel _user;
-  late List<UserPaymentModel> _userPaymentList;
+  late List<PaymentModel> _payments;
+  late TotalAnalyticsModel _analytics;
 
   String get docId => _docId;
 
   UserModel get user => _user;
 
-  List<UserPaymentModel> get userPaymentList => _userPaymentList;
+  List<PaymentModel> get payments => _payments;
+
+  TotalAnalyticsModel get analytics => _analytics;
 
   Future<bool> initData() async {
-    var result = await FirebaseService.getUserWithDocId(docId);
-    if (result == null) {
-      // Remove DocId from database
-      LocalService.removeUser();
-    } else {
-      _user = result;
-    }
-    _userPaymentList = AnalyticsService.getUserPaymentList(List.filled(1, _user), PaymentStatus.allPayments);
+    // Get User wth docID ( DocId getting from shared preferences )
+    await FirebaseService.getUserWithDocId(docId).then((UserModel? result) {
+      if (result == null) {
+        // Remove DocId from shared preferences
+        LocalService.removeUser();
+      } else {
+        _user = result;
+      }
+    });
+
+    // Get user payments ( The function that gets all payments is called but only one user is passed as argument so only one user payment is received)
+    _payments = await FirebaseService.getAllPayments(DateTime.now().year, List.filled(1, _user));
+
+    // Get user analytics
+    _analytics = AnalyticsService.getUserAnalytics(payments, user);
     notifyListeners();
     return true;
   }

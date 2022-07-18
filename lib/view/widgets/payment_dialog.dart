@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../model/user_payment.dart';
+import '../../model/payment_model.dart';
 import '../animations/slide_in_widget.dart';
 import '../screens/admin/analytics_screen.dart';
 import '../screens/user/profile_screen.dart';
 
 class PaymentDialog extends StatelessWidget {
-  final UserPaymentModel userPayment;
+  final PaymentModel payment;
   final bool isAdmin;
 
-  const PaymentDialog({Key? key, required this.userPayment, required this.isAdmin}) : super(key: key);
+  const PaymentDialog({
+    Key? key,
+    required this.payment,
+    required this.isAdmin,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,48 +32,38 @@ class PaymentDialog extends StatelessWidget {
                   SlideInWidget(
                     delay: 100,
                     child: DetailsText(
-                      text: 'Name : ${userPayment.user.name}',
+                      text: 'Name : ${payment.user!.name}',
                     ),
                   ),
                   SlideInWidget(
                     delay: 200,
                     child: DetailsText(
-                      text:
-                          'Amount : ₹ ${userPayment.payment.amount} (${userPayment.payment.amount ~/ userPayment.user.monthlyPayment})',
+                      text: 'Amount : ₹ ${payment.amount} (${payment.amount ~/ payment.user!.monthlyPayment})',
                     ),
                   ),
                   SlideInWidget(
                     delay: 300,
                     child: DetailsText(
-                      text: 'Date : ${DateFormat('EEE, MMM d').format(userPayment.payment.dateTime)}',
+                      text: 'Date : ${DateFormat('EEE, MMM d').format(payment.dateTime)}',
                     ),
                   ),
                   SlideInWidget(
                     delay: 400,
                     child: DetailsText(
-                      text: 'Time : ${DateFormat('h : m a').format(userPayment.payment.dateTime)}',
+                      text: 'Time : ${DateFormat('h : m a').format(payment.dateTime)}',
                     ),
                   ),
                   SlideInWidget(
                     delay: 500,
                     child: DetailsText(
-                      text: 'Meekath : ${userPayment.payment.meekath}',
+                      text: 'Meekath : ${payment.meekath}',
                     ),
                   ),
                   isAdmin
                       ? SlideInWidget(
-                          delay: 600,
-                          child: DetailsText(
-                            text:
-                                'User status : ${userPayment.user.analytics!.pendingAmount != 0 ? 'PENDING' : 'COMPLETED'}',
-                          ),
-                        )
-                      : const SizedBox(),
-                  isAdmin
-                      ? SlideInWidget(
                           delay: 700,
                           child: DetailsText(
-                            text: 'Monthly amount : ₹ ${userPayment.user.monthlyPayment}',
+                            text: 'Monthly amount : ₹ ${payment.user!.monthlyPayment}',
                           ),
                         )
                       : const SizedBox(),
@@ -82,7 +76,7 @@ class PaymentDialog extends StatelessWidget {
                                 child: ElevatedButton(
                                     onPressed: () {
                                       Navigator.push(context,
-                                          MaterialPageRoute(builder: (_) => ProfileScreen(user: userPayment.user)));
+                                          MaterialPageRoute(builder: (_) => ProfileScreen(user: payment.user!)));
                                     },
                                     child: const Text('View profile'))),
                           ),
