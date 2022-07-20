@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'analytics_screen.dart';
 import 'home_screen.dart';
-import 'notification_screen.dart';
+import 'request_screen.dart';
 import 'users_list_screen.dart';
 
 class AdminMainScreen extends StatelessWidget {
@@ -15,7 +15,7 @@ class AdminMainScreen extends StatelessWidget {
     AdminTransactionScreen(),
     UsersScreen(),
     AdminHomeScreen(),
-    NotificationScreen(),
+    RequestScreen(),
     AnalyticsScreen()
   ];
 

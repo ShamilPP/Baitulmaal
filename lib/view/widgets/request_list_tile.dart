@@ -1,6 +1,6 @@
 import 'package:baitulmaal/view/animations/slide_in_widget.dart';
 import 'package:baitulmaal/view/widgets/payment_dialog.dart';
-import 'package:baitulmaal/view_model/notification_view_model.dart';
+import 'package:baitulmaal/view_model/request_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,11 +8,11 @@ import '../../model/payment_model.dart';
 import '../../utils/enums.dart';
 import '../../view_model/payment_view_model.dart';
 
-class NotificationListTile extends StatelessWidget {
+class RequestListTile extends StatelessWidget {
   final int index;
   final PaymentModel payment;
 
-  const NotificationListTile({
+  const RequestListTile({
     Key? key,
     required this.index,
     required this.payment,
@@ -139,22 +139,22 @@ class ActionButton extends StatelessWidget {
             ),
             onTap: () async {
               PaymentProvider paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
-              NotificationProvider notificationProvider = Provider.of<NotificationProvider>(context, listen: false);
+              RequestProvider requestProvider = Provider.of<RequestProvider>(context, listen: false);
 
-              if (notificationProvider.notVerifiedList.contains(payment)) {
+              if (requestProvider.notVerifiedList.contains(payment)) {
                 // Update payment in firebase
                 paymentProvider.updatePayment(payment.docId!, status);
 
                 // Update payment locally
-                notificationProvider.updatePaymentList(context, payment, status);
+                requestProvider.updatePaymentList(context, payment, status);
 
                 // animation
-                notificationProvider.listKey.currentState!.removeItem(
+                requestProvider.listKey.currentState!.removeItem(
                   index,
                   (context, animation) {
                     return SizeTransition(
                       sizeFactor: animation,
-                      child: NotificationListTile(
+                      child: RequestListTile(
                         index: index,
                         payment: payment,
                       ),

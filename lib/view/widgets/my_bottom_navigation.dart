@@ -28,8 +28,8 @@ class MyBottomNavigation extends StatelessWidget {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_outlined),
-              label: 'Notifications',
+              icon: Icon(Icons.request_page_outlined),
+              label: 'Requests',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.analytics_outlined),

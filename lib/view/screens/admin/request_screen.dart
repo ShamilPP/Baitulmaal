@@ -1,15 +1,15 @@
-import 'package:baitulmaal/view_model/notification_view_model.dart';
+import 'package:baitulmaal/view_model/request_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/notification_list_tile.dart';
+import '../../widgets/request_list_tile.dart';
 
-class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({Key? key}) : super(key: key);
+class RequestScreen extends StatelessWidget {
+  const RequestScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<NotificationProvider>(context, listen: false);
+    var provider = Provider.of<RequestProvider>(context, listen: false);
     provider.setNotVerifiedList(context);
 
     return SafeArea(
@@ -19,7 +19,7 @@ class NotificationScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(20),
             child: Text(
-              'Notifications',
+              'Requests',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
           ),
@@ -30,7 +30,7 @@ class NotificationScreen extends StatelessWidget {
               itemBuilder: (ctx, index, animation) {
                 return SizeTransition(
                   sizeFactor: animation,
-                  child: NotificationListTile(
+                  child: RequestListTile(
                     index: index,
                     payment: provider.notVerifiedList[index],
                   ),

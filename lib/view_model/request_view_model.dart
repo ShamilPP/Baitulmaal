@@ -6,7 +6,7 @@ import '../model/payment_model.dart';
 import '../service/analytics_service.dart';
 import 'admin_view_model.dart';
 
-class NotificationProvider extends ChangeNotifier {
+class RequestProvider extends ChangeNotifier {
   final listKey = GlobalKey<AnimatedListState>();
   late List<PaymentModel> _notVerifiedList;
 
