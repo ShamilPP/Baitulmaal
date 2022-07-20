@@ -27,7 +27,7 @@ class FirebaseService {
     var payments = FirebaseFirestore.instance.collection('transactions');
 
     payments.add({
-      'userId': payment.user!.docId,
+      'userId': payment.userDocId,
       'amount': payment.amount,
       // DateTime convert to timestamp
       'date': Timestamp.fromDate(payment.dateTime),

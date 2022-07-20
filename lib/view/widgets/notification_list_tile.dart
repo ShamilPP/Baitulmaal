@@ -1,3 +1,4 @@
+import 'package:baitulmaal/view/animations/slide_in_widget.dart';
 import 'package:baitulmaal/view/widgets/payment_dialog.dart';
 import 'package:baitulmaal/view_model/notification_view_model.dart';
 import 'package:flutter/material.dart';
@@ -33,40 +34,50 @@ class NotificationListTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  payment.user!.name,
-                  style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                SlideInWidget(
+                  delay: 100,
+                  child: Text(
+                    payment.user!.name,
+                    style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  'Amount : ${payment.amount}',
-                  style: const TextStyle(fontSize: 20),
+                SlideInWidget(
+                  delay: 200,
+                  child: Text(
+                    'Amount : ${payment.amount}',
+                    style: const TextStyle(fontSize: 20),
+                  ),
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  children: [
-                    // Accept Button
-                    ActionButton(
-                      index: index,
-                      text: 'Accept',
-                      color: Colors.green,
-                      icon: Icons.done,
-                      status: PaymentStatus.accepted,
-                      payment: payment,
-                    ),
+                SlideInWidget(
+                  delay: 400,
+                  duration: const Duration(milliseconds: 500),
+                  child: Row(
+                    children: [
+                      // Accept Button
+                      ActionButton(
+                        index: index,
+                        text: 'Accept',
+                        color: Colors.green,
+                        icon: Icons.done,
+                        status: PaymentStatus.accepted,
+                        payment: payment,
+                      ),
 
-                    const Expanded(flex: 1, child: SizedBox()),
+                      const Expanded(flex: 1, child: SizedBox()),
 
-                    // Reject Button
-                    ActionButton(
-                      index: index,
-                      text: 'Reject',
-                      color: Colors.red,
-                      icon: Icons.close,
-                      status: PaymentStatus.rejected,
-                      payment: payment,
-                    ),
-                  ],
+                      // Reject Button
+                      ActionButton(
+                        index: index,
+                        text: 'Reject',
+                        color: Colors.red,
+                        icon: Icons.close,
+                        status: PaymentStatus.rejected,
+                        payment: payment,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -129,12 +140,13 @@ class ActionButton extends StatelessWidget {
             onTap: () async {
               PaymentProvider paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
               NotificationProvider notificationProvider = Provider.of<NotificationProvider>(context, listen: false);
-              if (notificationProvider.paymentNotVerifiedList.contains(payment)) {
+
+              if (notificationProvider.notVerifiedList.contains(payment)) {
                 // Update payment in firebase
                 paymentProvider.updatePayment(payment.docId!, status);
 
                 // Update payment locally
-                notificationProvider.updatePayment(context, payment, status);
+                notificationProvider.updatePaymentList(context, payment, status);
 
                 // animation
                 notificationProvider.listKey.currentState!.removeItem(
