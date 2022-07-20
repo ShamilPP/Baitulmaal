@@ -1,3 +1,4 @@
+import 'package:baitulmaal/view/animations/slide_in_widget.dart';
 import 'package:baitulmaal/view_model/request_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,19 +25,26 @@ class RequestScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: AnimatedList(
-              key: provider.listKey,
-              initialItemCount: provider.notVerifiedList.length,
-              itemBuilder: (ctx, index, animation) {
-                return SizeTransition(
-                  sizeFactor: animation,
-                  child: RequestListTile(
-                    index: index,
-                    payment: provider.notVerifiedList[index],
+            child: provider.notVerifiedList.isEmpty
+                ? Wrap(
+                    runAlignment: WrapAlignment.center,
+                    children: const [
+                      SlideInWidget(child: Center(child: Text("No Requests", style: TextStyle(fontSize: 25)))),
+                    ],
+                  )
+                : AnimatedList(
+                    key: provider.listKey,
+                    initialItemCount: provider.notVerifiedList.length,
+                    itemBuilder: (ctx, index, animation) {
+                      return SizeTransition(
+                        sizeFactor: animation,
+                        child: RequestListTile(
+                          index: index,
+                          payment: provider.notVerifiedList[index],
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ],
       ),

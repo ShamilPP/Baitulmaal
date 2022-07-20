@@ -217,11 +217,14 @@ class AdminPopupMenu extends StatelessWidget {
                 valueListenable: currentMeekath,
                 builder: (ctx, meekath, child) {
                   return NumberPicker(
-                      itemHeight: 40,
-                      itemWidth: 50,
                       value: meekath,
                       minValue: meekathList.first,
                       maxValue: meekathList.last,
+                      decoration: const BoxDecoration(
+                          border: Border(
+                        top: BorderSide(color: Colors.grey),
+                        bottom: BorderSide(color: Colors.grey),
+                      )),
                       onChanged: (value) => currentMeekath.value = value);
                 },
               ),
@@ -235,10 +238,14 @@ class AdminPopupMenu extends StatelessWidget {
                 ElevatedButton(
                   child: const Text("Select"),
                   onPressed: () async {
+                    // Close meekath selecting dialog
                     Navigator.pop(ctx);
-                    provider.showLoadingDialog(context, 'Updating...');
+                    // Then starting loading dialog and update values
+                    var adminProvider = Provider.of<AdminProvider>(context, listen: false);
+                    adminProvider.showLoadingDialog(context, 'Updating...');
                     provider.setMeekath(currentMeekath.value);
-                    await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
+                    await adminProvider.loadDataFromFirebase(context);
+                    // After close loading dialog
                     Navigator.pop(context);
                   },
                 ),

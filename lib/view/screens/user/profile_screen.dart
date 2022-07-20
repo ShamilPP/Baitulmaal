@@ -29,14 +29,11 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: Row(
                   children: const [
-                    SlideInWidget(delay: 200, child: CloseButton()),
+                    CloseButton(),
                     SizedBox(width: 15),
-                    SlideInWidget(
-                      delay: 400,
-                      child: Text(
-                        "Profile",
-                        style: TextStyle(fontSize: 25),
-                      ),
+                    Text(
+                      "Profile",
+                      style: TextStyle(fontSize: 25),
                     ),
                   ],
                 ),
@@ -47,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     const SlideInWidget(
-                      delay: 600,
+                      delay: 200,
                       child: Icon(
                         Icons.account_circle,
                         size: 130,
@@ -58,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
                       bottom: 10,
                       right: 10,
                       child: SlideInWidget(
-                        delay: 800,
+                        delay: 400,
                         child: Container(
                           width: 40,
                           height: 40,
@@ -129,7 +126,7 @@ class ProfileListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SlideInWidget(
-            delay: 1000,
+            delay: 600,
             child: Text(
               subText,
               style: const TextStyle(fontSize: 15, color: Colors.grey),
@@ -137,7 +134,7 @@ class ProfileListTile extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           SlideInWidget(
-            delay: 1200,
+            delay: 800,
             child: Text(
               text,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -186,7 +183,7 @@ class _PasswordListTileState extends State<PasswordListTile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SlideInWidget(
-                    delay: 1000,
+                    delay: 600,
                     child: Text(
                       'Password',
                       style: TextStyle(fontSize: 15, color: Colors.grey),
@@ -194,7 +191,7 @@ class _PasswordListTileState extends State<PasswordListTile> {
                   ),
                   const SizedBox(height: 5),
                   SlideInWidget(
-                    delay: 1200,
+                    delay: 800,
                     child: Text(
                       text,
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -203,7 +200,7 @@ class _PasswordListTileState extends State<PasswordListTile> {
                 ],
               ),
               SlideInWidget(
-                delay: 1500,
+                delay: 1000,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(30),
                   child: Padding(

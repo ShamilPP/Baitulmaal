@@ -66,4 +66,25 @@ class AdminProvider extends ChangeNotifier {
     int amount = AnalyticsService.getTotalAmountWithStatus(_payments, status);
     return amount;
   }
+
+  showLoadingDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(width: 30),
+              Text(
+                message,
+                style: const TextStyle(fontSize: 20),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

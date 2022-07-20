@@ -102,7 +102,10 @@ class FirebaseService {
 
   static Future<List<PaymentModel>> getAllPayments(int meekath, List<UserModel> users) async {
     List<PaymentModel> payments = [];
-    var collection = FirebaseFirestore.instance.collection('transactions').where('meekath', isEqualTo: meekath);
+    var collection = FirebaseFirestore.instance
+        .collection('transactions')
+        .orderBy('date', descending: true)
+        .where('meekath', isEqualTo: meekath);
 
     var paymentCollection = await collection.get();
 

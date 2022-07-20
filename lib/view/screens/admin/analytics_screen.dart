@@ -13,6 +13,7 @@ class AnalyticsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int meekath = Provider.of<PaymentProvider>(context, listen: false).meekath;
     return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -23,20 +24,20 @@ class AnalyticsScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(20),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
                     child: SlideInWidget(
                       delay: 100,
                       child: Text(
-                        'Analytics',
-                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                        'Analytics ($meekath)',
+                        style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
 
                   // Refresh button
                   SlideInWidget(
-                    delay: 1200,
+                    delay: 1000,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 15),
                       child: Material(
@@ -51,8 +52,7 @@ class AnalyticsScreen extends StatelessWidget {
                             onTap: () async {
                               // Update all data's
                               AdminProvider provider = Provider.of<AdminProvider>(context, listen: false);
-                              Provider.of<PaymentProvider>(context, listen: false)
-                                  .showLoadingDialog(context, 'Updating...');
+                              provider.showLoadingDialog(context, 'Updating...');
                               await provider.loadDataFromFirebase(context);
                               Navigator.pop(context);
                             },
@@ -78,7 +78,7 @@ class AnalyticsScreen extends StatelessWidget {
 
           // Logout button
           const SlideInWidget(
-            delay: 1100,
+            delay: 1000,
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
@@ -113,6 +113,12 @@ class AnalyticsSection extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SlideInWidget(
+                delay: 100,
+                child: DetailsText(
+                  text: 'Yearly Amount : ₹ ${provider.analytics.yearlyAmount}',
+                ),
+              ),
               SlideInWidget(
                 delay: 200,
                 child: DetailsText(

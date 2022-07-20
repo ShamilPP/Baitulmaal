@@ -40,7 +40,6 @@ class AnalyticsService {
         paymentList.add(payment);
       }
     }
-    paymentList.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     return paymentList;
   }
 
