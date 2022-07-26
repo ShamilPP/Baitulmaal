@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SlideInWidget extends StatefulWidget {
+class SlideAnimation extends StatefulWidget {
   final Widget child;
   final int delay;
   final Duration duration;
 
-  const SlideInWidget({
+  const SlideAnimation({
     Key? key,
     required this.child,
     this.delay = 100,
@@ -13,10 +13,10 @@ class SlideInWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => SlideInWidgetState();
+  State<StatefulWidget> createState() => SlideAnimationState();
 }
 
-class SlideInWidgetState extends State<SlideInWidget> with SingleTickerProviderStateMixin {
+class SlideAnimationState extends State<SlideAnimation> with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> opacity;
   late Animation<Offset> animOffset;

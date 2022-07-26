@@ -29,7 +29,7 @@ class RequestScreen extends StatelessWidget {
                 ? Wrap(
                     runAlignment: WrapAlignment.center,
                     children: const [
-                      SlideInWidget(child: Center(child: Text("No Requests", style: TextStyle(fontSize: 25)))),
+                      SlideAnimation(child: Center(child: Text("No Requests", style: TextStyle(fontSize: 25)))),
                     ],
                   )
                 : AnimatedList(

@@ -23,7 +23,7 @@ class TransactionScreen extends StatelessWidget {
             height: 100,
             child: AppBar(
               backgroundColor: primaryColor,
-              title: const SlideInWidget(
+              title: const SlideAnimation(
                 delay: 100,
                 child: Text(
                   'Transactions',
@@ -33,10 +33,10 @@ class TransactionScreen extends StatelessWidget {
               bottom: const TabBar(
                 isScrollable: true,
                 tabs: [
-                  SlideInWidget(delay: 200, child: Tab(text: 'All')),
-                  SlideInWidget(delay: 300, child: Tab(text: 'Accepted')),
-                  SlideInWidget(delay: 400, child: Tab(text: 'Rejected')),
-                  SlideInWidget(delay: 500, child: Tab(text: 'Not verified')),
+                  SlideAnimation(delay: 200, child: Tab(text: 'All')),
+                  SlideAnimation(delay: 300, child: Tab(text: 'Accepted')),
+                  SlideAnimation(delay: 400, child: Tab(text: 'Rejected')),
+                  SlideAnimation(delay: 500, child: Tab(text: 'Not verified')),
                 ],
               ),
             ),

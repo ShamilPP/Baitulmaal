@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: Stack(
                   children: [
-                    const SlideInWidget(
+                    const SlideAnimation(
                       delay: 200,
                       child: Icon(
                         Icons.account_circle,
@@ -54,7 +54,7 @@ class ProfileScreen extends StatelessWidget {
                     Positioned(
                       bottom: 10,
                       right: 10,
-                      child: SlideInWidget(
+                      child: SlideAnimation(
                         delay: 400,
                         child: Container(
                           width: 40,
@@ -125,7 +125,7 @@ class ProfileListTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SlideInWidget(
+          SlideAnimation(
             delay: 600,
             child: Text(
               subText,
@@ -133,7 +133,7 @@ class ProfileListTile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          SlideInWidget(
+          SlideAnimation(
             delay: 800,
             child: Text(
               text,
@@ -182,7 +182,7 @@ class _PasswordListTileState extends State<PasswordListTile> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SlideInWidget(
+                  const SlideAnimation(
                     delay: 600,
                     child: Text(
                       'Password',
@@ -190,7 +190,7 @@ class _PasswordListTileState extends State<PasswordListTile> {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  SlideInWidget(
+                  SlideAnimation(
                     delay: 800,
                     child: Text(
                       text,
@@ -199,7 +199,7 @@ class _PasswordListTileState extends State<PasswordListTile> {
                   ),
                 ],
               ),
-              SlideInWidget(
+              SlideAnimation(
                 delay: 1000,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(30),

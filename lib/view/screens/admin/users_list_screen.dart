@@ -48,7 +48,7 @@ class _UsersScreenState extends State<UsersScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SlideInWidget(
+                    const SlideAnimation(
                       delay: 400,
                       child: Text(
                         'Users',
@@ -57,7 +57,7 @@ class _UsersScreenState extends State<UsersScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 27, right: 27, top: 30),
-                      child: SlideInWidget(
+                      child: SlideAnimation(
                         delay: 200,
                         child: TextField(
                           textAlign: TextAlign.start,
@@ -92,7 +92,7 @@ class _UsersScreenState extends State<UsersScreen> {
           Positioned(
             right: 20,
             bottom: 20,
-            child: SlideInWidget(
+            child: SlideAnimation(
               child: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () {

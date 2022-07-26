@@ -34,7 +34,7 @@ class ListCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SlideInWidget(
+                    SlideAnimation(
                       delay: 100,
                       child: Text(
                         name,
@@ -42,7 +42,7 @@ class ListCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    SlideInWidget(
+                    SlideAnimation(
                       delay: 300,
                       child: Text(
                         subText,
@@ -51,7 +51,7 @@ class ListCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SlideInWidget(child: Text(suffixText))
+                SlideAnimation(child: Text(suffixText))
               ],
             ),
           ),

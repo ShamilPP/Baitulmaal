@@ -103,14 +103,14 @@ class _AnalyticsText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SlideInWidget(
+        SlideAnimation(
           delay: 200,
           child: Text(
             mainText,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color),
           ),
         ),
-        SlideInWidget(
+        SlideAnimation(
           delay: 500,
           child: Text(
             subText,

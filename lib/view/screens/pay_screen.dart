@@ -30,14 +30,14 @@ class PayScreen extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SlideInWidget(delay: 100, child: CloseButton()),
+                    const SlideAnimation(delay: 100, child: CloseButton()),
                     Align(
                       alignment: Alignment.center,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           //User details
-                          const SlideInWidget(
+                          const SlideAnimation(
                             delay: 200,
                             child: Icon(
                               Icons.account_circle,
@@ -46,7 +46,7 @@ class PayScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          SlideInWidget(
+                          SlideAnimation(
                             delay: 300,
                             child: Text(
                               "${user.name} paying",
@@ -54,7 +54,7 @@ class PayScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          SlideInWidget(
+                          SlideAnimation(
                             delay: 400,
                             child: Text(
                               "+91 ${user.phoneNumber}",
@@ -63,7 +63,7 @@ class PayScreen extends StatelessWidget {
                           ),
                           // Meekath Dropdown (Change meekath year)
                           isAdmin
-                              ? SlideInWidget(
+                              ? SlideAnimation(
                                   delay: 500,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +76,7 @@ class PayScreen extends StatelessWidget {
                               : const SizedBox(),
                           const SizedBox(height: 30),
                           // Payment TextField
-                          SlideInWidget(delay: 500, child: PaymentTextField(controller: paymentController)),
+                          SlideAnimation(delay: 500, child: PaymentTextField(controller: paymentController)),
                           const SizedBox(height: 100),
                         ],
                       ),
@@ -84,7 +84,7 @@ class PayScreen extends StatelessWidget {
                     // Pay button
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: SlideInWidget(
+                      child: SlideAnimation(
                         delay: 800,
                         child: SizedBox(
                           height: 45,

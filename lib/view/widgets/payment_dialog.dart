@@ -29,38 +29,38 @@ class PaymentDialog extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SlideInWidget(
+                  SlideAnimation(
                     delay: 100,
                     child: DetailsText(
                       text: 'Name : ${payment.user!.name}',
                     ),
                   ),
-                  SlideInWidget(
+                  SlideAnimation(
                     delay: 200,
                     child: DetailsText(
                       text: 'Amount : ₹ ${payment.amount} (${payment.amount ~/ payment.user!.monthlyPayment})',
                     ),
                   ),
-                  SlideInWidget(
+                  SlideAnimation(
                     delay: 300,
                     child: DetailsText(
                       text: 'Date : ${DateFormat('EEE, MMM d').format(payment.dateTime)}',
                     ),
                   ),
-                  SlideInWidget(
+                  SlideAnimation(
                     delay: 400,
                     child: DetailsText(
                       text: 'Time : ${DateFormat('h : m a').format(payment.dateTime)}',
                     ),
                   ),
-                  SlideInWidget(
+                  SlideAnimation(
                     delay: 500,
                     child: DetailsText(
                       text: 'Meekath : ${payment.meekath}',
                     ),
                   ),
                   isAdmin
-                      ? SlideInWidget(
+                      ? SlideAnimation(
                           delay: 700,
                           child: DetailsText(
                             text: 'Monthly amount : ₹ ${payment.user!.monthlyPayment}',
@@ -68,7 +68,7 @@ class PaymentDialog extends StatelessWidget {
                         )
                       : const SizedBox(),
                   isAdmin
-                      ? SlideInWidget(
+                      ? SlideAnimation(
                           delay: 800,
                           child: Padding(
                             padding: const EdgeInsets.only(top: 20),

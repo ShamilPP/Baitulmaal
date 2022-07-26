@@ -41,7 +41,7 @@ class AdminHomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
-                  SlideInWidget(
+                  SlideAnimation(
                     child: Padding(
                       padding: EdgeInsets.all(20),
                       child: Text(
@@ -50,7 +50,7 @@ class AdminHomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SlideInWidget(
+                  SlideAnimation(
                     delay: 400,
                     child: AdminPopupMenu(),
                   ),
@@ -68,7 +68,7 @@ class AdminHomeScreen extends StatelessWidget {
           Positioned(
             right: 20,
             bottom: 20,
-            child: SlideInWidget(
+            child: SlideAnimation(
               child: FloatingActionButton(
                 child: const Icon(Icons.currency_rupee),
                 onPressed: () {

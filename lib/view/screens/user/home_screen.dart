@@ -37,7 +37,7 @@ class UserHomeScreen extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.all(20),
-                      child: SlideInWidget(
+                      child: SlideAnimation(
                         delay: 200,
                         child: Text(
                           'Payments',
@@ -45,7 +45,7 @@ class UserHomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SlideInWidget(delay: 500, child: ProfileIconButton(user: provider.user)),
+                    SlideAnimation(delay: 500, child: ProfileIconButton(user: provider.user)),
                   ],
                 ),
                 Expanded(

@@ -27,7 +27,7 @@ class AnalyticsScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(20),
-                    child: SlideInWidget(
+                    child: SlideAnimation(
                       delay: 100,
                       child: Text(
                         'Analytics ($meekath)',
@@ -37,7 +37,7 @@ class AnalyticsScreen extends StatelessWidget {
                   ),
 
                   // Refresh button
-                  SlideInWidget(
+                  SlideAnimation(
                     delay: 1000,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 15),
@@ -78,7 +78,7 @@ class AnalyticsScreen extends StatelessWidget {
           ),
 
           // Logout button
-          const SlideInWidget(
+          const SlideAnimation(
             delay: 1000,
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -103,7 +103,7 @@ class AnalyticsSection extends StatelessWidget {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SlideInWidget(
+          SlideAnimation(
             delay: 1000,
             child: AmountPercentageIndicator(
               percentage: 1 - (provider.analytics.pendingAmount / provider.analytics.totalAmount),
@@ -114,31 +114,31 @@ class AnalyticsSection extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SlideInWidget(
+              SlideAnimation(
                 delay: 100,
                 child: DetailsText(
                   text: 'Yearly Amount : ₹ ${provider.analytics.yearlyAmount}',
                 ),
               ),
-              SlideInWidget(
+              SlideAnimation(
                 delay: 200,
                 child: DetailsText(
                   text: 'Total Amount : ₹ ${provider.analytics.totalAmount}',
                 ),
               ),
-              SlideInWidget(
+              SlideAnimation(
                 delay: 300,
                 child: DetailsText(
                   text: 'Total Received : ₹ ${provider.analytics.totalReceivedAmount}',
                 ),
               ),
-              SlideInWidget(
+              SlideAnimation(
                 delay: 400,
                 child: DetailsText(
                   text: 'Pending Amount : ₹ ${provider.analytics.pendingAmount}',
                 ),
               ),
-              SlideInWidget(
+              SlideAnimation(
                 delay: 500,
                 child: DetailsText(
                   text: 'Extra Amount : ₹ ${(provider.analytics.extraAmount)}',
@@ -164,7 +164,7 @@ class PaymentSection extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.only(top: 40, bottom: 10),
-              child: SlideInWidget(
+              child: SlideAnimation(
                 delay: 600,
                 child: Text(
                   'Payment details',
@@ -172,19 +172,19 @@ class PaymentSection extends StatelessWidget {
                 ),
               ),
             ),
-            SlideInWidget(
+            SlideAnimation(
               delay: 700,
               child: DetailsText(
                 text: 'Total Not verified amount : ₹ ${provider.getTotalAmount(PaymentStatus.notVerified)}',
               ),
             ),
-            SlideInWidget(
+            SlideAnimation(
               delay: 800,
               child: DetailsText(
                 text: 'Total Accepted amount : ₹ ${provider.getTotalAmount(PaymentStatus.accepted)}',
               ),
             ),
-            SlideInWidget(
+            SlideAnimation(
               delay: 900,
               child: DetailsText(
                 text: 'Total Rejected amount : ₹ ${provider.getTotalAmount(PaymentStatus.rejected)}',

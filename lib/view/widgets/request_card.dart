@@ -34,7 +34,7 @@ class RequestCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SlideInWidget(
+                SlideAnimation(
                   delay: 100,
                   child: Text(
                     payment.user!.name,
@@ -42,7 +42,7 @@ class RequestCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
-                SlideInWidget(
+                SlideAnimation(
                   delay: 200,
                   child: Text(
                     'Amount : ${payment.amount}',
@@ -50,7 +50,7 @@ class RequestCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                SlideInWidget(
+                SlideAnimation(
                   delay: 400,
                   duration: const Duration(milliseconds: 500),
                   child: Row(
