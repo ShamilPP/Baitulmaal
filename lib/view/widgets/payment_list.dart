@@ -2,7 +2,7 @@ import 'package:baitulmaal/view/widgets/payment_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/payment_model.dart';
-import 'my_list_tile.dart';
+import 'list_card.dart';
 
 class PaymentList extends StatelessWidget {
   final List<PaymentModel> paymentList;
@@ -31,7 +31,7 @@ class PaymentList extends StatelessWidget {
           payStatus = 'Rejected';
         }
 
-        return MyListTile(
+        return ListCard(
           name: payment.user!.name,
           subText: 'Amount : ${payment.amount}',
           onTap: () {

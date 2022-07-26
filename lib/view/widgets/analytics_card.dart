@@ -4,7 +4,7 @@ import '../../utils/colors.dart';
 import '../animations/slide_in_widget.dart';
 import 'amount_percentage_indicator.dart';
 
-class AnalyticsContainer extends StatelessWidget {
+class AnalyticsCard extends StatelessWidget {
   final double percentage;
   final String topLeftAmount;
   final String topLeftText;
@@ -15,7 +15,7 @@ class AnalyticsContainer extends StatelessWidget {
   final String bottomRightAmount;
   final String bottomRightText;
 
-  const AnalyticsContainer({
+  const AnalyticsCard({
     Key? key,
     required this.percentage,
     required this.topLeftAmount,

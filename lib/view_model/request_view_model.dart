@@ -21,15 +21,7 @@ class RequestProvider extends ChangeNotifier {
   void updatePaymentList(BuildContext context, PaymentModel payment, PaymentStatus status) {
     AdminProvider adminProvider = Provider.of<AdminProvider>(context, listen: false);
     int paymentIndex = adminProvider.payments.indexWhere((_payment) => payment.docId == _payment.docId);
-    adminProvider.payments[paymentIndex] = PaymentModel(
-      verify: status.index,
-      docId: adminProvider.payments[paymentIndex].docId,
-      userDocId: adminProvider.payments[paymentIndex].userDocId,
-      user: adminProvider.payments[paymentIndex].user,
-      amount: adminProvider.payments[paymentIndex].amount,
-      meekath: adminProvider.payments[paymentIndex].meekath,
-      dateTime: adminProvider.payments[paymentIndex].dateTime,
-    );
+    adminProvider.payments[paymentIndex].verify = status.index;
     _notVerifiedList.remove(payment);
     adminProvider.updateData();
   }

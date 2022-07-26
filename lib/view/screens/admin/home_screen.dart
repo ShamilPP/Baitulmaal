@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../../model/total_analytics_model.dart';
 import '../../../model/user_model.dart';
-import '../../widgets/analytics_container.dart';
+import '../../widgets/analytics_card.dart';
 import '../../widgets/users_list.dart';
 
 class AdminHomeScreen extends StatelessWidget {
@@ -24,7 +24,7 @@ class AdminHomeScreen extends StatelessWidget {
             children: [
               Consumer<AdminProvider>(builder: (ctx, provider, child) {
                 TotalAnalyticsModel adminAnalytics = provider.analytics;
-                return AnalyticsContainer(
+                return AnalyticsCard(
                   percentage: 1 - (adminAnalytics.pendingAmount / adminAnalytics.totalAmount),
                   topLeftAmount: '${provider.users.length}',
                   topLeftText: 'Total users',
@@ -220,10 +220,10 @@ class AdminPopupMenu extends StatelessWidget {
                       value: meekath,
                       minValue: meekathList.first,
                       maxValue: meekathList.last,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           border: Border(
-                        top: BorderSide(color: Colors.grey),
-                        bottom: BorderSide(color: Colors.grey),
+                        top: BorderSide(color: Colors.grey.shade300),
+                        bottom: BorderSide(color: Colors.grey.shade300),
                       )),
                       onChanged: (value) => currentMeekath.value = value);
                 },

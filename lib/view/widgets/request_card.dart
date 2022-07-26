@@ -8,11 +8,11 @@ import '../../model/payment_model.dart';
 import '../../utils/enums.dart';
 import '../../view_model/payment_view_model.dart';
 
-class RequestListTile extends StatelessWidget {
+class RequestCard extends StatelessWidget {
   final int index;
   final PaymentModel payment;
 
-  const RequestListTile({
+  const RequestCard({
     Key? key,
     required this.index,
     required this.payment,
@@ -56,25 +56,23 @@ class RequestListTile extends StatelessWidget {
                   child: Row(
                     children: [
                       // Accept Button
-                      ActionButton(
-                        index: index,
+                      actionButton(
+                        context,
                         text: 'Accept',
                         color: Colors.green,
                         icon: Icons.done,
                         status: PaymentStatus.accepted,
-                        payment: payment,
                       ),
 
                       const Expanded(flex: 1, child: SizedBox()),
 
                       // Reject Button
-                      ActionButton(
-                        index: index,
+                      actionButton(
+                        context,
                         text: 'Reject',
                         color: Colors.red,
                         icon: Icons.close,
                         status: PaymentStatus.rejected,
-                        payment: payment,
                       ),
                     ],
                   ),
@@ -83,6 +81,67 @@ class RequestListTile extends StatelessWidget {
             ),
           ),
           onTap: () => showDialog(context: context, builder: (ctx) => PaymentDialog(payment: payment, isAdmin: true)),
+        ),
+      ),
+    );
+  }
+
+  actionButton(BuildContext context,
+      {required String text, required Color color, required IconData icon, required PaymentStatus status}) {
+    return Expanded(
+      flex: 8,
+      child: SizedBox(
+        height: 50,
+        child: Material(
+          color: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            splashColor: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  color: Colors.white,
+                  size: 28,
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  text,
+                  style: const TextStyle(fontSize: 22, color: Colors.white),
+                )
+              ],
+            ),
+            onTap: () async {
+              PaymentProvider paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
+              RequestProvider requestProvider = Provider.of<RequestProvider>(context, listen: false);
+
+              if (requestProvider.notVerifiedList.contains(payment)) {
+                // Update payment in firebase
+                paymentProvider.updatePayment(payment.docId!, status);
+
+                // Update payment locally
+                requestProvider.updatePaymentList(context, payment, status);
+
+                // animation
+                requestProvider.listKey.currentState!.removeItem(
+                  index,
+                  (context, animation) {
+                    return SizeTransition(
+                      sizeFactor: animation,
+                      child: RequestCard(
+                        index: index,
+                        payment: payment,
+                      ),
+                    );
+                  },
+                );
+              }
+            },
+          ),
         ),
       ),
     );
@@ -154,7 +213,7 @@ class ActionButton extends StatelessWidget {
                   (context, animation) {
                     return SizeTransition(
                       sizeFactor: animation,
-                      child: RequestListTile(
+                      child: RequestCard(
                         index: index,
                         payment: payment,
                       ),

@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 
 import '../../model/payment_model.dart';
 import '../animations/slide_in_widget.dart';
-import '../screens/admin/analytics_screen.dart';
 import '../screens/user/profile_screen.dart';
+import 'details_text.dart';
 
 class PaymentDialog extends StatelessWidget {
   final PaymentModel payment;

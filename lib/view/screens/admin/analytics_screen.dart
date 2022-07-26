@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../view_model/admin_view_model.dart';
 import '../../animations/slide_in_widget.dart';
 import '../../widgets/amount_percentage_indicator.dart';
+import '../../widgets/details_text.dart';
 
 class AnalyticsScreen extends StatelessWidget {
   const AnalyticsScreen({Key? key}) : super(key: key);
@@ -192,23 +193,6 @@ class PaymentSection extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-}
-
-class DetailsText extends StatelessWidget {
-  final String text;
-
-  const DetailsText({Key? key, required this.text}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 7),
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 17),
-      ),
     );
   }
 }

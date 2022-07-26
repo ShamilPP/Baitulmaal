@@ -5,7 +5,7 @@ class PaymentModel {
   final String? userDocId;
   final UserModel? user;
   final int amount;
-  final int verify;
+  int verify;
   final int meekath;
   final DateTime dateTime;
 

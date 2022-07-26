@@ -3,7 +3,7 @@ import 'package:baitulmaal/view_model/request_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/request_list_tile.dart';
+import '../../widgets/request_card.dart';
 
 class RequestScreen extends StatelessWidget {
   const RequestScreen({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class RequestScreen extends StatelessWidget {
                     itemBuilder: (ctx, index, animation) {
                       return SizeTransition(
                         sizeFactor: animation,
-                        child: RequestListTile(
+                        child: RequestCard(
                           index: index,
                           payment: provider.notVerifiedList[index],
                         ),

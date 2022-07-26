@@ -111,20 +111,15 @@ class FirebaseService {
 
     for (var payment in paymentCollection.docs) {
       // find paid user
-      UserModel? user;
-      for (var _user in users) {
-        if (payment.get('userId') == _user.docId) {
-          user = _user;
-        }
-      }
+      int userIndex = users.indexWhere((user) => user.docId == payment.get('userId'));
 
       // returning payments
-      if (user != null) {
+      if (userIndex != -1) {
         payments.add(
           PaymentModel(
             docId: payment.id,
             userDocId: payment.get('userId'),
-            user: user,
+            user: users[userIndex],
             amount: payment.get('amount'),
             verify: payment.get('verify'),
             meekath: payment.get('meekath'),

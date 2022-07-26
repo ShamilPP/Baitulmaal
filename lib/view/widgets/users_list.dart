@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/user_model.dart';
-import 'my_list_tile.dart';
+import 'list_card.dart';
 
 class UsersList extends StatelessWidget {
   final List<UserModel> users;
@@ -21,7 +21,7 @@ class UsersList extends StatelessWidget {
         itemBuilder: (ctx, index) {
           UserModel user = users[index];
           var analytics = provider.getUserAnalytics(user);
-          return MyListTile(
+          return ListCard(
             name: user.name,
             subText: analytics.pendingAmount != 0 ? 'PENDING ( ₹ ${analytics.pendingAmount} )' : 'COMPLETED',
             subColor: analytics.pendingAmount != 0 ? Colors.red : Colors.green,

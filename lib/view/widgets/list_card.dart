@@ -1,14 +1,14 @@
 import 'package:baitulmaal/view/animations/slide_in_widget.dart';
 import 'package:flutter/material.dart';
 
-class MyListTile extends StatelessWidget {
+class ListCard extends StatelessWidget {
   final String name;
   final String subText;
   final Color subColor;
   final void Function()? onTap;
   final String suffixText;
 
-  const MyListTile({
+  const ListCard({
     Key? key,
     required this.name,
     required this.subText,
