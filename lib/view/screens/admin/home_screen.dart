@@ -1,5 +1,6 @@
 import 'package:baitulmaal/view/animations/slide_animation.dart';
 import 'package:baitulmaal/view/screens/pay_screen.dart';
+import 'package:baitulmaal/view/widgets/loading_widget.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
@@ -23,18 +24,24 @@ class AdminHomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Consumer<AdminProvider>(builder: (ctx, provider, child) {
-                AnalyticsModel adminAnalytics = provider.analytics;
-                return AnalyticsCard(
-                  percentage: 1 - (adminAnalytics.pendingAmount / adminAnalytics.totalAmount),
-                  topLeftAmount: '${provider.users.length}',
-                  topLeftText: 'Total users',
-                  topRightAmount: '₹ ${adminAnalytics.yearlyAmount}',
-                  topRightText: 'Total amount',
-                  bottomLeftAmount: '₹ ${adminAnalytics.totalAmount}',
-                  bottomLeftText: 'Total amount due',
-                  bottomRightAmount: '₹ ${adminAnalytics.pendingAmount}',
-                  bottomRightText: 'Pending amount',
-                );
+                AnalyticsModel? adminAnalytics = provider.analytics;
+                if (adminAnalytics == null) {
+                  return const Center(
+                    child: Padding(padding: EdgeInsets.all(90), child: LoadingWidget()),
+                  );
+                } else {
+                  return AnalyticsCard(
+                    percentage: 1 - (adminAnalytics.pendingAmount / adminAnalytics.totalAmount),
+                    topLeftAmount: '${provider.users.length}',
+                    topLeftText: 'Total users',
+                    topRightAmount: '₹ ${adminAnalytics.yearlyAmount}',
+                    topRightText: 'Total amount',
+                    bottomLeftAmount: '₹ ${adminAnalytics.totalAmount}',
+                    bottomLeftText: 'Total amount due',
+                    bottomRightAmount: '₹ ${adminAnalytics.pendingAmount}',
+                    bottomRightText: 'Pending amount',
+                  );
+                }
               }),
 
               // Users list

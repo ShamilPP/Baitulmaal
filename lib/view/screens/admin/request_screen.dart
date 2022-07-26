@@ -1,8 +1,11 @@
 import 'package:baitulmaal/view/animations/slide_animation.dart';
+import 'package:baitulmaal/view/widgets/loading_widget.dart';
 import 'package:baitulmaal/view_model/request_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/enums.dart';
+import '../../../view_model/admin_view_model.dart';
 import '../../widgets/request_card.dart';
 
 class RequestScreen extends StatelessWidget {
@@ -26,12 +29,18 @@ class RequestScreen extends StatelessWidget {
           ),
           Expanded(
             child: provider.notVerifiedList.isEmpty
-                ? Wrap(
-                    runAlignment: WrapAlignment.center,
-                    children: const [
-                      SlideAnimation(child: Center(child: Text("No Requests", style: TextStyle(fontSize: 25)))),
-                    ],
-                  )
+                ? Consumer<AdminProvider>(builder: (ctx, adminProvider, child) {
+                    if (adminProvider.paymentStatus == Status.loading) {
+                      return const LoadingWidget();
+                    } else {
+                      return Wrap(
+                        runAlignment: WrapAlignment.center,
+                        children: const [
+                          SlideAnimation(child: Center(child: Text("No Requests", style: TextStyle(fontSize: 25)))),
+                        ],
+                      );
+                    }
+                  })
                 : AnimatedList(
                     key: provider.listKey,
                     initialItemCount: provider.notVerifiedList.length,

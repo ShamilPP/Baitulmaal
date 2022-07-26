@@ -34,7 +34,7 @@ class PayScreen extends StatelessWidget {
                     width: 100,
                     child: CircularProgressIndicator(strokeWidth: 7),
                   ));
-                case Status.success:
+                case Status.completed:
                   return const AnimatedCheckMark(color: Colors.green, icon: Icons.check);
                 case Status.failed:
                   return const AnimatedCheckMark(color: Colors.red, icon: Icons.close);

@@ -1,10 +1,11 @@
 import 'package:baitulmaal/view/animations/slide_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ListCard extends StatelessWidget {
   final String name;
-  final String subText;
-  final Color subColor;
+  final String? subText;
+  final Color? subColor;
   final void Function()? onTap;
   final String suffixText;
 
@@ -42,13 +43,15 @@ class ListCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    SlideAnimation(
-                      delay: 300,
-                      child: Text(
-                        subText,
-                        style: TextStyle(fontSize: 15, color: subColor),
-                      ),
-                    ),
+                    subText == null
+                        ? loadingAnimationForText()
+                        : SlideAnimation(
+                            delay: 300,
+                            child: Text(
+                              subText!,
+                              style: TextStyle(fontSize: 15, color: subColor),
+                            ),
+                          ),
                   ],
                 ),
                 SlideAnimation(child: Text(suffixText))
@@ -57,6 +60,24 @@ class ListCard extends StatelessWidget {
           ),
           onTap: onTap,
         ),
+      ),
+    );
+  }
+
+  Widget loadingAnimationForText() {
+    return SizedBox(
+      child: SpinKitWave(
+        size: 20,
+        itemBuilder: (ctx, index) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 1),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
+            ),
+          );
+        },
       ),
     );
   }

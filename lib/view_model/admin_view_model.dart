@@ -11,22 +11,34 @@ import '../utils/enums.dart';
 
 class AdminProvider extends ChangeNotifier {
   late List<UserModel> _users;
-  late List<PaymentModel> _payments;
-  late AnalyticsModel _analytics;
+  List<PaymentModel> _payments = [];
+  AnalyticsModel? _analytics;
+
+  // For firebase payment fetching
+  late Status _paymentStatus;
 
   List<UserModel> get users => _users;
 
   List<PaymentModel> get payments => _payments;
 
-  AnalyticsModel get analytics => _analytics;
+  AnalyticsModel? get analytics => _analytics;
+
+  Status get paymentStatus => _paymentStatus;
 
   Future<bool> loadDataFromFirebase(BuildContext context) async {
     // fetch meekath
     int meekath = Provider.of<PaymentProvider>(context, listen: false).meekath;
 
-    // Init all data's
+    // Get users from firebase
     _users = await FirebaseService.getAllUsers();
-    _payments = await FirebaseService.getAllPayments(meekath, users);
+
+    // Get Payments from firebase (not waiting)
+    _paymentStatus = Status.loading;
+    FirebaseService.getAllPayments(meekath, users).then((result) async {
+      _paymentStatus = Status.completed;
+      _payments = result;
+      updateData();
+    });
 
     updateData();
     return true;
@@ -34,13 +46,17 @@ class AdminProvider extends ChangeNotifier {
 
   void updateData() {
     // Get Admin analytics ( ex: total amount,total pending amount, total users, etc..)
-    _analytics = AnalyticsService.getAdminOverview(_users, _payments);
+    if (paymentStatus == Status.completed) _analytics = AnalyticsService.getAdminOverview(_users, _payments);
 
     // order with pending amount
     _users.sort((user1, user2) {
-      var analytics1 = getUserAnalytics(user1);
-      var analytics2 = getUserAnalytics(user2);
-      return analytics2.pendingAmount.compareTo(analytics1.pendingAmount);
+      if (paymentStatus == Status.completed) {
+        var analytics1 = getUserAnalytics(user1);
+        var analytics2 = getUserAnalytics(user2);
+        return analytics2.pendingAmount.compareTo(analytics1.pendingAmount);
+      } else {
+        return user1.name.compareTo(user2.name);
+      }
     });
 
     notifyListeners();

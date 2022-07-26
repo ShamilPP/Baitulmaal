@@ -1,13 +1,12 @@
-import 'package:baitulmaal/utils/colors.dart';
 import 'package:baitulmaal/utils/constants.dart';
 import 'package:baitulmaal/view/screens/admin/main_screen.dart';
 import 'package:baitulmaal/view/screens/login_screen.dart';
 import 'package:baitulmaal/view/screens/user/home_screen.dart';
+import 'package:baitulmaal/view/widgets/loading_widget.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/splash_view_model.dart';
 import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,10 +36,10 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 70),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                loadingAnimation(),
-                const SizedBox(width: 20),
-                const Text(
+              children: const [
+                SizedBox(width: 45, height: 45, child: LoadingWidget()), // Loading animation
+                SizedBox(width: 20),
+                Text(
                   'Fetching account details',
                   style: TextStyle(fontSize: 20),
                 ),
@@ -48,16 +47,6 @@ class _SplashScreenState extends State<SplashScreen> {
             )
           ],
         ),
-      ),
-    );
-  }
-
-  Widget loadingAnimation() {
-    return SizedBox(
-      width: 45,
-      height: 45,
-      child: SpinKitSpinningLines(
-        color: primaryColor,
       ),
     );
   }

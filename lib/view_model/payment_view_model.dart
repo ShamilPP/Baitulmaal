@@ -54,7 +54,7 @@ class PaymentProvider extends ChangeNotifier {
         await Provider.of<UserProvider>(context, listen: false).initData();
       }
       // payment finished show checkmark
-      setUploadStatus(Status.success);
+      setUploadStatus(Status.completed);
       //after few seconds show payment screen
       await Future.delayed(const Duration(seconds: 3));
       setUploadStatus(Status.none);
