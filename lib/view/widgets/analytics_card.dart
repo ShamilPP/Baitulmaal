@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
-import '../animations/slide_in_widget.dart';
+import '../animations/slide_animation.dart';
 import 'amount_percentage_indicator.dart';
 
 class AnalyticsCard extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:baitulmaal/view/animations/slide_in_widget.dart';
+import 'package:baitulmaal/view/animations/slide_animation.dart';
 import 'package:baitulmaal/view_model/request_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

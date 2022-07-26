@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/admin_view_model.dart';
-import '../animations/slide_in_widget.dart';
+import '../animations/slide_animation.dart';
 
 class PayScreen extends StatelessWidget {
   final UserModel user;

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/payment_model.dart';
 import '../../utils/enums.dart';
-import '../animations/slide_in_widget.dart';
+import '../animations/slide_animation.dart';
 import '../widgets/payment_list.dart';
 
 class TransactionScreen extends StatelessWidget {

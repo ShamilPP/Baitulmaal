@@ -1,4 +1,4 @@
-import 'package:baitulmaal/view/animations/slide_in_widget.dart';
+import 'package:baitulmaal/view/animations/slide_animation.dart';
 import 'package:baitulmaal/view/screens/pay_screen.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';

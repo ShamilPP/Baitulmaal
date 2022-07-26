@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../model/payment_model.dart';
-import '../animations/slide_in_widget.dart';
+import '../animations/slide_animation.dart';
 import '../screens/user/profile_screen.dart';
 import 'details_text.dart';
 

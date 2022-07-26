@@ -1,6 +1,6 @@
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/utils/colors.dart';
-import 'package:baitulmaal/view/animations/slide_in_widget.dart';
+import 'package:baitulmaal/view/animations/slide_animation.dart';
 import 'package:baitulmaal/view/screens/sign_up_screen.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../../model/payment_model.dart';
 import '../../../view_model/user_view_model.dart';
-import '../../animations/slide_in_widget.dart';
+import '../../animations/slide_animation.dart';
 import '../../widgets/logout_button.dart';
 
 class ProfileScreen extends StatelessWidget {

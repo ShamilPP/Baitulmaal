@@ -8,7 +8,7 @@ import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../animations/slide_in_widget.dart';
+import '../../animations/slide_animation.dart';
 
 class UserHomeScreen extends StatelessWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
