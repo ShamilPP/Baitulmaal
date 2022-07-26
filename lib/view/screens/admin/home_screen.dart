@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/total_analytics_model.dart';
+import '../../../model/analytics_model.dart';
 import '../../../model/user_model.dart';
 import '../../widgets/analytics_card.dart';
 import '../../widgets/users_list.dart';
@@ -23,15 +23,15 @@ class AdminHomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Consumer<AdminProvider>(builder: (ctx, provider, child) {
-                TotalAnalyticsModel adminAnalytics = provider.analytics;
+                AnalyticsModel adminAnalytics = provider.analytics;
                 return AnalyticsCard(
                   percentage: 1 - (adminAnalytics.pendingAmount / adminAnalytics.totalAmount),
                   topLeftAmount: '${provider.users.length}',
                   topLeftText: 'Total users',
                   topRightAmount: '₹ ${adminAnalytics.yearlyAmount}',
-                  topRightText: 'Yearly amount',
+                  topRightText: 'Total amount',
                   bottomLeftAmount: '₹ ${adminAnalytics.totalAmount}',
-                  bottomLeftText: 'Total amount',
+                  bottomLeftText: 'Total amount due',
                   bottomRightAmount: '₹ ${adminAnalytics.pendingAmount}',
                   bottomRightText: 'Pending amount',
                 );

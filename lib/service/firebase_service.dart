@@ -152,23 +152,23 @@ class FirebaseService {
     return password;
   }
 
-  static Future<int> getMajorVersion() async {
-    int version;
-    var doc = await FirebaseFirestore.instance.collection('application').doc('version').get();
+  static Future<int> getUpdateCode() async {
+    int code;
+    var doc = await FirebaseFirestore.instance.collection('application').doc('update').get();
 
     // check document exists ( avoiding null exceptions )
-    if (doc.exists && doc.data()!.containsKey("version")) {
+    if (doc.exists && doc.data()!.containsKey("code")) {
       // if document exists, fetch version in firebase
       try {
-        version = doc['version'];
+        code = doc['code'];
       } catch (e) {
-        version = 0; // 0 is error code
+        code = 0; // 0 is error code
       }
     } else {
       // if document not exists, return 0 ( 0 is error code )
-      version = 0;
+      code = 0;
     }
 
-    return version;
+    return code;
   }
 }

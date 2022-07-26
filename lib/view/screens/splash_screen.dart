@@ -64,10 +64,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void init() async {
     SplashProvider provider = Provider.of<SplashProvider>(context, listen: false);
-    int _majorVersion = await provider.getMajorVersion();
+    int _updateCode = await provider.getUpdateCode();
     String? docId = await provider.getDocId();
-    if (_majorVersion != majorVersion) {
-      // If this is not the major version
+    if (_updateCode != Application.updateCode) {
+      // If this is not matching update code show update dialog
       provider.showUpdateDialog(context);
     } else {
       if (docId == null) {

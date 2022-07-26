@@ -1,3 +1,5 @@
 // Application
-int majorVersion = 26;
-String webLink = 'https://sio22.web.app/';
+class Application {
+  static int updateCode = 27;
+  static String webLink = 'https://sio22.web.app/';
+}

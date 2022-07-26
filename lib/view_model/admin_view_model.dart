@@ -4,21 +4,21 @@ import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../model/analytics_model.dart';
 import '../model/payment_model.dart';
-import '../model/total_analytics_model.dart';
 import '../model/user_model.dart';
 import '../utils/enums.dart';
 
 class AdminProvider extends ChangeNotifier {
   late List<UserModel> _users;
   late List<PaymentModel> _payments;
-  late TotalAnalyticsModel _analytics;
+  late AnalyticsModel _analytics;
 
   List<UserModel> get users => _users;
 
   List<PaymentModel> get payments => _payments;
 
-  TotalAnalyticsModel get analytics => _analytics;
+  AnalyticsModel get analytics => _analytics;
 
   Future<bool> loadDataFromFirebase(BuildContext context) async {
     // fetch meekath
@@ -47,7 +47,7 @@ class AdminProvider extends ChangeNotifier {
   }
 
   // Required for user list ( to check the pending amount )
-  TotalAnalyticsModel getUserAnalytics(UserModel user) {
+  AnalyticsModel getUserAnalytics(UserModel user) {
     return AnalyticsService.getUserAnalytics(_payments, user);
   }
 

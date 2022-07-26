@@ -6,9 +6,9 @@ import '../service/firebase_service.dart';
 import '../utils/constants.dart';
 
 class SplashProvider extends ChangeNotifier {
-  Future<int> getMajorVersion() async {
-    int majorVersion = await FirebaseService.getMajorVersion();
-    return majorVersion;
+  Future<int> getUpdateCode() async {
+    int updateCode = await FirebaseService.getUpdateCode();
+    return updateCode;
   }
 
   Future<String?> getDocId() async {
@@ -26,7 +26,7 @@ class SplashProvider extends ChangeNotifier {
         actions: [
           ElevatedButton(
               onPressed: () {
-                launchUrl(Uri.parse(webLink), mode: LaunchMode.externalApplication);
+                launchUrl(Uri.parse(Application.webLink), mode: LaunchMode.externalApplication);
               },
               child: const Text('Update'))
         ],

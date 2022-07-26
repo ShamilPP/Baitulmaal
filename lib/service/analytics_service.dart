@@ -1,11 +1,11 @@
-import 'package:baitulmaal/model/total_analytics_model.dart';
+import 'package:baitulmaal/model/analytics_model.dart';
 import 'package:baitulmaal/utils/enums.dart';
 
 import '../model/payment_model.dart';
 import '../model/user_model.dart';
 
 class AnalyticsService {
-  static TotalAnalyticsModel getAdminOverview(List<UserModel> users, List<PaymentModel> payments) {
+  static AnalyticsModel getAdminOverview(List<UserModel> users, List<PaymentModel> payments) {
     int yearlyAmount = 0;
     int totalAmount = 0;
     int totalReceivedAmount = 0;
@@ -13,7 +13,7 @@ class AnalyticsService {
     int extraAmount = 0;
 
     for (var user in users) {
-      TotalAnalyticsModel analytics = getUserAnalytics(payments, user);
+      AnalyticsModel analytics = getUserAnalytics(payments, user);
 
       yearlyAmount = yearlyAmount + analytics.yearlyAmount;
       totalAmount = totalAmount + analytics.totalAmount;
@@ -22,7 +22,7 @@ class AnalyticsService {
       extraAmount = extraAmount + analytics.extraAmount;
     }
 
-    TotalAnalyticsModel adminAnalytics = TotalAnalyticsModel(
+    AnalyticsModel adminAnalytics = AnalyticsModel(
       yearlyAmount: yearlyAmount,
       totalAmount: totalAmount,
       totalReceivedAmount: totalReceivedAmount,
@@ -43,7 +43,7 @@ class AnalyticsService {
     return paymentList;
   }
 
-  static TotalAnalyticsModel getUserAnalytics(List<PaymentModel> payments, UserModel user) {
+  static AnalyticsModel getUserAnalytics(List<PaymentModel> payments, UserModel user) {
     // get user payments from all payments
     List<PaymentModel> userPayments = [];
     for (var payment in payments) {
@@ -63,7 +63,7 @@ class AnalyticsService {
       pendingAmount = 0;
     }
 
-    TotalAnalyticsModel analytics = TotalAnalyticsModel(
+    AnalyticsModel analytics = AnalyticsModel(
       yearlyAmount: yearlyAmount,
       totalAmount: totalAmount,
       totalReceivedAmount: receivedAmount,
