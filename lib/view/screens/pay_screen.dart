@@ -24,111 +24,133 @@ class PayScreen extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           child: Consumer<PaymentProvider>(
             builder: (ctx, provider, child) {
-              if (provider.uploadStatus == PayUploadStatus.none) {
-                // If not loading show payment screen
-                return Stack(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SlideAnimation(delay: 100, child: CloseButton()),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          //User details
-                          const SlideAnimation(
-                            delay: 200,
-                            child: Icon(
-                              Icons.account_circle,
-                              size: 70,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SlideAnimation(
-                            delay: 300,
-                            child: Text(
-                              "${user.name} paying",
-                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SlideAnimation(
-                            delay: 400,
-                            child: Text(
-                              "+91 ${user.phoneNumber}",
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          ),
-                          // Meekath Dropdown (Change meekath year)
-                          isAdmin
-                              ? SlideAnimation(
-                                  delay: 500,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Text("Meekath  :  "),
-                                      MeekathDropdown(),
-                                    ],
-                                  ),
-                                )
-                              : const SizedBox(),
-                          const SizedBox(height: 30),
-                          // Payment TextField
-                          SlideAnimation(delay: 500, child: PaymentTextField(controller: paymentController)),
-                          const SizedBox(height: 100),
-                        ],
-                      ),
-                    ),
-                    // Pay button
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SlideAnimation(
-                        delay: 800,
-                        child: SizedBox(
-                          height: 45,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.green,
-                              shape: const StadiumBorder(),
-                            ),
-                            child: const Text(
-                              'PAY',
-                              style: TextStyle(fontSize: 18, color: Colors.white),
-                            ),
-                            onPressed: () {
-                              provider.uploadPayment(context, paymentController.text, user, isAdmin);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                // show loading or checkmar or faild mark
-                var status = provider.uploadStatus;
-                if (status == PayUploadStatus.loading) {
-                  // Payment in progressing show loading
+              switch (provider.uploadStatus) {
+                case Status.none:
+                  return body(context);
+                case Status.loading:
                   return const Center(
-                      child: SizedBox(height: 100, width: 100, child: CircularProgressIndicator(strokeWidth: 7)));
-                } else if (status == PayUploadStatus.success) {
-                  // payment finished show tick mark
+                      child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CircularProgressIndicator(strokeWidth: 7),
+                  ));
+                case Status.success:
                   return const AnimatedCheckMark(color: Colors.green, icon: Icons.check);
-                } else if (status == PayUploadStatus.failed) {
-                  // payment failed show error mark
+                case Status.failed:
                   return const AnimatedCheckMark(color: Colors.red, icon: Icons.close);
-                } else {
-                  return const SizedBox();
-                }
               }
             },
           ),
         ),
       ),
     );
+  }
+
+  Widget body(BuildContext context) {
+    return Stack(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SlideAnimation(delay: 100, child: CloseButton()),
+        Align(
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //User details
+                const SlideAnimation(
+                  delay: 200,
+                  child: Icon(
+                    Icons.account_circle,
+                    size: 70,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SlideAnimation(
+                  delay: 300,
+                  child: Text(
+                    "${user.name} paying",
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SlideAnimation(
+                  delay: 400,
+                  child: Text(
+                    "+91 ${user.phoneNumber}",
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ),
+                // Meekath Dropdown (Change meekath year)
+                isAdmin
+                    ? SlideAnimation(
+                        delay: 500,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Meekath  :  "),
+                            meekathDropDown(),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(),
+                const SizedBox(height: 30),
+                // Payment TextField
+                SlideAnimation(delay: 500, child: PaymentTextField(controller: paymentController)),
+                const SizedBox(height: 100),
+              ],
+            ),
+          ),
+        ),
+        // Pay button
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: SlideAnimation(
+            delay: 800,
+            child: SizedBox(
+              height: 45,
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                  shape: const StadiumBorder(),
+                ),
+                child: const Text(
+                  'PAY',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+                onPressed: () {
+                  var provider = Provider.of<PaymentProvider>(context, listen: false);
+                  provider.uploadPayment(context, paymentController.text, user, isAdmin);
+                },
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget meekathDropDown() {
+    return Consumer<PaymentProvider>(builder: (context, provider, child) {
+      return DropdownButtonHideUnderline(
+        child: DropdownButton<int>(
+          value: provider.meekath,
+          items: provider.getMeekathList().map((int value) {
+            return DropdownMenuItem<int>(
+              value: value,
+              child: Text('$value'),
+            );
+          }).toList(),
+          onChanged: (newValue) async {
+            provider.setMeekath(newValue!);
+            await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
+          },
+        ),
+      );
+    });
   }
 }
 
@@ -163,31 +185,6 @@ class PaymentTextField extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class MeekathDropdown extends StatelessWidget {
-  const MeekathDropdown({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<PaymentProvider>(builder: (context, provider, child) {
-      return DropdownButtonHideUnderline(
-        child: DropdownButton<int>(
-          value: provider.meekath,
-          items: provider.getMeekathList().map((int value) {
-            return DropdownMenuItem<int>(
-              value: value,
-              child: Text('$value'),
-            );
-          }).toList(),
-          onChanged: (newValue) async {
-            provider.setMeekath(newValue!);
-            await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
-          },
-        ),
-      );
-    });
   }
 }
 

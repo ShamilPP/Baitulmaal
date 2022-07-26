@@ -1,3 +1,3 @@
 enum PaymentStatus { allPayments, notVerified, accepted, rejected }
 
-enum PayUploadStatus { none, loading, success, failed }
+enum Status { none, loading, success, failed }

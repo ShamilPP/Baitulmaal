@@ -65,12 +65,14 @@ class UserHomeScreen extends StatelessWidget {
           UserModel user = Provider.of<UserProvider>(context, listen: false).user;
 
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => PayScreen(
-                        user: user,
-                        isAdmin: false,
-                      ),),);
+            context,
+            MaterialPageRoute(
+              builder: (_) => PayScreen(
+                user: user,
+                isAdmin: false,
+              ),
+            ),
+          );
         },
       ),
     );

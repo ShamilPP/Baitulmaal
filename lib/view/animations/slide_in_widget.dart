@@ -36,7 +36,7 @@ class SlideAnimationState extends State<SlideAnimation> with SingleTickerProvide
     opacity = Tween<double>(begin: 0, end: 1).animate(controller);
     animOffset = Tween<Offset>(begin: const Offset(0, 0.8), end: Offset.zero).animate(controller);
     Future.delayed(Duration(milliseconds: widget.delay)).then(
-          (value) {
+      (value) {
         controller.forward();
       },
     );

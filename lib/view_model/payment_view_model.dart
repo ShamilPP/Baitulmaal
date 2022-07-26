@@ -12,29 +12,29 @@ import '../utils/enums.dart';
 class PaymentProvider extends ChangeNotifier {
   int _meekath = DateTime.now().year;
 
-  PayUploadStatus _uploadStatus = PayUploadStatus.none;
+  Status _uploadStatus = Status.none;
 
   int get meekath => _meekath;
 
-  PayUploadStatus get uploadStatus => _uploadStatus;
+  Status get uploadStatus => _uploadStatus;
 
-  void setUploadStatus(PayUploadStatus status) {
+  void setUploadStatus(Status status) {
     _uploadStatus = status;
     notifyListeners();
   }
 
   void uploadPayment(BuildContext context, String money, UserModel user, bool isAdmin) async {
     // start loading
-    setUploadStatus(PayUploadStatus.loading);
+    setUploadStatus(Status.loading);
     // Check entered amount is null
     int? amount = int.tryParse(money);
     if (amount == null || amount == 0) {
       // amount == null return failed checkmark after 2 second
       await Future.delayed(const Duration(seconds: 2));
-      setUploadStatus(PayUploadStatus.failed);
+      setUploadStatus(Status.failed);
       // remove failed checkmark after 3 second
       await Future.delayed(const Duration(seconds: 3));
-      setUploadStatus(PayUploadStatus.none);
+      setUploadStatus(Status.none);
     } else {
       // When the admin pay the user, automatically verified
       int verify = PaymentStatus.notVerified.index;
@@ -54,10 +54,10 @@ class PaymentProvider extends ChangeNotifier {
         await Provider.of<UserProvider>(context, listen: false).initData();
       }
       // payment finished show checkmark
-      setUploadStatus(PayUploadStatus.success);
+      setUploadStatus(Status.success);
       //after few seconds show payment screen
       await Future.delayed(const Duration(seconds: 3));
-      setUploadStatus(PayUploadStatus.none);
+      setUploadStatus(Status.none);
       Navigator.pop(context);
     }
   }
