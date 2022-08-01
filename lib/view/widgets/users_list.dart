@@ -1,4 +1,3 @@
-import 'package:baitulmaal/utils/enums.dart';
 import 'package:baitulmaal/view/screens/user/profile_screen.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +22,7 @@ class UsersList extends StatelessWidget {
           itemCount: users.length,
           itemBuilder: (ctx, index) {
             UserModel user = users[index];
-
-            AnalyticsModel? analytics;
-            if (status == Status.completed) {
-              analytics = provider.getUserAnalytics(user);
-            }
+            AnalyticsModel? analytics = user.analytics;
             return ListCard(
               name: user.name,
               subText: analytics == null

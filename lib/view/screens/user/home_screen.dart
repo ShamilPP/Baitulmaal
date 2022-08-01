@@ -19,17 +19,18 @@ class UserHomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Consumer<UserProvider>(builder: (ctx, provider, child) {
+            var analytics = provider.user.analytics!;
             return Column(
               children: [
                 AnalyticsCard(
-                  percentage: 1 - (provider.analytics.pendingAmount / provider.analytics.totalAmount),
+                  percentage: 1 - (analytics.pendingAmount / analytics.totalAmount),
                   topLeftAmount: '₹ ${provider.user.monthlyPayment}',
                   topLeftText: 'Monthly payment',
-                  topRightAmount: '₹ ${provider.analytics.yearlyAmount}',
+                  topRightAmount: '₹ ${analytics.yearlyAmount}',
                   topRightText: ' Total amount',
-                  bottomLeftAmount: '₹ ${provider.analytics.totalAmount}',
+                  bottomLeftAmount: '₹ ${analytics.totalAmount}',
                   bottomLeftText: 'Total amount due',
-                  bottomRightAmount: '₹ ${provider.analytics.pendingAmount}',
+                  bottomRightAmount: '₹ ${analytics.pendingAmount}',
                   bottomRightText: 'Pending amount',
                 ),
                 Row(

@@ -45,26 +45,26 @@ class AdminProvider extends ChangeNotifier {
   }
 
   void updateData() {
+    // Set all user analytics
+    if (paymentStatus == Status.completed) {
+      for (var user in _users) {
+        user.analytics = AnalyticsService.getUserAnalytics(getUserPayments(user), user);
+      }
+    }
+
     // Get Admin analytics ( ex: total amount,total pending amount, total users, etc..)
     if (paymentStatus == Status.completed) _analytics = AnalyticsService.getAdminOverview(_users, _payments);
 
     // order with pending amount
     _users.sort((user1, user2) {
       if (paymentStatus == Status.completed) {
-        var analytics1 = getUserAnalytics(user1);
-        var analytics2 = getUserAnalytics(user2);
-        return analytics2.pendingAmount.compareTo(analytics1.pendingAmount);
+        return user2.analytics!.pendingAmount.compareTo(user1.analytics!.pendingAmount);
       } else {
         return user1.name.compareTo(user2.name);
       }
     });
 
     notifyListeners();
-  }
-
-  // Required for user list ( to check the pending amount )
-  AnalyticsModel getUserAnalytics(UserModel user) {
-    return AnalyticsService.getUserAnalytics(_payments, user);
   }
 
   // get user payments from all payments

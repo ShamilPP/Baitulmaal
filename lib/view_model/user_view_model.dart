@@ -1,4 +1,3 @@
-import 'package:baitulmaal/model/analytics_model.dart';
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/service/analytics_service.dart';
 import 'package:baitulmaal/service/firebase_service.dart';
@@ -11,15 +10,12 @@ class UserProvider extends ChangeNotifier {
   late String _docId;
   late UserModel _user;
   late List<PaymentModel> _payments;
-  late AnalyticsModel _analytics;
 
   String get docId => _docId;
 
   UserModel get user => _user;
 
   List<PaymentModel> get payments => _payments;
-
-  AnalyticsModel get analytics => _analytics;
 
   Future<bool> initData() async {
     // Get User wth docID ( DocId getting from shared preferences )
@@ -36,7 +32,7 @@ class UserProvider extends ChangeNotifier {
     _payments = await FirebaseService.getAllPayments(DateTime.now().year, List.filled(1, _user));
 
     // Get user analytics
-    _analytics = AnalyticsService.getUserAnalytics(payments, user);
+    user.analytics = AnalyticsService.getUserAnalytics(payments, user);
     notifyListeners();
     return true;
   }

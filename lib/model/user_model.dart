@@ -1,3 +1,5 @@
+import 'package:baitulmaal/model/analytics_model.dart';
+
 class UserModel {
   final String? docId;
   final String name;
@@ -5,6 +7,7 @@ class UserModel {
   final String username;
   final String password;
   final int monthlyPayment;
+  AnalyticsModel? analytics;
 
   UserModel({
     this.docId,
@@ -13,5 +16,6 @@ class UserModel {
     required this.username,
     required this.password,
     required this.monthlyPayment,
+    this.analytics,
   });
 }

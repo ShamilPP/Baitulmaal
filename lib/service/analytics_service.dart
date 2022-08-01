@@ -13,7 +13,7 @@ class AnalyticsService {
     int extraAmount = 0;
 
     for (var user in users) {
-      AnalyticsModel analytics = getUserAnalytics(payments, user);
+      AnalyticsModel analytics = user.analytics!;
 
       yearlyAmount = yearlyAmount + analytics.yearlyAmount;
       totalAmount = totalAmount + analytics.totalAmount;
@@ -44,18 +44,10 @@ class AnalyticsService {
   }
 
   static AnalyticsModel getUserAnalytics(List<PaymentModel> payments, UserModel user) {
-    // get user payments from all payments
-    List<PaymentModel> userPayments = [];
-    for (var payment in payments) {
-      if (payment.userDocId == user.docId) {
-        userPayments.add(payment);
-      }
-    }
-
     int month = DateTime.now().month;
     int yearlyAmount = user.monthlyPayment * 12;
     int totalAmount = user.monthlyPayment * month;
-    int receivedAmount = getTotalAmountWithStatus(userPayments, PaymentStatus.accepted);
+    int receivedAmount = getTotalAmountWithStatus(payments, PaymentStatus.accepted);
     int pendingAmount = totalAmount - receivedAmount;
     int extraAmount = 0;
     if (pendingAmount.isNegative) {
