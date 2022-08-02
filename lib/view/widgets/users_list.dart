@@ -15,7 +15,6 @@ class UsersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AdminProvider>(builder: (ctx, provider, child) {
-      var status = provider.paymentStatus;
       return Expanded(
         child: ListView.builder(
           cacheExtent: 0,

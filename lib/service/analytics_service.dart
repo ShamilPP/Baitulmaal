@@ -51,7 +51,7 @@ class AnalyticsService {
     int pendingAmount = totalAmount - receivedAmount;
     int extraAmount = 0;
     if (pendingAmount.isNegative) {
-      extraAmount = pendingAmount;
+      extraAmount = pendingAmount.abs();
       pendingAmount = 0;
     }
 
