@@ -55,8 +55,12 @@ class LoginContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double _height = MediaQuery.of(context).size.height-300;
+    if (400 > _height) {
+      _height = 400;
+    }
     return Container(
-      height: 400,
+      height: _height,
       padding: const EdgeInsets.only(top: 50),
       decoration: const BoxDecoration(
           color: Colors.white,
