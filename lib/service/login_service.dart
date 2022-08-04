@@ -7,38 +7,38 @@ class LoginService {
     UserModel? user = await FirebaseService.getUserWithUsername(username);
     if (username == 'admin' && password == await FirebaseService.getAdminPassword()) {
       // is admin returning admin
-      return Response(value: 'admin', isSuccessful: true, message: 'Logged in');
+      return Response(isSuccess: true, value: 'admin');
     } else if (!checkInvalid(username)) {
-      return Response(isSuccessful: false, message: 'Invalid username');
+      return Response(isSuccess: false, value: 'Invalid username');
     } else if (!checkInvalid(password)) {
-      return Response(isSuccessful: false, message: 'Invalid password');
+      return Response(isSuccess: false, value: 'Invalid password');
     } else if (user == null) {
-      return Response(isSuccessful: false, message: 'Username not exits');
+      return Response(isSuccess: false, value: 'Username not exits');
     } else if (password != user.password) {
-      return Response(isSuccessful: false, message: 'Password is incorrect');
+      return Response(isSuccess: false, value: 'Password is incorrect');
     }
     // returning success and docId
-    return Response(value: user.docId, isSuccessful: true, message: 'Logged in');
+    return Response(isSuccess: true, value: user.docId);
   }
 
   static Future<Response> createAccount(String name, String phoneNumber, String username, String password,
       String confirmPassword, String monthlyPayment) async {
     if (!checkInvalid(name)) {
-      return Response(isSuccessful: false, message: 'Invalid name');
+      return Response(isSuccess: false, value: 'Invalid name');
     } else if (!checkInvalid(phoneNumber)) {
-      return Response(isSuccessful: false, message: 'Invalid phone number');
+      return Response(isSuccess: false, value: 'Invalid phone number');
     } else if (!checkInvalid(username)) {
-      return Response(isSuccessful: false, message: 'Invalid username');
+      return Response(isSuccess: false, value: 'Invalid username');
     } else if (!checkInvalid(password)) {
-      return Response(isSuccessful: false, message: 'Invalid password');
+      return Response(isSuccess: false, value: 'Invalid password');
     } else if (!checkInvalid(monthlyPayment)) {
-      return Response(isSuccessful: false, message: 'Invalid monthly payment');
+      return Response(isSuccess: false, value: 'Invalid monthly payment');
     } else if (password != confirmPassword) {
-      return Response(isSuccessful: false, message: 'Confirm password incorrect');
+      return Response(isSuccess: false, value: 'Confirm password incorrect');
     } else if (!verifyPhoneNumber(phoneNumber)) {
-      return Response(isSuccessful: false, message: 'Entered mobile number is invalid');
+      return Response(isSuccess: false, value: 'Entered mobile number is invalid');
     } else if (int.tryParse(monthlyPayment) == null) {
-      return Response(isSuccessful: false, message: 'Monthly payment invalid');
+      return Response(isSuccess: false, value: 'Monthly payment invalid');
     }
     UserModel user = UserModel(
       name: name,

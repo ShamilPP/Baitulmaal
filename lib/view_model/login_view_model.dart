@@ -7,11 +7,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 class LoginProvider extends ChangeNotifier {
   Future<bool> login(String username, String password) async {
     Response result = await LoginService.loginAccount(username, password);
-    successToast(result.message, result.isSuccessful);
-    if (result.isSuccessful) {
+    showToast(result.value, result.isSuccess);
+    if (result.isSuccess) {
       LocalService.saveUser(result.value!);
     }
-    return result.isSuccessful;
+    return result.isSuccess;
   }
 
   Future<bool> createAccount(
@@ -30,17 +30,17 @@ class LoginProvider extends ChangeNotifier {
       confirmPassword,
       monthlyPayment,
     );
-    successToast(result.message, result.isSuccessful);
-    return result.isSuccessful;
+    showToast(result.value, result.isSuccess);
+    return result.isSuccess;
   }
 
   void logout() async {
     LocalService.removeUser();
   }
 
-  void successToast(String text, bool isSuccess) {
+  void showToast(String text, bool isSuccess) {
     Fluttertoast.showToast(
-      msg: text,
+      msg: isSuccess ? 'Logged in' : text,
       toastLength: Toast.LENGTH_SHORT,
       fontSize: 16.0,
       textColor: Colors.white,

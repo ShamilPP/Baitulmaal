@@ -55,7 +55,7 @@ class LoginContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height-300;
+    double _height = MediaQuery.of(context).size.height - 300;
     if (400 > _height) {
       _height = 400;
     }

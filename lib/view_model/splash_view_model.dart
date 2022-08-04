@@ -1,5 +1,7 @@
+import 'package:baitulmaal/model/response.dart';
 import 'package:baitulmaal/service/local_service.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../service/firebase_service.dart';
@@ -7,8 +9,21 @@ import '../utils/constants.dart';
 
 class SplashProvider extends ChangeNotifier {
   Future<int> getUpdateCode() async {
-    int updateCode = await FirebaseService.getUpdateCode();
-    return updateCode;
+    Response response = await FirebaseService.getUpdateCode();
+    if (response.isSuccess) {
+      return response.value;
+    } else {
+      Fluttertoast.showToast(
+        msg: response.value,
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 16.0,
+        textColor: Colors.white,
+        webPosition: "center",
+        backgroundColor: Colors.red,
+        webBgColor: "linear-gradient(to right, #F44336, #F44336)",
+      );
+      return 0; // 0 is error code
+    }
   }
 
   Future<String?> getDocId() async {

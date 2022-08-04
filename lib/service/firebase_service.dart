@@ -9,7 +9,7 @@ class FirebaseService {
     var users = FirebaseFirestore.instance.collection('users');
     // Check user is already exists
     Response alreadyExists = await checkUserIsAlreadyExists(user);
-    if (!alreadyExists.isSuccessful) {
+    if (!alreadyExists.isSuccess) {
       return alreadyExists;
     }
     // Then uploading user to firebase
@@ -20,7 +20,7 @@ class FirebaseService {
       'password': user.password,
       'monthlyPayment': user.monthlyPayment,
     });
-    return Response(value: result.id, isSuccessful: true, message: 'Logged in');
+    return Response(isSuccess: true, value: result.id);
   }
 
   static Future<bool> uploadPayment(PaymentModel payment) async {
@@ -137,13 +137,13 @@ class FirebaseService {
 
     for (var _user in users.docs) {
       if (_user.get('username') == user.username) {
-        return Response(isSuccessful: false, message: 'Username already exists');
+        return Response(isSuccess: false, value: 'Username already exists');
       }
       if (_user.get('phoneNumber') == user.phoneNumber) {
-        return Response(isSuccessful: false, message: 'Phone number already exists');
+        return Response(isSuccess: false, value: 'Phone number already exists');
       }
     }
-    return Response(isSuccessful: true, message: "Success");
+    return Response(isSuccess: true, value: "Success");
   }
 
   static Future<String> getAdminPassword() async {
@@ -152,23 +152,25 @@ class FirebaseService {
     return password;
   }
 
-  static Future<int> getUpdateCode() async {
+  static Future<Response> getUpdateCode() async {
     int code;
-    var doc = await FirebaseFirestore.instance.collection('application').doc('update').get();
-
+    DocumentSnapshot<Map<String, dynamic>> doc;
+    try {
+      doc = await FirebaseFirestore.instance.collection('application').doc('update').get();
+    } catch (e) {
+      return Response(isSuccess: false, value: 'Error detected : $e');
+    }
     // check document exists ( avoiding null exceptions )
     if (doc.exists && doc.data()!.containsKey("code")) {
       // if document exists, fetch version in firebase
       try {
         code = doc['code'];
+        return Response(isSuccess: true, value: code);
       } catch (e) {
-        code = 0; // 0 is error code
+        return Response(isSuccess: false, value: 'Error detected : $e');
       }
     } else {
-      // if document not exists, return 0 ( 0 is error code )
-      code = 0;
+      return Response(isSuccess: false, value: 'Error detected : Update code fetching problem');
     }
-
-    return code;
   }
 }
