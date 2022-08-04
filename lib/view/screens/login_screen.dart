@@ -1,4 +1,3 @@
-import 'package:baitulmaal/view/screens/sign_up_screen.dart';
 import 'package:baitulmaal/view/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,39 +13,37 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         color: primaryColor,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(height: 80),
-            const WelcomeText(),
-            const SizedBox(height: 20),
-            LoginContainer(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              welcomeText(),
+              const SizedBox(height: 100),
+              LoginContainer(),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class WelcomeText extends StatelessWidget {
-  const WelcomeText({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const <Widget>[
-          Text('Login', style: TextStyle(color: Colors.white, fontSize: 40)),
-          SizedBox(height: 10),
-          Text('Welcome Back', style: TextStyle(color: Colors.white, fontSize: 18)),
-        ],
-      ),
-    );
-  }
+Widget welcomeText() {
+  return Padding(
+    padding: const EdgeInsets.only(left: 20, top: 80),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const <Widget>[
+        Text('Login', style: TextStyle(color: Colors.white, fontSize: 40)),
+        SizedBox(height: 10),
+        Text('Welcome Back', style: TextStyle(color: Colors.white, fontSize: 18)),
+      ],
+    ),
+  );
 }
 
 class LoginContainer extends StatelessWidget {
@@ -58,76 +55,52 @@ class LoginContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              children: <Widget>[
-                const SizedBox(height: 100),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))
-                    ],
+    return Container(
+      height: 400,
+      padding: const EdgeInsets.only(top: 50),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))),
+      child: Padding(
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  // TextField
+                  LoginTextField(
+                    hint: 'Username',
+                    controller: usernameController,
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      // TextField
-                      LoginTextField(
-                        hint: 'Username',
-                        controller: usernameController,
-                      ),
-                      LoginTextField(
-                        hint: 'Password',
-                        controller: passwordController,
-                        isPassword: true,
-                      ),
-                    ],
+                  LoginTextField(
+                    hint: 'Password',
+                    controller: passwordController,
+                    isPassword: true,
                   ),
-                ),
-                const SizedBox(height: 50),
-
-                // Login Button
-                RoundedLoadingButton(
-                    color: primaryColor,
-                    successColor: Colors.green,
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    controller: buttonController,
-                    onPressed: () => _login(context)),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: 300,
-                  height: 50,
-                  child: OutlinedButton(
-                    style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
-                        side: MaterialStateProperty.all(BorderSide(width: 2, color: primaryColor))),
-                    child: Text(
-                      'Sign up',
-                      style: TextStyle(fontSize: 20, color: primaryColor),
-                    ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpScreen()));
-                    },
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+
+            // Login Button
+            RoundedLoadingButton(
+                color: primaryColor,
+                successColor: Colors.green,
+                child: const Text(
+                  'Login',
+                  style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                controller: buttonController,
+                onPressed: () => _login(context)),
+          ],
         ),
       ),
     );

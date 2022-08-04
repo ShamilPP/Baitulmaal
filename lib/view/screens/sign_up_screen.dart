@@ -1,4 +1,3 @@
-import 'package:baitulmaal/view/screens/splash_screen.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +7,8 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../../utils/colors.dart';
 import '../widgets/login_text_field.dart';
 
-class SignUpScreen extends StatelessWidget {
-  final bool isAddUser;
-
-  SignUpScreen({Key? key, this.isAddUser = false}) : super(key: key);
+class AddUserScreen extends StatelessWidget {
+  AddUserScreen({Key? key}) : super(key: key);
 
   final RoundedLoadingButtonController buttonController = RoundedLoadingButtonController();
   final TextEditingController nameController = TextEditingController();
@@ -41,11 +38,11 @@ class SignUpScreen extends StatelessWidget {
                       Navigator.maybePop(context);
                     },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                     child: Text(
-                      isAddUser ? 'Add new user' : 'Create new account',
-                      style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      'Add new user',
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -106,12 +103,12 @@ class SignUpScreen extends StatelessWidget {
                     RoundedLoadingButton(
                       color: primaryColor,
                       successColor: Colors.green,
-                      child: Text(
-                        isAddUser ? 'Add' : 'Sign up',
-                        style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                      child: const Text(
+                        'Add',
+                        style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                       controller: buttonController,
-                      onPressed: () => _createAccount(context, !isAddUser),
+                      onPressed: () => _createAccount(context),
                     )
                   ],
                 ),
@@ -123,7 +120,7 @@ class SignUpScreen extends StatelessWidget {
     ));
   }
 
-  void _createAccount(BuildContext context, bool isLogin) async {
+  void _createAccount(BuildContext context) async {
     LoginProvider provider = Provider.of<LoginProvider>(context, listen: false);
     bool success = await provider.createAccount(
       nameController.text,
@@ -132,20 +129,13 @@ class SignUpScreen extends StatelessWidget {
       passwordController.text,
       confirmPasswordController.text,
       monthlyPaymentController.text,
-      isLogin,
     );
     if (success) {
       buttonController.success();
       await Future.delayed(const Duration(milliseconds: 500));
       // if admin add user
-      if (isAddUser) {
-        Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
-        Navigator.pop(context);
-      } else {
-        // if create account go to splash screen
-        Navigator.pushAndRemoveUntil(
-            context, MaterialPageRoute(builder: (_) => const SplashScreen()), (Route<dynamic> route) => false);
-      }
+      Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
+      Navigator.pop(context);
     } else {
       buttonController.error();
       await Future.delayed(const Duration(seconds: 2));

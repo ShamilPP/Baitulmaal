@@ -63,7 +63,7 @@ class _UsersScreenState extends State<UsersScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => SignUpScreen(isAddUser: true),
+                    builder: (_) => AddUserScreen(),
                   ),
                 );
               },

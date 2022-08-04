@@ -21,7 +21,6 @@ class LoginProvider extends ChangeNotifier {
     String password,
     String confirmPassword,
     String monthlyPayment,
-    bool isLogin,
   ) async {
     Response result = await LoginService.createAccount(
       name,
@@ -32,9 +31,6 @@ class LoginProvider extends ChangeNotifier {
       monthlyPayment,
     );
     successToast(result.message, result.isSuccessful);
-    if (result.isSuccessful && isLogin) {
-      LocalService.saveUser(result.value!);
-    }
     return result.isSuccessful;
   }
 
