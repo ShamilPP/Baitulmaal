@@ -38,7 +38,7 @@ class PaymentDialog extends StatelessWidget {
                   SlideAnimation(
                     delay: 200,
                     child: DetailsText(
-                      text: 'Amount : ₹ ${payment.amount} (${payment.amount ~/ payment.user!.monthlyPayment})',
+                      text: 'Amount : ₹ ${payment.amount} (${payment.amount ~/ payment.user!.monthlyPayment[payment.meekath]!})',
                     ),
                   ),
                   SlideAnimation(
@@ -63,7 +63,7 @@ class PaymentDialog extends StatelessWidget {
                       ? SlideAnimation(
                           delay: 700,
                           child: DetailsText(
-                            text: 'Monthly amount : ₹ ${payment.user!.monthlyPayment}',
+                            text: 'Monthly amount : ₹ ${payment.user!.monthlyPayment[payment.meekath]}',
                           ),
                         )
                       : const SizedBox(),

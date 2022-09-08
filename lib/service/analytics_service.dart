@@ -45,8 +45,8 @@ class AnalyticsService {
 
   static AnalyticsModel getUserAnalytics(List<PaymentModel> payments, UserModel user) {
     int month = DateTime.now().month;
-    int yearlyAmount = user.monthlyPayment * 12;
-    int totalAmount = user.monthlyPayment * month;
+    int yearlyAmount = user.monthlyPayment[DateTime.now().year]! * 12;
+    int totalAmount = user.monthlyPayment[DateTime.now().year]! * month;
     int receivedAmount = getTotalAmountWithStatus(payments, PaymentStatus.accepted);
     int pendingAmount = totalAmount - receivedAmount;
     int extraAmount = 0;

@@ -6,7 +6,7 @@ class UserModel {
   final int phoneNumber;
   final String username;
   final String password;
-  final int monthlyPayment;
+  final Map<int, int> monthlyPayment;
   AnalyticsModel? analytics;
 
   UserModel({

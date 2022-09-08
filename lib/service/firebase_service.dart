@@ -18,7 +18,7 @@ class FirebaseService {
       'phoneNumber': user.phoneNumber,
       'username': user.username,
       'password': user.password,
-      'monthlyPayment': user.monthlyPayment,
+      'monthlyPayment': user.monthlyPayment.map((key, value) => MapEntry(key.toString(), value)),
     });
     return Response(isSuccess: true, value: result.id);
   }
@@ -57,7 +57,8 @@ class FirebaseService {
         phoneNumber: user.get('phoneNumber'),
         username: user.get('username'),
         password: user.get('password'),
-        monthlyPayment: user.get('monthlyPayment'),
+        monthlyPayment:
+            Map.from(user.get('monthlyPayment').map((key, value) => MapEntry(int.parse(key), value))),
       ));
     }
     return users;
@@ -76,7 +77,8 @@ class FirebaseService {
           phoneNumber: user.get('phoneNumber'),
           username: user.get('username'),
           password: user.get('password'),
-          monthlyPayment: user.get('monthlyPayment'),
+          monthlyPayment:
+              Map.from(user.get('monthlyPayment').map((key, value) => MapEntry(int.parse(key), value))),
         );
       }
     }
@@ -94,7 +96,8 @@ class FirebaseService {
         phoneNumber: user.get('phoneNumber'),
         username: user.get('username'),
         password: user.get('password'),
-        monthlyPayment: user.get('monthlyPayment'),
+        monthlyPayment:
+            Map.from(user.get('monthlyPayment').map((key, value) => MapEntry(int.parse(key), value))),
       );
     }
     return null;

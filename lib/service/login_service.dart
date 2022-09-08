@@ -40,12 +40,15 @@ class LoginService {
     } else if (int.tryParse(monthlyPayment) == null) {
       return Response(isSuccess: false, value: 'Monthly payment invalid');
     }
+
     UserModel user = UserModel(
       name: name,
       phoneNumber: int.parse(phoneNumber),
       username: username,
       password: password,
-      monthlyPayment: int.parse(monthlyPayment),
+      monthlyPayment: Map.fromIterable(
+          List.generate((DateTime.now().year - 2021) + 1, (index) => index + 2021),
+          value: (value) => int.parse(monthlyPayment)),
     );
     return FirebaseService.uploadUser(user);
   }
