@@ -24,7 +24,7 @@ class UserHomeScreen extends StatelessWidget {
               children: [
                 AnalyticsCard(
                   percentage: 1 - (analytics.pendingAmount / analytics.totalAmount),
-                  topLeftAmount: '₹ ${provider.user.monthlyPayment}',
+                  topLeftAmount: '₹ ${provider.user.monthlyPayment[DateTime.now().year]}',
                   topLeftText: 'Monthly payment',
                   topRightAmount: '₹ ${analytics.yearlyAmount}',
                   topRightText: ' Total amount',

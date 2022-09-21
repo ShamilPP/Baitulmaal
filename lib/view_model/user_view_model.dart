@@ -32,7 +32,7 @@ class UserProvider extends ChangeNotifier {
     _payments = await FirebaseService.getAllPayments(DateTime.now().year, List.filled(1, _user));
 
     // Get user analytics
-    user.analytics = AnalyticsService.getUserAnalytics(payments, user);
+    user.analytics = AnalyticsService.getUserAnalytics(payments, user, DateTime.now().year);
     notifyListeners();
     return true;
   }

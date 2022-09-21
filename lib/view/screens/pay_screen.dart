@@ -163,7 +163,8 @@ class PaymentTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(color: Colors.blue.shade100.withOpacity(.8), borderRadius: BorderRadius.circular(10)),
+      decoration:
+          BoxDecoration(color: Colors.blue.shade100.withOpacity(.8), borderRadius: BorderRadius.circular(10)),
       child: IntrinsicWidth(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

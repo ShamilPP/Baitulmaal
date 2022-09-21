@@ -40,8 +40,8 @@ class LogoutDialog extends StatelessWidget {
               // remove username in shared preferences
               Provider.of<LoginProvider>(context, listen: false).logout();
               // then, go to login screen
-              Navigator.pushAndRemoveUntil(
-                  context, MaterialPageRoute(builder: (_) => const LoginScreen()), (Route<dynamic> route) => false);
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  (Route<dynamic> route) => false);
             },
             child: const Text('Logout'))
       ],

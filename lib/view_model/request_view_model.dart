@@ -1,4 +1,5 @@
 import 'package:baitulmaal/utils/enums.dart';
+import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,16 +15,18 @@ class RequestProvider extends ChangeNotifier {
 
   void setNotVerifiedList(BuildContext context) {
     var adminProvider = Provider.of<AdminProvider>(context, listen: false);
-    var paymentList = AnalyticsService.getPaymentListWithStatus(adminProvider.payments, PaymentStatus.notVerified);
+    var paymentList =
+        AnalyticsService.getPaymentListWithStatus(adminProvider.payments, PaymentStatus.notVerified);
     _notVerifiedList = paymentList;
   }
 
   void updatePaymentList(BuildContext context, PaymentModel payment, PaymentStatus status) {
     AdminProvider adminProvider = Provider.of<AdminProvider>(context, listen: false);
+    PaymentProvider paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
     int paymentIndex = adminProvider.payments.indexWhere((_payment) => payment.docId == _payment.docId);
     adminProvider.payments[paymentIndex].verify = status.index;
     _notVerifiedList.remove(payment);
-    adminProvider.updateData();
+    adminProvider.updateData(paymentProvider.meekath);
   }
 
   List<PaymentModel> getNotVerifiedPayments(BuildContext context) {

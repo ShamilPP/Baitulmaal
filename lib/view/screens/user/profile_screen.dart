@@ -84,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileListTile(text: user.username, subText: 'Username'),
               PasswordListTile(password: user.password),
               ProfileListTile(
-                text: '₹ ${user.monthlyPayment}',
+                text: '₹ ${isAdmin ? user.monthlyPayment[2021] : user.monthlyPayment[DateTime.now().year]}',
                 subText: 'Monthly payment',
               ),
 
@@ -267,8 +267,8 @@ class PaymentListTile extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => UserTransactionScreen(payments: getPayments(context))));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => UserTransactionScreen(payments: getPayments(context))));
       },
     );
   }

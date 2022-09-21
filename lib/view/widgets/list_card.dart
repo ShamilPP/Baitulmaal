@@ -26,6 +26,7 @@ class ListCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         child: InkWell(
           borderRadius: BorderRadius.circular(7),
+          onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Row(
@@ -58,7 +59,6 @@ class ListCard extends StatelessWidget {
               ],
             ),
           ),
-          onTap: onTap,
         ),
       ),
     );

@@ -32,8 +32,9 @@ class AnalyticsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-          boxShadow: [BoxShadow(color: primaryColor.withAlpha(70), blurRadius: 20, offset: const Offset(0, 10))]),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(color: primaryColor.withAlpha(70), blurRadius: 20, offset: const Offset(0, 10))
+      ]),
       child: Container(
         padding: const EdgeInsets.all(13),
         width: double.infinity,

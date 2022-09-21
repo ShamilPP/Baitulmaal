@@ -41,9 +41,12 @@ class TransactionScreen extends StatelessWidget {
           ),
         ),
         Consumer<PaymentProvider>(builder: (ctx, provider, child) {
-          List<PaymentModel> acceptedList = provider.getPaymentListWithStatus(payments, PaymentStatus.accepted);
-          List<PaymentModel> rejectedList = provider.getPaymentListWithStatus(payments, PaymentStatus.rejected);
-          List<PaymentModel> notVerifiedList = provider.getPaymentListWithStatus(payments, PaymentStatus.notVerified);
+          List<PaymentModel> acceptedList =
+              provider.getPaymentListWithStatus(payments, PaymentStatus.accepted);
+          List<PaymentModel> rejectedList =
+              provider.getPaymentListWithStatus(payments, PaymentStatus.rejected);
+          List<PaymentModel> notVerifiedList =
+              provider.getPaymentListWithStatus(payments, PaymentStatus.notVerified);
           return Expanded(
             child: TabBarView(
               children: [

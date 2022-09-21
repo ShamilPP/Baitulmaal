@@ -38,7 +38,8 @@ class PaymentDialog extends StatelessWidget {
                   SlideAnimation(
                     delay: 200,
                     child: DetailsText(
-                      text: 'Amount : ₹ ${payment.amount} (${payment.amount ~/ payment.user!.monthlyPayment[payment.meekath]!})',
+                      text:
+                          'Amount : ₹ ${payment.amount} (${payment.amount ~/ payment.user!.monthlyPayment[payment.meekath]!})',
                     ),
                   ),
                   SlideAnimation(
@@ -75,8 +76,13 @@ class PaymentDialog extends StatelessWidget {
                             child: Center(
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (_) => ProfileScreen(user: payment.user!)));
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => ProfileScreen(
+                                                    user: payment.user!,
+                                                    isAdmin: isAdmin,
+                                                  )));
                                     },
                                     child: const Text('View profile'))),
                           ),

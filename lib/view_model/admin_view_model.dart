@@ -37,18 +37,18 @@ class AdminProvider extends ChangeNotifier {
     FirebaseService.getAllPayments(meekath, users).then((result) async {
       _paymentStatus = Status.completed;
       _payments = result;
-      updateData();
+      updateData(meekath);
     });
 
-    updateData();
+    updateData(meekath);
     return true;
   }
 
-  void updateData() {
+  void updateData(int meekath) {
     // Set all user analytics
     if (paymentStatus == Status.completed) {
       for (var user in _users) {
-        user.analytics = AnalyticsService.getUserAnalytics(getUserPayments(user), user);
+        user.analytics = AnalyticsService.getUserAnalytics(getUserPayments(user), user, meekath);
       }
     }
 

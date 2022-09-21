@@ -80,7 +80,8 @@ class RequestCard extends StatelessWidget {
               ],
             ),
           ),
-          onTap: () => showDialog(context: context, builder: (ctx) => PaymentDialog(payment: payment, isAdmin: true)),
+          onTap: () =>
+              showDialog(context: context, builder: (ctx) => PaymentDialog(payment: payment, isAdmin: true)),
         ),
       ),
     );

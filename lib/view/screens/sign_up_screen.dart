@@ -59,7 +59,10 @@ class AddUserScreen extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
-                          BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))
+                          BoxShadow(
+                              color: primaryColor.withOpacity(.4),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10))
                         ],
                       ),
                       child: Column(
