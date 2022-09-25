@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../utils/colors.dart';
-import '../widgets/login_text_field.dart';
+import '../widgets/general/login_text_field.dart';
 
 class AddUserScreen extends StatelessWidget {
   AddUserScreen({Key? key}) : super(key: key);

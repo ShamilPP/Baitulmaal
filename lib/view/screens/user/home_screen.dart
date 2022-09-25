@@ -1,14 +1,13 @@
 import 'package:baitulmaal/model/user_model.dart';
-import 'package:baitulmaal/utils/colors.dart';
 import 'package:baitulmaal/view/screens/pay_screen.dart';
-import 'package:baitulmaal/view/screens/user/profile_screen.dart';
-import 'package:baitulmaal/view/widgets/analytics_card.dart';
-import 'package:baitulmaal/view/widgets/payment_list.dart';
+import 'package:baitulmaal/view/widgets/general/analytics_card.dart';
+import 'package:baitulmaal/view/widgets/general/payment_list.dart';
 import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../animations/slide_animation.dart';
+import '../../widgets/screen/user/home/profile_icon_button.dart';
 
 class UserHomeScreen extends StatelessWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
@@ -75,43 +74,6 @@ class UserHomeScreen extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class ProfileIconButton extends StatelessWidget {
-  final UserModel user;
-
-  const ProfileIconButton({Key? key, required this.user}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 20),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(.4),
-          blurRadius: 7,
-        )
-      ]),
-      child: Material(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(30),
-        child: InkWell(
-          splashColor: Colors.black,
-          borderRadius: BorderRadius.circular(30),
-          child: const Padding(
-            padding: EdgeInsets.all(4),
-            child: Icon(
-              Icons.account_circle_outlined,
-              size: 30,
-            ),
-          ),
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreen(user: user)));
-          },
-        ),
       ),
     );
   }

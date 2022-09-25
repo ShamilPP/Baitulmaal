@@ -2,8 +2,8 @@ import 'package:baitulmaal/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/colors.dart';
-import '../screens/login_screen.dart';
+import '../../../utils/colors.dart';
+import '../../screens/login_screen.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({Key? key}) : super(key: key);

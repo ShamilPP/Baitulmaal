@@ -1,12 +1,12 @@
 import 'package:baitulmaal/view/animations/slide_animation.dart';
-import 'package:baitulmaal/view/widgets/payment_dialog.dart';
+import 'package:baitulmaal/view/widgets/general/payment_dialog.dart';
 import 'package:baitulmaal/view_model/request_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/payment_model.dart';
-import '../../utils/enums.dart';
-import '../../view_model/payment_view_model.dart';
+import '../../../model/payment_model.dart';
+import '../../../utils/enums.dart';
+import '../../../view_model/payment_view_model.dart';
 
 class RequestCard extends StatelessWidget {
   final int index;

@@ -2,8 +2,8 @@ import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/user_model.dart';
-import '../screens/pay_screen.dart';
+import '../../../../../model/user_model.dart';
+import '../../../../screens/pay_screen.dart';
 
 class PayForUserDialog extends StatelessWidget {
   final List<UserModel> users;

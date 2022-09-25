@@ -3,8 +3,8 @@ import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/user_model.dart';
-import '../../model/analytics_model.dart';
+import '../../../../model/user_model.dart';
+import '../../../model/analytics_model.dart';
 import 'list_card.dart';
 
 class UsersList extends StatelessWidget {

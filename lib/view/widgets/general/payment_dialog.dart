@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../model/payment_model.dart';
-import '../animations/slide_animation.dart';
-import '../screens/user/profile_screen.dart';
+import '../../../model/payment_model.dart';
+import '../../animations/slide_animation.dart';
+import '../../screens/user/profile_screen.dart';
 import 'details_text.dart';
 
 class PaymentDialog extends StatelessWidget {

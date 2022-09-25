@@ -1,12 +1,12 @@
 import 'package:baitulmaal/view/animations/slide_animation.dart';
-import 'package:baitulmaal/view/widgets/loading_widget.dart';
 import 'package:baitulmaal/view_model/request_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/enums.dart';
 import '../../../view_model/admin_view_model.dart';
-import '../../widgets/request_card.dart';
+import '../../widgets/general/loading_widget.dart';
+import '../../widgets/general/request_card.dart';
 
 class RequestScreen extends StatelessWidget {
   const RequestScreen({Key? key}) : super(key: key);

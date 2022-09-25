@@ -1,12 +1,12 @@
 import 'package:baitulmaal/utils/enums.dart';
-import 'package:baitulmaal/view/widgets/loading_widget.dart';
-import 'package:baitulmaal/view/widgets/payment_dialog.dart';
+import 'package:baitulmaal/view/widgets/general/payment_dialog.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/payment_model.dart';
+import '../../../model/payment_model.dart';
 import 'list_card.dart';
+import 'loading_widget.dart';
 
 class PaymentList extends StatelessWidget {
   final List<PaymentModel> paymentList;

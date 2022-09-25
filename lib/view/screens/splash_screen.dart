@@ -2,12 +2,13 @@ import 'package:baitulmaal/utils/constants.dart';
 import 'package:baitulmaal/view/screens/admin/main_screen.dart';
 import 'package:baitulmaal/view/screens/login_screen.dart';
 import 'package:baitulmaal/view/screens/user/home_screen.dart';
-import 'package:baitulmaal/view/widgets/loading_widget.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/splash_view_model.dart';
 import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/general/loading_widget.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

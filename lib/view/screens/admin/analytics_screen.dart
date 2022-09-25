@@ -1,14 +1,14 @@
 import 'package:baitulmaal/utils/enums.dart';
-import 'package:baitulmaal/view/widgets/loading_widget.dart';
-import 'package:baitulmaal/view/widgets/logout_button.dart';
+import 'package:baitulmaal/view/widgets/general/logout_button.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view_model/admin_view_model.dart';
 import '../../animations/slide_animation.dart';
-import '../../widgets/amount_percentage_indicator.dart';
-import '../../widgets/details_text.dart';
+import '../../widgets/general/amount_percentage_indicator.dart';
+import '../../widgets/general/details_text.dart';
+import '../../widgets/general/loading_widget.dart';
 
 class AnalyticsScreen extends StatelessWidget {
   const AnalyticsScreen({Key? key}) : super(key: key);

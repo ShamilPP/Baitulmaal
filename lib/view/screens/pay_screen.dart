@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../view_model/admin_view_model.dart';
 import '../animations/slide_animation.dart';
+import '../widgets/screen/pay/animated_check.dart';
+import '../widgets/screen/pay/payment_text_field.dart';
 
 class PayScreen extends StatelessWidget {
   final UserModel user;
@@ -114,7 +116,7 @@ class PayScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
+                  backgroundColor: Colors.green,
                   shape: const StadiumBorder(),
                 ),
                 child: const Text(
@@ -151,106 +153,5 @@ class PayScreen extends StatelessWidget {
         ),
       );
     });
-  }
-}
-
-class PaymentTextField extends StatelessWidget {
-  final TextEditingController controller;
-
-  const PaymentTextField({Key? key, required this.controller}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration:
-          BoxDecoration(color: Colors.blue.shade100.withOpacity(.8), borderRadius: BorderRadius.circular(10)),
-      child: IntrinsicWidth(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('₹', style: TextStyle(fontSize: 35)),
-            const SizedBox(width: 8),
-            IntrinsicWidth(
-              child: TextField(
-                controller: controller,
-                keyboardType: TextInputType.number,
-                style: const TextStyle(fontSize: 35),
-                decoration: const InputDecoration(
-                  hintText: '000',
-                  border: InputBorder.none,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class AnimatedCheckMark extends StatefulWidget {
-  final Color color;
-  final IconData icon;
-
-  const AnimatedCheckMark({Key? key, required this.color, required this.icon}) : super(key: key);
-
-  @override
-  _AnimatedCheckMarkState createState() => _AnimatedCheckMarkState();
-}
-
-class _AnimatedCheckMarkState extends State<AnimatedCheckMark> with TickerProviderStateMixin {
-  late AnimationController scaleController =
-      AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
-  late Animation<double> scaleAnimation = CurvedAnimation(parent: scaleController, curve: Curves.elasticOut);
-  late AnimationController checkController =
-      AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
-  late Animation<double> checkAnimation = CurvedAnimation(parent: checkController, curve: Curves.linear);
-
-  @override
-  void initState() {
-    super.initState();
-    scaleController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        checkController.forward();
-      }
-    });
-    scaleController.forward();
-  }
-
-  @override
-  void dispose() {
-    scaleController.dispose();
-    checkController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Center(
-          child: ScaleTransition(
-            scale: scaleAnimation,
-            child: Container(
-              height: 140,
-              width: 140,
-              decoration: BoxDecoration(
-                color: widget.color,
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-        ),
-        SizeTransition(
-          sizeFactor: checkAnimation,
-          axis: Axis.horizontal,
-          axisAlignment: -1,
-          child: Center(
-            child: Icon(widget.icon, color: Colors.white, size: 100),
-          ),
-        ),
-      ],
-    );
   }
 }

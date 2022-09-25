@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../animations/slide_animation.dart';
-import '../../widgets/users_list.dart';
+import '../../widgets/general/users_list.dart';
 import '../sign_up_screen.dart';
 
 class UsersScreen extends StatefulWidget {
