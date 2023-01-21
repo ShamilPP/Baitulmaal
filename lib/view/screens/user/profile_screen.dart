@@ -1,6 +1,8 @@
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/utils/colors.dart';
+import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../animations/slide_animation.dart';
 import '../../widgets/general/logout_button.dart';
@@ -82,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileListTile(text: user.username, subText: 'Username'),
               PasswordListTile(password: user.password),
               ProfileListTile(
-                text: '₹ ${isAdmin ? user.monthlyPayment[2021] : user.monthlyPayment[DateTime.now().year]}',
+                text: '₹ ${user.monthlyPayment[Provider.of<PaymentProvider>(context, listen: false).meekath]}',
                 subText: 'Monthly payment',
               ),
 
