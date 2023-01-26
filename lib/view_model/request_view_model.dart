@@ -15,8 +15,7 @@ class RequestProvider extends ChangeNotifier {
 
   void setNotVerifiedList(BuildContext context) {
     var adminProvider = Provider.of<AdminProvider>(context, listen: false);
-    var paymentList =
-        AnalyticsService.getPaymentListWithStatus(adminProvider.payments, PaymentStatus.notVerified);
+    var paymentList = AnalyticsService.getPaymentListWithStatus(adminProvider.payments, PaymentStatus.notVerified);
     _notVerifiedList = paymentList;
   }
 

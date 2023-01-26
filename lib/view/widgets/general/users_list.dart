@@ -35,8 +35,7 @@ class UsersList extends StatelessWidget {
                       ? Colors.red
                       : Colors.green,
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => ProfileScreen(user: user, isAdmin: true)));
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreen(user: user, isAdmin: true)));
               },
             );
           },

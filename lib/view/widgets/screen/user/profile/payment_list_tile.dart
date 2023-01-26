@@ -31,8 +31,7 @@ class PaymentListTile extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => UserTransactionScreen(payments: getPayments(context))));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => UserTransactionScreen(payments: getPayments(context))));
       },
     );
   }

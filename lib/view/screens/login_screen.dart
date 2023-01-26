@@ -16,8 +16,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              welcomeText(),
-              const SizedBox(height: 100),
+              welcomeText(context),
               LoginContainer(),
             ],
           ),
@@ -27,17 +26,20 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-Widget welcomeText() {
-  return Padding(
-    padding: const EdgeInsets.only(left: 20, top: 80),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
-        Text('Login', style: TextStyle(color: Colors.white, fontSize: 40)),
-        SizedBox(height: 10),
-        Text('Welcome Back', style: TextStyle(color: Colors.white, fontSize: 18)),
-      ],
+Widget welcomeText(BuildContext context) {
+  return SizedBox(
+    height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height / 1.5,
+    child: Padding(
+      padding: const EdgeInsets.only(left: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          Text('Login', style: TextStyle(color: Colors.white, fontSize: 40)),
+          SizedBox(height: 10),
+          Text('Welcome Back', style: TextStyle(color: Colors.white, fontSize: 18)),
+        ],
+      ),
     ),
   );
 }

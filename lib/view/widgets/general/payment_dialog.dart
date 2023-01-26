@@ -38,8 +38,7 @@ class PaymentDialog extends StatelessWidget {
                   SlideAnimation(
                     delay: 200,
                     child: DetailsText(
-                      text:
-                          'Amount : ₹ ${payment.amount} (${payment.amount ~/ payment.user!.monthlyPayment[payment.meekath]!})',
+                      text: 'Amount : ₹ ${payment.amount} (${payment.amount ~/ payment.user!.monthlyPayment[payment.meekath]!})',
                     ),
                   ),
                   SlideAnimation(

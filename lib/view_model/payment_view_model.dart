@@ -42,8 +42,8 @@ class PaymentProvider extends ChangeNotifier {
         verify = PaymentStatus.accepted.index;
       }
       // upload payment to firebase
-      PaymentModel payment = PaymentModel(
-          userDocId: user.docId!, amount: amount, verify: verify, meekath: meekath, dateTime: DateTime.now());
+      PaymentModel payment =
+          PaymentModel(userDocId: user.docId!, amount: amount, verify: verify, meekath: meekath, dateTime: DateTime.now());
 
       await FirebaseService.uploadPayment(payment);
 

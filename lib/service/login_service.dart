@@ -21,8 +21,8 @@ class LoginService {
     return Response(isSuccess: true, value: user.docId);
   }
 
-  static Future<Response> createAccount(String name, String phoneNumber, String username, String password,
-      String confirmPassword, String monthlyPayment) async {
+  static Future<Response> createAccount(
+      String name, String phoneNumber, String username, String password, String confirmPassword, String monthlyPayment) async {
     if (!checkInvalid(name)) {
       return Response(isSuccess: false, value: 'Invalid name');
     } else if (!checkInvalid(phoneNumber)) {
@@ -46,8 +46,7 @@ class LoginService {
       phoneNumber: int.parse(phoneNumber),
       username: username,
       password: password,
-      monthlyPayment: Map.fromIterable(
-          List.generate((DateTime.now().year - 2021) + 1, (index) => index + 2021),
+      monthlyPayment: Map.fromIterable(List.generate((DateTime.now().year - 2021) + 1, (index) => index + 2021),
           value: (value) => int.parse(monthlyPayment)),
     );
     return FirebaseService.uploadUser(user);

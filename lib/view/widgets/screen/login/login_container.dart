@@ -4,6 +4,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../utils/colors.dart';
 import '../../../../view_model/login_view_model.dart';
+import '../../../screens/sign_up_screen.dart';
 import '../../../screens/splash_screen.dart';
 import '../../general/login_text_field.dart';
 
@@ -16,57 +17,76 @@ class LoginContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height - 300;
-    if (400 > _height) {
-      _height = 400;
-    }
+    double _height = MediaQuery.of(context).size.height / 1.5;
+    if (_height < 400) _height = 400;
     return Container(
       height: _height,
-      padding: const EdgeInsets.only(top: 50),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))),
-      child: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))
-                ],
-              ),
-              child: Column(
-                children: <Widget>[
-                  // TextField
-                  LoginTextField(
-                    hint: 'Username',
-                    controller: usernameController,
-                  ),
-                  LoginTextField(
-                    hint: 'Password',
-                    controller: passwordController,
-                    isPassword: true,
-                  ),
-                ],
-              ),
+          color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))],
             ),
-
-            // Login Button
-            RoundedLoadingButton(
-                color: primaryColor,
-                successColor: Colors.green,
-                child: const Text(
-                  'Login',
-                  style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+            child: Column(
+              children: <Widget>[
+                // TextField
+                LoginTextField(
+                  hint: 'Username',
+                  controller: usernameController,
                 ),
-                controller: buttonController,
-                onPressed: () => _login(context)),
-          ],
-        ),
+                LoginTextField(
+                  hint: 'Password',
+                  controller: passwordController,
+                  isPassword: true,
+                ),
+              ],
+            ),
+          ),
+          Column(
+            children: [
+              // Login Button
+              RoundedLoadingButton(
+                  color: primaryColor,
+                  successColor: Colors.green,
+                  controller: buttonController,
+                  onPressed: () => _login(context),
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                  )),
+
+              const SizedBox(height: 20),
+
+              //SignUp button
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: OutlinedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                      side: MaterialStateProperty.all(BorderSide(width: 2, color: primaryColor))),
+                  child: Text(
+                    'Sign up',
+                    style: TextStyle(fontSize: 20, color: primaryColor),
+                  ),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpScreen()));
+                  },
+                ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

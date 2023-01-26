@@ -29,8 +29,7 @@ class PayForUserDialog extends StatelessWidget {
               height: 50,
               decoration: BoxDecoration(
                   color: Colors.grey.shade400,
-                  borderRadius:
-                      const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
               child: Row(
                 children: const [
                   CloseButton(),

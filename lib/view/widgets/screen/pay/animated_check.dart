@@ -11,11 +11,9 @@ class AnimatedCheckMark extends StatefulWidget {
 }
 
 class _AnimatedCheckMarkState extends State<AnimatedCheckMark> with TickerProviderStateMixin {
-  late AnimationController scaleController =
-      AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
+  late AnimationController scaleController = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
   late Animation<double> scaleAnimation = CurvedAnimation(parent: scaleController, curve: Curves.elasticOut);
-  late AnimationController checkController =
-      AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
+  late AnimationController checkController = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
   late Animation<double> checkAnimation = CurvedAnimation(parent: checkController, curve: Curves.linear);
 
   @override
