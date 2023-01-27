@@ -8,19 +8,24 @@ import '../../../screens/sign_up_screen.dart';
 import '../../../screens/splash_screen.dart';
 import '../../general/login_text_field.dart';
 
-class LoginContainer extends StatelessWidget {
-  LoginContainer({Key? key}) : super(key: key);
+class LoginContainer extends StatefulWidget {
+  const LoginContainer({Key? key}) : super(key: key);
 
+  @override
+  State<LoginContainer> createState() => _LoginContainerState();
+}
+
+class _LoginContainerState extends State<LoginContainer> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final RoundedLoadingButtonController buttonController = RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height / 1.5;
-    if (_height < 400) _height = 400;
+    double height = MediaQuery.of(context).size.height / 1.5;
+    if (height < 400) height = 400;
     return Container(
-      height: _height,
+      height: height,
       padding: const EdgeInsets.symmetric(horizontal: 30),
       decoration: const BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))),

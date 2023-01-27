@@ -5,7 +5,7 @@ class LoginTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool isPassword;
   final bool isNumber;
-  final bool neeIcon;
+  final Widget? prefix;
 
   const LoginTextField({
     Key? key,
@@ -13,7 +13,7 @@ class LoginTextField extends StatelessWidget {
     required this.controller,
     this.isPassword = false,
     this.isNumber = false,
-    this.neeIcon = false,
+    this.prefix,
   }) : super(key: key);
 
   @override
@@ -27,15 +27,12 @@ class LoginTextField extends StatelessWidget {
         keyboardType: isNumber ? TextInputType.number : null,
         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: const TextStyle(color: Colors.grey),
-            border: InputBorder.none,
-            prefixIcon: neeIcon
-                ? const Icon(
-                    Icons.currency_rupee,
-                    color: Colors.black,
-                  )
-                : null),
+          hintText: hint,
+          hintStyle: const TextStyle(color: Colors.grey),
+          border: InputBorder.none,
+          prefixIcon: prefix != null ? Padding(padding: const EdgeInsets.all(7), child: prefix) : null,
+          prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+        ),
       ),
     );
   }

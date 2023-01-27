@@ -74,6 +74,10 @@ class SignUpScreen extends StatelessWidget {
                             hint: 'Phone number',
                             controller: phoneNumberController,
                             isNumber: true,
+                            prefix: const Text(
+                              '+91',
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                            ),
                           ),
                           LoginTextField(
                             hint: 'Username',
@@ -93,7 +97,7 @@ class SignUpScreen extends StatelessWidget {
                             hint: 'Monthly payment',
                             controller: monthlyPaymentController,
                             isNumber: true,
-                            neeIcon: true,
+                            prefix: const Icon(Icons.currency_rupee, color: Colors.black),
                           ),
                         ],
                       ),
