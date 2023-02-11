@@ -39,7 +39,7 @@ class LoginProvider extends ChangeNotifier {
   }
 
   Future logout() async {
-  await  LocalService.removeUser();
+    await LocalService.removeUser();
   }
 
   void showToast(String text, bool isSuccess) {

@@ -17,7 +17,7 @@ class UserProvider extends ChangeNotifier {
 
   List<PaymentModel> get payments => _payments;
 
-  Future<bool> initData() async {
+  Future<bool> initData(int meekath) async {
     // Get User wth docID ( DocId getting from shared preferences )
     await FirebaseService.getUserWithDocId(docId).then((UserModel? result) {
       if (result == null) {
@@ -29,10 +29,10 @@ class UserProvider extends ChangeNotifier {
     });
 
     // Get user payments ( The function that gets all payments is called but only one user is passed as argument so only one user payment is received)
-    _payments = await FirebaseService.getAllPayments(DateTime.now().year, List.filled(1, _user));
+    _payments = await FirebaseService.getAllPayments(meekath, List.filled(1, _user));
 
     // Get user analytics
-    user.analytics = AnalyticsService.getUserAnalytics(payments, user, DateTime.now().year);
+    user.analytics = AnalyticsService.getUserAnalytics(payments, user, meekath);
     notifyListeners();
     return true;
   }

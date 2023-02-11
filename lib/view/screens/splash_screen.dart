@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
           // If User, init User data's
           UserProvider provider = Provider.of<UserProvider>(context, listen: false);
           provider.setDocID(docId);
-          await provider.initData();
+          await provider.initData(DateTime.now().year);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const UserHomeScreen()));
         }
       }

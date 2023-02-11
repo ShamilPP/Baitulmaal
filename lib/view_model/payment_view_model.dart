@@ -51,7 +51,7 @@ class PaymentProvider extends ChangeNotifier {
       if (isAdmin) {
         await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
       } else {
-        await Provider.of<UserProvider>(context, listen: false).initData();
+        await Provider.of<UserProvider>(context, listen: false).initData(meekath);
       }
       // payment finished show checkmark
       setUploadStatus(Status.completed);
