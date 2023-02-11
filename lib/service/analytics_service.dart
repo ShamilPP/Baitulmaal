@@ -44,7 +44,8 @@ class AnalyticsService {
   }
 
   static AnalyticsModel getUserAnalytics(List<PaymentModel> payments, UserModel user, int meekath) {
-    int month = DateTime.now().month;
+    // If not equal to this meekath, calculate a full year
+    int month = meekath == DateTime.now().year ? DateTime.now().month : 12;
     int yearlyAmount = user.monthlyPayment[meekath]! * 12;
     int totalAmount = user.monthlyPayment[meekath]! * month;
     int receivedAmount = getTotalAmountWithStatus(payments, PaymentStatus.accepted);

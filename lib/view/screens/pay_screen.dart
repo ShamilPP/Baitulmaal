@@ -1,6 +1,7 @@
 import 'package:baitulmaal/model/user_model.dart';
 import 'package:baitulmaal/utils/enums.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
+import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -86,21 +87,19 @@ class PayScreen extends StatelessWidget {
                   ),
                 ),
                 // Meekath Dropdown (Change meekath year)
-                isAdmin
-                    ? SlideAnimation(
-                        delay: 500,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text("Meekath  :  "),
-                            meekathDropDown(),
-                          ],
-                        ),
-                      )
-                    : const SizedBox(),
+                SlideAnimation(
+                  delay: 500,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Meekath  :  "),
+                      meekathDropDown(),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 30),
                 // Payment TextField
-                SlideAnimation(delay: 500, child: PaymentTextField(controller: paymentController)),
+                SlideAnimation(delay: 600, child: PaymentTextField(controller: paymentController)),
                 const SizedBox(height: 100),
               ],
             ),
@@ -148,7 +147,11 @@ class PayScreen extends StatelessWidget {
           }).toList(),
           onChanged: (newValue) async {
             provider.setMeekath(newValue!);
-            await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
+            if (isAdmin) {
+              await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
+            } else {
+              Provider.of<UserProvider>(context, listen: false).initData(newValue);
+            }
           },
         ),
       );
