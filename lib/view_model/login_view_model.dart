@@ -38,8 +38,8 @@ class LoginProvider extends ChangeNotifier {
     return result.isSuccess;
   }
 
-  void logout() async {
-    LocalService.removeUser();
+  Future logout() async {
+  await  LocalService.removeUser();
   }
 
   void showToast(String text, bool isSuccess) {

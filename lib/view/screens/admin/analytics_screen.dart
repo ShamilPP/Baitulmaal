@@ -1,5 +1,4 @@
 import 'package:baitulmaal/utils/enums.dart';
-import 'package:baitulmaal/view/widgets/general/logout_button.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,34 +20,16 @@ class AnalyticsScreen extends StatelessWidget {
           return const Center(child: LoadingWidget());
         } else {
           return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                children: [
-                  headerSection(context),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 17, top: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        analyticsSection(provider),
-                        paymentSection(provider),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-
-              // Logout button
-              const SlideAnimation(
-                delay: 1000,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: LogoutButton(),
-                  ),
+              headerSection(context),
+              Padding(
+                padding: const EdgeInsets.only(left: 17, top: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    analyticsSection(provider),
+                    paymentSection(provider),
+                  ],
                 ),
               ),
             ],
