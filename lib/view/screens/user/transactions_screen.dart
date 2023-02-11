@@ -1,10 +1,10 @@
-import 'package:baitulmaal/model/payment_model.dart';
+import 'package:baitulmaal/model/payment.dart';
 import 'package:flutter/material.dart';
 
 import '../transactions_screen.dart';
 
 class UserTransactionScreen extends StatelessWidget {
-  final List<PaymentModel> payments;
+  final List<Payment> payments;
 
   const UserTransactionScreen({Key? key, required this.payments}) : super(key: key);
 

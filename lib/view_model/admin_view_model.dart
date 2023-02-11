@@ -4,24 +4,24 @@ import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../model/analytics_model.dart';
-import '../model/payment_model.dart';
-import '../model/user_model.dart';
+import '../model/analytics.dart';
+import '../model/payment.dart';
+import '../model/user.dart';
 import '../utils/enums.dart';
 
 class AdminProvider extends ChangeNotifier {
-  late List<UserModel> _users;
-  List<PaymentModel> _payments = [];
-  AnalyticsModel? _analytics;
+  late List<User> _users;
+  List<Payment> _payments = [];
+  Analytics? _analytics;
 
   // For firebase payment fetching
   late Status _paymentStatus;
 
-  List<UserModel> get users => _users;
+  List<User> get users => _users;
 
-  List<PaymentModel> get payments => _payments;
+  List<Payment> get payments => _payments;
 
-  AnalyticsModel? get analytics => _analytics;
+  Analytics? get analytics => _analytics;
 
   Status get paymentStatus => _paymentStatus;
 
@@ -68,8 +68,8 @@ class AdminProvider extends ChangeNotifier {
   }
 
   // get user payments from all payments
-  List<PaymentModel> getUserPayments(UserModel user) {
-    List<PaymentModel> userPayments = [];
+  List<Payment> getUserPayments(User user) {
+    List<Payment> userPayments = [];
     for (var payment in _payments) {
       if (payment.userDocId == user.docId) {
         userPayments.add(payment);

@@ -1,10 +1,10 @@
 import 'package:baitulmaal/model/response.dart';
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/user.dart';
 import 'package:baitulmaal/service/firebase_service.dart';
 
 class LoginService {
   static Future<Response> loginAccount(String username, String password) async {
-    UserModel? user = await FirebaseService.getUserWithUsername(username);
+    User? user = await FirebaseService.getUserWithUsername(username);
     if (username == 'admin' && password == await FirebaseService.getAdminPassword()) {
       // is admin returning admin
       return Response(isSuccess: true, value: 'admin');
@@ -41,7 +41,7 @@ class LoginService {
       return Response(isSuccess: false, value: 'Monthly payment invalid');
     }
 
-    UserModel user = UserModel(
+    User user = User(
       name: name,
       phoneNumber: int.parse(phoneNumber),
       username: username,

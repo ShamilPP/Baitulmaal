@@ -1,4 +1,4 @@
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/user.dart';
 import 'package:baitulmaal/utils/enums.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:baitulmaal/view_model/user_view_model.dart';
@@ -11,7 +11,7 @@ import '../widgets/screen/pay/animated_check.dart';
 import '../widgets/screen/pay/payment_text_field.dart';
 
 class PayScreen extends StatelessWidget {
-  final UserModel user;
+  final User user;
   final bool isAdmin;
 
   PayScreen({Key? key, required this.user, required this.isAdmin}) : super(key: key);
@@ -150,7 +150,7 @@ class PayScreen extends StatelessWidget {
             if (isAdmin) {
               await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
             } else {
-              Provider.of<UserProvider>(context, listen: false).initData(newValue);
+              Provider.of<UserProvider>(context, listen: false).loadDataFromFirebase(newValue);
             }
           },
         ),

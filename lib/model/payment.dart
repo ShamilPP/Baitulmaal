@@ -1,15 +1,15 @@
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/user.dart';
 
-class PaymentModel {
+class Payment {
   final String? docId;
   final String? userDocId;
-  final UserModel? user;
+  final User? user;
   final int amount;
   int verify;
   final int meekath;
   final DateTime dateTime;
 
-  PaymentModel({
+  Payment({
     this.docId,
     this.userDocId,
     this.user,

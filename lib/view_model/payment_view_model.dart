@@ -1,5 +1,5 @@
-import 'package:baitulmaal/model/payment_model.dart';
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/payment.dart';
+import 'package:baitulmaal/model/user.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class PaymentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void uploadPayment(BuildContext context, String money, UserModel user, bool isAdmin) async {
+  void uploadPayment(BuildContext context, String money, User user, bool isAdmin) async {
     // start loading
     setUploadStatus(Status.loading);
     // Check entered amount is null
@@ -42,8 +42,8 @@ class PaymentProvider extends ChangeNotifier {
         verify = PaymentStatus.accepted.index;
       }
       // upload payment to firebase
-      PaymentModel payment =
-          PaymentModel(userDocId: user.docId!, amount: amount, verify: verify, meekath: meekath, dateTime: DateTime.now());
+      Payment payment =
+          Payment(userDocId: user.docId!, amount: amount, verify: verify, meekath: meekath, dateTime: DateTime.now());
 
       await FirebaseService.uploadPayment(payment);
 
@@ -51,7 +51,7 @@ class PaymentProvider extends ChangeNotifier {
       if (isAdmin) {
         await Provider.of<AdminProvider>(context, listen: false).loadDataFromFirebase(context);
       } else {
-        await Provider.of<UserProvider>(context, listen: false).initData(meekath);
+        await Provider.of<UserProvider>(context, listen: false).loadDataFromFirebase(meekath);
       }
       // payment finished show checkmark
       setUploadStatus(Status.completed);
@@ -67,8 +67,8 @@ class PaymentProvider extends ChangeNotifier {
     return result;
   }
 
-  List<PaymentModel> getPaymentListWithStatus(List<PaymentModel> payments, PaymentStatus status) {
-    List<PaymentModel> list = AnalyticsService.getPaymentListWithStatus(payments, status);
+  List<Payment> getPaymentListWithStatus(List<Payment> payments, PaymentStatus status) {
+    List<Payment> list = AnalyticsService.getPaymentListWithStatus(payments, status);
     return list;
   }
 

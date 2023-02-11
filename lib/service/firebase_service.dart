@@ -1,11 +1,11 @@
-import 'package:baitulmaal/model/payment_model.dart';
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/payment.dart';
+import 'package:baitulmaal/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/response.dart';
 
 class FirebaseService {
-  static Future<Response> uploadUser(UserModel user) async {
+  static Future<Response> uploadUser(User user) async {
     var users = FirebaseFirestore.instance.collection('users');
     // Check user is already exists
     Response alreadyExists = await checkUserIsAlreadyExists(user);
@@ -23,7 +23,7 @@ class FirebaseService {
     return Response(isSuccess: true, value: result.id);
   }
 
-  static Future<bool> uploadPayment(PaymentModel payment) async {
+  static Future<bool> uploadPayment(Payment payment) async {
     var payments = FirebaseFirestore.instance.collection('transactions');
 
     payments.add({
@@ -45,13 +45,13 @@ class FirebaseService {
     return true;
   }
 
-  static Future<List<UserModel>> getAllUsers() async {
-    List<UserModel> users = [];
+  static Future<List<User>> getAllUsers() async {
+    List<User> users = [];
 
     var collection = FirebaseFirestore.instance.collection('users');
     var allDocs = await collection.get();
     for (var user in allDocs.docs) {
-      users.add(UserModel(
+      users.add(User(
         docId: user.id,
         name: user.get('name'),
         phoneNumber: user.get('phoneNumber'),
@@ -63,14 +63,14 @@ class FirebaseService {
     return users;
   }
 
-  static Future<UserModel?> getUserWithUsername(String username) async {
+  static Future<User?> getUserWithUsername(String username) async {
     var collection = FirebaseFirestore.instance.collection('users');
     var users = await collection.get();
 
     for (var user in users.docs) {
       if (user.get('username') == username) {
         // returning user data
-        return UserModel(
+        return User(
           docId: user.id,
           name: user.get('name'),
           phoneNumber: user.get('phoneNumber'),
@@ -83,12 +83,12 @@ class FirebaseService {
     return null;
   }
 
-  static Future<UserModel?> getUserWithDocId(String docId) async {
+  static Future<User?> getUserWithDocId(String docId) async {
     var collection = FirebaseFirestore.instance.collection('users');
     var user = await collection.doc(docId).get();
     if (user.exists) {
       // returning user data
-      return UserModel(
+      return User(
         docId: user.id,
         name: user.get('name'),
         phoneNumber: user.get('phoneNumber'),
@@ -100,8 +100,8 @@ class FirebaseService {
     return null;
   }
 
-  static Future<List<PaymentModel>> getAllPayments(int meekath, List<UserModel> users) async {
-    List<PaymentModel> payments = [];
+  static Future<List<Payment>> getAllPayments(int meekath, List<User> users) async {
+    List<Payment> payments = [];
     var collection = FirebaseFirestore.instance
         .collection('transactions')
         .orderBy('date', descending: true)
@@ -116,7 +116,7 @@ class FirebaseService {
       // returning payments
       if (userIndex != -1) {
         payments.add(
-          PaymentModel(
+          Payment(
             docId: payment.id,
             userDocId: payment.get('userId'),
             user: users[userIndex],
@@ -132,7 +132,7 @@ class FirebaseService {
     return payments;
   }
 
-  static Future<Response> checkUserIsAlreadyExists(UserModel user) async {
+  static Future<Response> checkUserIsAlreadyExists(User user) async {
     var users = await FirebaseFirestore.instance.collection('users').get();
 
     for (var _user in users.docs) {

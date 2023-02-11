@@ -1,25 +1,25 @@
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/user.dart';
 import 'package:baitulmaal/service/analytics_service.dart';
 import 'package:baitulmaal/service/firebase_service.dart';
 import 'package:flutter/material.dart';
 
-import '../model/payment_model.dart';
+import '../model/payment.dart';
 import '../service/local_service.dart';
 
 class UserProvider extends ChangeNotifier {
   late String _docId;
-  late UserModel _user;
-  late List<PaymentModel> _payments;
+  late User _user;
+  late List<Payment> _payments;
 
   String get docId => _docId;
 
-  UserModel get user => _user;
+  User get user => _user;
 
-  List<PaymentModel> get payments => _payments;
+  List<Payment> get payments => _payments;
 
-  Future<bool> initData(int meekath) async {
+  Future<bool> loadDataFromFirebase(int meekath) async {
     // Get User wth docID ( DocId getting from shared preferences )
-    await FirebaseService.getUserWithDocId(docId).then((UserModel? result) {
+    await FirebaseService.getUserWithDocId(docId).then((User? result) {
       if (result == null) {
         // Remove DocId from shared preferences
         LocalService.removeUser();

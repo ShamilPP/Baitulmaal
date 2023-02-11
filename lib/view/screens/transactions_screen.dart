@@ -3,13 +3,13 @@ import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/payment_model.dart';
+import '../../model/payment.dart';
 import '../../utils/enums.dart';
 import '../animations/slide_animation.dart';
 import '../widgets/general/payment_list.dart';
 
 class TransactionScreen extends StatelessWidget {
-  final List<PaymentModel> payments;
+  final List<Payment> payments;
   final bool isAdmin;
 
   const TransactionScreen({Key? key, required this.payments, required this.isAdmin}) : super(key: key);
@@ -41,9 +41,9 @@ class TransactionScreen extends StatelessWidget {
           ),
         ),
         Consumer<PaymentProvider>(builder: (ctx, provider, child) {
-          List<PaymentModel> acceptedList = provider.getPaymentListWithStatus(payments, PaymentStatus.accepted);
-          List<PaymentModel> rejectedList = provider.getPaymentListWithStatus(payments, PaymentStatus.rejected);
-          List<PaymentModel> notVerifiedList = provider.getPaymentListWithStatus(payments, PaymentStatus.notVerified);
+          List<Payment> acceptedList = provider.getPaymentListWithStatus(payments, PaymentStatus.accepted);
+          List<Payment> rejectedList = provider.getPaymentListWithStatus(payments, PaymentStatus.rejected);
+          List<Payment> notVerifiedList = provider.getPaymentListWithStatus(payments, PaymentStatus.notVerified);
           return Expanded(
             child: TabBarView(
               children: [

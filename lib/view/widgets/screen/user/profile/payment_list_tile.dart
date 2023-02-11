@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../model/payment_model.dart';
-import '../../../../../model/user_model.dart';
+import '../../../../../model/payment.dart';
+import '../../../../../model/user.dart';
 import '../../../../../view_model/admin_view_model.dart';
 import '../../../../../view_model/user_view_model.dart';
 import '../../../../screens/user/transactions_screen.dart';
 
 class PaymentListTile extends StatelessWidget {
-  final UserModel user;
+  final User user;
   final bool isAdmin;
 
   const PaymentListTile({Key? key, required this.user, required this.isAdmin}) : super(key: key);
@@ -36,8 +36,8 @@ class PaymentListTile extends StatelessWidget {
     );
   }
 
-  List<PaymentModel> getPayments(BuildContext context) {
-    late List<PaymentModel> payments;
+  List<Payment> getPayments(BuildContext context) {
+    late List<Payment> payments;
     if (isAdmin) {
       var provider = Provider.of<AdminProvider>(context, listen: false);
       payments = provider.getUserPayments(user);

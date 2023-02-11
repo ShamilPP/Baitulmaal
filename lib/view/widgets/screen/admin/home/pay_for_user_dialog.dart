@@ -2,15 +2,15 @@ import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../model/user_model.dart';
+import '../../../../../model/user.dart';
 import '../../../../screens/pay_screen.dart';
 
 class PayForUserDialog extends StatelessWidget {
-  final List<UserModel> users;
+  final List<User> users;
 
   PayForUserDialog({Key? key, required this.users}) : super(key: key);
 
-  final ValueNotifier<List<UserModel>> searchedUsers = ValueNotifier([]);
+  final ValueNotifier<List<User>> searchedUsers = ValueNotifier([]);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class PayForUserDialog extends StatelessWidget {
             Expanded(
               child: ValueListenableBuilder(
                 valueListenable: searchedUsers,
-                builder: (context, List<UserModel> users, _) {
+                builder: (context, List<User> users, _) {
                   return ListView.separated(
                     itemCount: searchedUsers.value.length,
                     itemBuilder: (ctx, index) {
@@ -100,7 +100,7 @@ class PayForUserDialog extends StatelessWidget {
   }
 
   void onChanged(String searchedName) {
-    List<UserModel> _users = [];
+    List<User> _users = [];
     for (var user in users) {
       if (user.name.toLowerCase().contains(searchedName.toLowerCase())) {
         _users.add(user);

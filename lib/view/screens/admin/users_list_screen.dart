@@ -1,4 +1,4 @@
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/user.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +15,8 @@ class UsersScreen extends StatefulWidget {
 }
 
 class _UsersScreenState extends State<UsersScreen> {
-  List<UserModel> users = [];
-  final ValueNotifier<List<UserModel>> searchedUsers = ValueNotifier([]);
+  List<User> users = [];
+  final ValueNotifier<List<User>> searchedUsers = ValueNotifier([]);
 
   final TextEditingController controller = TextEditingController();
 
@@ -45,7 +45,7 @@ class _UsersScreenState extends State<UsersScreen> {
             //Users list
             ValueListenableBuilder(
               valueListenable: searchedUsers,
-              builder: (context, List<UserModel> users, _) {
+              builder: (context, List<User> users, _) {
                 return UsersList(users: users);
               },
             ),
@@ -120,7 +120,7 @@ class _UsersScreenState extends State<UsersScreen> {
   }
 
   void onTextChanged(String searchedName) {
-    List<UserModel> _users = [];
+    List<User> _users = [];
     for (var user in users) {
       if (user.name.toLowerCase().contains(searchedName.toLowerCase()) ||
           user.username.toLowerCase().contains(searchedName.toLowerCase()) ||

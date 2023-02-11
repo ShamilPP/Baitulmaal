@@ -4,13 +4,13 @@ import 'package:baitulmaal/view_model/request_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/payment_model.dart';
+import '../../../model/payment.dart';
 import '../../../utils/enums.dart';
 import '../../../view_model/payment_view_model.dart';
 
 class RequestCard extends StatelessWidget {
   final int index;
-  final PaymentModel payment;
+  final Payment payment;
 
   const RequestCard({
     Key? key,
@@ -155,7 +155,7 @@ class ActionButton extends StatelessWidget {
   final Color color;
   final IconData icon;
   final PaymentStatus status;
-  final PaymentModel payment;
+  final Payment payment;
 
   const ActionButton({
     Key? key,

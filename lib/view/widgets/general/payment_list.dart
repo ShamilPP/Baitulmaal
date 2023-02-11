@@ -4,12 +4,12 @@ import 'package:baitulmaal/view_model/admin_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/payment_model.dart';
+import '../../../model/payment.dart';
 import 'list_card.dart';
 import 'loading_widget.dart';
 
 class PaymentList extends StatelessWidget {
-  final List<PaymentModel> paymentList;
+  final List<Payment> paymentList;
   final bool isAdmin;
 
   const PaymentList({
@@ -36,7 +36,7 @@ class PaymentList extends StatelessWidget {
     return ListView.builder(
       itemCount: paymentList.length,
       itemBuilder: (ctx, index) {
-        PaymentModel payment = paymentList[index];
+        Payment payment = paymentList[index];
 
         // Payment status
         String payStatus = '';

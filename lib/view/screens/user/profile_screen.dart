@@ -1,4 +1,4 @@
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/user.dart';
 import 'package:baitulmaal/utils/colors.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ import '../../widgets/screen/user/profile/payment_list_tile.dart';
 import '../../widgets/screen/user/profile/profile_list_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final UserModel user;
+  final User user;
   final bool isAdmin;
 
   const ProfileScreen({Key? key, required this.user, this.isAdmin = false}) : super(key: key);

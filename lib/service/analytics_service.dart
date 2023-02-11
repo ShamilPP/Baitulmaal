@@ -1,11 +1,11 @@
-import 'package:baitulmaal/model/analytics_model.dart';
+import 'package:baitulmaal/model/analytics.dart';
 import 'package:baitulmaal/utils/enums.dart';
 
-import '../model/payment_model.dart';
-import '../model/user_model.dart';
+import '../model/payment.dart';
+import '../model/user.dart';
 
 class AnalyticsService {
-  static AnalyticsModel getAdminOverview(List<UserModel> users, List<PaymentModel> payments) {
+  static Analytics getAdminOverview(List<User> users, List<Payment> payments) {
     int yearlyAmount = 0;
     int totalAmount = 0;
     int totalReceivedAmount = 0;
@@ -13,7 +13,7 @@ class AnalyticsService {
     int extraAmount = 0;
 
     for (var user in users) {
-      AnalyticsModel analytics = user.analytics!;
+      Analytics analytics = user.analytics!;
 
       yearlyAmount = yearlyAmount + analytics.yearlyAmount;
       totalAmount = totalAmount + analytics.totalAmount;
@@ -22,7 +22,7 @@ class AnalyticsService {
       extraAmount = extraAmount + analytics.extraAmount;
     }
 
-    AnalyticsModel adminAnalytics = AnalyticsModel(
+    Analytics adminAnalytics = Analytics(
       yearlyAmount: yearlyAmount,
       totalAmount: totalAmount,
       totalReceivedAmount: totalReceivedAmount,
@@ -32,8 +32,8 @@ class AnalyticsService {
     return adminAnalytics;
   }
 
-  static List<PaymentModel> getPaymentListWithStatus(List<PaymentModel> payments, PaymentStatus status) {
-    List<PaymentModel> paymentList = [];
+  static List<Payment> getPaymentListWithStatus(List<Payment> payments, PaymentStatus status) {
+    List<Payment> paymentList = [];
     for (var payment in payments) {
       // if need all payments or specific payments
       if (status.index == payment.verify || status == PaymentStatus.allPayments) {
@@ -43,7 +43,7 @@ class AnalyticsService {
     return paymentList;
   }
 
-  static AnalyticsModel getUserAnalytics(List<PaymentModel> payments, UserModel user, int meekath) {
+  static Analytics getUserAnalytics(List<Payment> payments, User user, int meekath) {
     // If not equal to this meekath, calculate a full year
     int month = meekath == DateTime.now().year ? DateTime.now().month : 12;
     int yearlyAmount = user.monthlyPayment[meekath]! * 12;
@@ -56,7 +56,7 @@ class AnalyticsService {
       pendingAmount = 0;
     }
 
-    AnalyticsModel analytics = AnalyticsModel(
+    Analytics analytics = Analytics(
       yearlyAmount: yearlyAmount,
       totalAmount: totalAmount,
       totalReceivedAmount: receivedAmount,
@@ -66,7 +66,7 @@ class AnalyticsService {
     return analytics;
   }
 
-  static int getTotalAmountWithStatus(List<PaymentModel> payments, PaymentStatus status) {
+  static int getTotalAmountWithStatus(List<Payment> payments, PaymentStatus status) {
     int amount = 0;
     for (var payment in payments) {
       if (status.index == payment.verify || status == PaymentStatus.allPayments) {

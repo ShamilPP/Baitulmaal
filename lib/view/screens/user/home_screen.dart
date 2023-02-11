@@ -1,4 +1,4 @@
-import 'package:baitulmaal/model/user_model.dart';
+import 'package:baitulmaal/model/user.dart';
 import 'package:baitulmaal/view/screens/pay_screen.dart';
 import 'package:baitulmaal/view/widgets/general/analytics_card.dart';
 import 'package:baitulmaal/view/widgets/general/payment_list.dart';
@@ -65,7 +65,7 @@ class UserHomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.currency_rupee),
         onPressed: () {
-          UserModel user = Provider.of<UserProvider>(context, listen: false).user;
+          User user = Provider.of<UserProvider>(context, listen: false).user;
 
           Navigator.push(
             context,

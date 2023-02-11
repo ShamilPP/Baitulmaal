@@ -72,7 +72,7 @@ class UserPopupMenu extends StatelessWidget {
                 var userProvider = Provider.of<UserProvider>(context, listen: false);
                 showLoadingDialog(context, 'Updating...');
                 provider.setMeekath(currentMeekath.value);
-                await userProvider.initData(currentMeekath.value);
+                await userProvider.loadDataFromFirebase(currentMeekath.value);
                 // After close loading dialog
                 Navigator.pop(context);
               },
