@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../animations/slide_animation.dart';
-import '../../widgets/general/logout_button.dart';
+import '../../widgets/screen/user/profile/logout_button.dart';
 import '../../widgets/screen/user/profile/password_list_tile.dart';
 import '../../widgets/screen/user/profile/payment_list_tile.dart';
 import '../../widgets/screen/user/profile/profile_list_tile.dart';

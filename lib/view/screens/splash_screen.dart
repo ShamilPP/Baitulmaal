@@ -8,6 +8,7 @@ import 'package:baitulmaal/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../view_model/utils/dialogs.dart';
 import '../widgets/general/loading_widget.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -58,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String? docId = await provider.getDocId();
     if (_updateCode != Application.updateCode) {
       // If this is not matching update code show update dialog
-      provider.showUpdateDialog(context);
+      showUpdateDialog(context);
     } else {
       if (docId == null) {
         // if not logged in

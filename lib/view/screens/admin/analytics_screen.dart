@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view_model/admin_view_model.dart';
+import '../../../view_model/utils/dialogs.dart';
 import '../../animations/slide_animation.dart';
 import '../../widgets/general/amount_percentage_indicator.dart';
 import '../../widgets/general/details_text.dart';
@@ -73,7 +74,7 @@ class AnalyticsScreen extends StatelessWidget {
                   child: const Icon(Icons.refresh, color: Colors.white),
                   onTap: () async {
                     // Update all data's
-                    provider.showLoadingDialog(context, 'Updating...');
+                    showLoadingDialog(context, 'Updating...');
                     await provider.loadDataFromFirebase(context);
                     Navigator.pop(context);
                   },

@@ -1,7 +1,7 @@
 import 'package:baitulmaal/utils/colors.dart';
 import 'package:baitulmaal/view/screens/splash_screen.dart';
 import 'package:baitulmaal/view_model/admin_view_model.dart';
-import 'package:baitulmaal/view_model/login_view_model.dart';
+import 'package:baitulmaal/view_model/authentication_view_model.dart';
 import 'package:baitulmaal/view_model/navigation_view_model.dart';
 import 'package:baitulmaal/view_model/payment_view_model.dart';
 import 'package:baitulmaal/view_model/request_view_model.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => PaymentProvider()),
         ChangeNotifierProvider(create: (_) => RequestProvider()),
-        ChangeNotifierProvider(create: (_) => LoginProvider()),
+        ChangeNotifierProvider(create: (_) => AuthenticationProvider()),
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
       ],
       child: MaterialApp(

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/admin_view_model.dart';
+import '../../view_model/utils/calculations.dart';
 import '../animations/slide_animation.dart';
 import '../widgets/screen/pay/animated_check.dart';
 import '../widgets/screen/pay/payment_text_field.dart';
@@ -139,7 +140,7 @@ class PayScreen extends StatelessWidget {
       return DropdownButtonHideUnderline(
         child: DropdownButton<int>(
           value: provider.meekath,
-          items: provider.getMeekathList().map((int value) {
+          items: getMeekathList().map((int value) {
             return DropdownMenuItem<int>(
               value: value,
               child: Text('$value'),

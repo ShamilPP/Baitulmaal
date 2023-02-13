@@ -27,19 +27,14 @@ class AdminMainScreen extends StatelessWidget {
           length: 4,
           child: Scaffold(
             body: pages[provider.currentBottomNavigator],
-            bottomNavigationBar: const MyBottomNavigation(),
+            bottomNavigationBar: myBottomNavigation(),
           ),
         );
       },
     );
   }
-}
 
-class MyBottomNavigation extends StatelessWidget {
-  const MyBottomNavigation({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget myBottomNavigation() {
     return Consumer<NavigationProvider>(
       builder: (ctx, provider, child) {
         return BottomNavigationBar(

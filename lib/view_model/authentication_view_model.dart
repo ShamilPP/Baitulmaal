@@ -4,7 +4,7 @@ import 'package:baitulmaal/service/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class LoginProvider extends ChangeNotifier {
+class AuthenticationProvider extends ChangeNotifier {
   Future<bool> login(String username, String password) async {
     Response result = await LoginService.loginAccount(username, password);
     showToast(result.value, result.isSuccess);

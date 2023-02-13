@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../utils/colors.dart';
-import '../../../../view_model/login_view_model.dart';
+import '../../../../view_model/authentication_view_model.dart';
 import '../../../screens/sign_up_screen.dart';
 import '../../../screens/splash_screen.dart';
 import '../../general/login_text_field.dart';
@@ -97,7 +97,7 @@ class _LoginContainerState extends State<LoginContainer> {
   }
 
   _login(BuildContext context) async {
-    LoginProvider provider = Provider.of<LoginProvider>(context, listen: false);
+    AuthenticationProvider provider = Provider.of<AuthenticationProvider>(context, listen: false);
     bool status = await provider.login(usernameController.text, passwordController.text);
     if (status) {
       buttonController.success();
