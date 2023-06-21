@@ -27,8 +27,8 @@ class ProfileScreen extends StatelessWidget {
               /// AppBar
               Container(
                 padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: const [
+                child: const Row(
+                  children: [
                     CloseButton(),
                     SizedBox(width: 15),
                     Text(

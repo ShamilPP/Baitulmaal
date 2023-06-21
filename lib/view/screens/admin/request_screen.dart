@@ -33,9 +33,9 @@ class RequestScreen extends StatelessWidget {
                     if (adminProvider.paymentStatus == Status.loading) {
                       return const LoadingWidget();
                     } else {
-                      return Wrap(
+                      return const Wrap(
                         runAlignment: WrapAlignment.center,
-                        children: const [
+                        children: [
                           SlideAnimation(child: Center(child: Text("No Requests", style: TextStyle(fontSize: 25)))),
                         ],
                       );

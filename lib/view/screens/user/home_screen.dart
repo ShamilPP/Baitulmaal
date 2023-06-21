@@ -34,10 +34,10 @@ class UserHomeScreen extends StatelessWidget {
                   bottomRightAmount: '₹ ${analytics.pendingAmount}',
                   bottomRightText: 'Pending amount',
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.all(20),
                       child: SlideAnimation(
                         delay: 200,

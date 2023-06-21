@@ -12,34 +12,29 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Container(
         color: primaryColor,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              welcomeText(context),
-              LoginContainer(),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(flex: 1, child: welcomeText()),
+            const Expanded(flex: 2, child: LoginContainer()),
+          ],
         ),
       ),
     );
   }
 }
 
-Widget welcomeText(BuildContext context) {
-  return SizedBox(
-    height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height / 1.5,
-    child: Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const <Widget>[
-          Text('Login', style: TextStyle(color: Colors.white, fontSize: 40)),
-          SizedBox(height: 10),
-          Text('Welcome Back', style: TextStyle(color: Colors.white, fontSize: 18)),
-        ],
-      ),
+Widget welcomeText() {
+  return const Padding(
+    padding: EdgeInsets.only(left: 20),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text('Login', style: TextStyle(color: Colors.white, fontSize: 40)),
+        SizedBox(height: 10),
+        Text('Welcome Back', style: TextStyle(color: Colors.white, fontSize: 18)),
+      ],
     ),
   );
 }

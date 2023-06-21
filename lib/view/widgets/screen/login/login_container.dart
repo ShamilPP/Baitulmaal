@@ -1,3 +1,4 @@
+import 'package:baitulmaal/view/widgets/general/fill_remaining_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -22,76 +23,81 @@ class _LoginContainerState extends State<LoginContainer> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height / 1.5;
-    if (height < 400) height = 400;
     return Container(
-      height: height,
-      padding: const EdgeInsets.symmetric(horizontal: 30),
       decoration: const BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))],
-            ),
-            child: Column(
-              children: <Widget>[
-                // TextField
-                LoginTextField(
-                  hint: 'Username',
-                  controller: usernameController,
+      child: FillRemainingScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [BoxShadow(color: primaryColor.withOpacity(.4), blurRadius: 20, offset: const Offset(0, 10))],
                 ),
-                LoginTextField(
-                  hint: 'Password',
-                  controller: passwordController,
-                  isPassword: true,
-                ),
-              ],
-            ),
-          ),
-          Column(
-            children: [
-              // Login Button
-              RoundedLoadingButton(
-                  color: primaryColor,
-                  successColor: Colors.green,
-                  controller: buttonController,
-                  onPressed: () => _login(context),
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-                  )),
-
-              const SizedBox(height: 20),
-
-              //SignUp button
-              SizedBox(
-                width: 300,
-                height: 50,
-                child: OutlinedButton(
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                      ),
-                      side: MaterialStateProperty.all(BorderSide(width: 2, color: primaryColor))),
-                  child: Text(
-                    'Sign up',
-                    style: TextStyle(fontSize: 20, color: primaryColor),
-                  ),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpScreen()));
-                  },
+                child: Column(
+                  children: <Widget>[
+                    // TextField
+                    LoginTextField(
+                      hint: 'Username',
+                      controller: usernameController,
+                    ),
+                    LoginTextField(
+                      hint: 'Password',
+                      controller: passwordController,
+                      isPassword: true,
+                    ),
+                  ],
                 ),
               ),
+
+              // Space
+              const SizedBox(height: 50),
+
+              Column(
+                children: [
+                  // Login Button
+                  RoundedLoadingButton(
+                      color: primaryColor,
+                      successColor: Colors.green,
+                      controller: buttonController,
+                      onPressed: () => _login(context),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                      )),
+
+                  const SizedBox(height: 20),
+
+                  //SignUp button
+                  SizedBox(
+                    width: 300,
+                    height: 50,
+                    child: OutlinedButton(
+                      style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                          side: MaterialStateProperty.all(BorderSide(width: 2, color: primaryColor))),
+                      child: Text(
+                        'Sign up',
+                        style: TextStyle(fontSize: 20, color: primaryColor),
+                      ),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpScreen()));
+                      },
+                    ),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
