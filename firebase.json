@@ -1,7 +1,7 @@
 {
   "hosting": {
+    "site": "sio22",
     "public": "build/web",
-    "site" : "sio22",
     "ignore": [
       "firebase.json",
       "**/.*",
