@@ -83,6 +83,26 @@ class FirebaseService {
     return null;
   }
 
+  static Future<User?> getUserWithPhoneNumber(int phone) async {
+    var collection = FirebaseFirestore.instance.collection('users');
+    var users = await collection.get();
+
+    for (var user in users.docs) {
+      if (user.get('phoneNumber') == phone) {
+        // returning user data
+        return User(
+          docId: user.id,
+          name: user.get('name'),
+          phoneNumber: user.get('phoneNumber'),
+          username: user.get('username'),
+          password: user.get('password'),
+          monthlyPayment: Map.from(user.get('monthlyPayment').map((key, value) => MapEntry(int.parse(key), value))),
+        );
+      }
+    }
+    return null;
+  }
+
   static Future<User?> getUserWithDocId(String docId) async {
     var collection = FirebaseFirestore.instance.collection('users');
     var user = await collection.doc(docId).get();

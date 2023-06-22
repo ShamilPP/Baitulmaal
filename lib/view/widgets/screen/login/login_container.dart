@@ -17,7 +17,7 @@ class LoginContainer extends StatefulWidget {
 }
 
 class _LoginContainerState extends State<LoginContainer> {
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final RoundedLoadingButtonController buttonController = RoundedLoadingButtonController();
 
@@ -42,8 +42,8 @@ class _LoginContainerState extends State<LoginContainer> {
                   children: <Widget>[
                     // TextField
                     LoginTextField(
-                      hint: 'Username',
-                      controller: usernameController,
+                      hint: 'Phone number',
+                      controller: phoneController,
                     ),
                     LoginTextField(
                       hint: 'Password',
@@ -104,7 +104,7 @@ class _LoginContainerState extends State<LoginContainer> {
 
   _login(BuildContext context) async {
     AuthenticationProvider provider = Provider.of<AuthenticationProvider>(context, listen: false);
-    bool status = await provider.login(usernameController.text, passwordController.text);
+    bool status = await provider.login(phoneController.text, passwordController.text);
     if (status) {
       buttonController.success();
       await Future.delayed(const Duration(milliseconds: 500));
