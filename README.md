@@ -50,9 +50,6 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ## Contact
 
 Developer: Shamil
-
 Email: shamilpp4115@gmail.com
-
 LinkedIn: [Shamil LinkedIn](https://www.linkedin.com/in/shamil-pp-02802723b)
-
 GitHub: [ShamilPP](https://github.com/ShamilPP)
