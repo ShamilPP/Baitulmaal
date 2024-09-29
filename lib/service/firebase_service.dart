@@ -194,3 +194,18 @@ class FirebaseService {
     }
   }
 }
+
+// it's temp code..don't effect application
+// monthly meekath amount auto update from last year(2024) code
+void autoUpdateMonthlyAmount() async {
+  print('start');
+  var users = (await FirebaseFirestore.instance.collection('users').get()).docs;
+  for (var user in users) {
+    var map = user.get('monthlyPayment');
+    map['2024'] = map['2023']!;
+    map['2025'] = map['2023']!;
+    print(map);
+    await FirebaseFirestore.instance.collection('users').doc(user.id).update({'monthlyPayment': map});
+  }
+  print('end');
+}
